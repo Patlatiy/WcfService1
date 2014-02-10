@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
+using WebStore.App_Data.Model;
 using WebStore.SingletonSample;
 
 namespace WebStore.Providers
@@ -19,15 +20,22 @@ namespace WebStore.Providers
                 LastActiveDateTime = DateTime.Now,
                 RegistrationDateTime = DateTime.Now,
                 Name = username,
+                Login = username,
                 Password = password,
-                RoleId = 2,
-                Patronymic = string.Empty,
-                Surname = string.Empty
+                RoleID = (byte)UserRoles.Admin
             };
 
             var webStoreContext = WebStoreEntitiesContextSingleton.Instance;
             webStoreContext.Users.Add(newUser);
-            webStoreContext.SaveChanges();
+            try
+            {
+                webStoreContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Shit happens");
+            }
+            
             status = MembershipCreateStatus.Success;
             return new MembershipUser(
                 providerName: "CustomMembershipProvider",
@@ -55,11 +63,13 @@ namespace WebStore.Providers
         public override string GetPassword(string username, string answer)
         {
             throw new NotImplementedException();
-        }
+            }
 
         public override bool ChangePassword(string username, string oldPassword, string newPassword)
         {
             throw new NotImplementedException();
+            //var webStoreContext = WebStoreEntitiesContextSingleton.Instance;
+            
         }
 
         public override string ResetPassword(string username, string answer)

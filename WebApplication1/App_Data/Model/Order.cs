@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebStore
+namespace WebStore.App_Data.Model
 {
     using System;
     using System.Collections.Generic;

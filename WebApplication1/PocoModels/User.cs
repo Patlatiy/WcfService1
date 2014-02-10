@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace WebStore.PocoModels
 {
     public class User
     {
+        public User()
+        {
+        }
+
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Patronymic { get; set; }
@@ -17,12 +19,7 @@ namespace WebStore.PocoModels
         public DateTime? LastActiveDateTime { get; set; }
         public bool IsBlocked { get; set; }
 
-        public virtual ICollection<Order> Orders { get; set; }
-        public virtual UserRole UserRole { get; set; }
-
-        public User()
-        {
-
-        }
+        public ICollection<Order> Orders { get; set; }
+        public UserRole UserRole { get; set; }
     }
 }

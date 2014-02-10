@@ -6,6 +6,7 @@ using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.Membership.OpenAuth;
+using WebStore.Providers;
 
 namespace WebStore.Account
 {
@@ -26,6 +27,7 @@ namespace WebStore.Account
                 continueUrl = "~/";
             }
             Response.Redirect(continueUrl);
+
         }
     }
 }

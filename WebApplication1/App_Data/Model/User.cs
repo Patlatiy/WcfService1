@@ -7,22 +7,29 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebStore
+namespace WebStore.App_Data.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class OrderState
+    public partial class User
     {
-        public OrderState()
+        public User()
         {
             this.Orders = new HashSet<Order>();
         }
     
-        public byte ID { get; set; }
+        public int ID { get; set; }
+        public string Login { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
+        public byte RoleID { get; set; }
+        public System.DateTime RegistrationDateTime { get; set; }
+        public Nullable<System.DateTime> LastActiveDateTime { get; set; }
+        public bool IsBlocked { get; set; }
     
         public virtual ICollection<Order> Orders { get; set; }
+        public virtual UserRole UserRole { get; set; }
     }
 }

@@ -7,15 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebStore.EntityDataModel
+namespace WebStore.App_Data.Model
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class WebStoreEntitiesContext : DbContext
+    public partial class WebStoreEntities : DbContext
     {
-        public WebStoreEntitiesContext()
+        public WebStoreEntities()
             : base("name=WebStoreEntities")
         {
         }

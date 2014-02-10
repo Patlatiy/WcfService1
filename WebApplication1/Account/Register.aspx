@@ -26,6 +26,12 @@
                         <legend>Registration Form</legend>
                         <ol>
                             <li>
+                                <asp:Label runat="server" AssociatedControlID="Login">User Login</asp:Label>
+                                <asp:TextBox runat="server" ID="Login" />
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="Login"
+                                    CssClass="field-validation-error" ErrorMessage="The user login field is required." />
+                            </li>
+                            <li>
                                 <asp:Label runat="server" AssociatedControlID="UserName">User name</asp:Label>
                                 <asp:TextBox runat="server" ID="UserName" />
                                 <asp:RequiredFieldValidator runat="server" ControlToValidate="UserName"

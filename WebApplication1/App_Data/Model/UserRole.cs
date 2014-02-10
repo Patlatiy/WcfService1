@@ -7,22 +7,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebStore
+namespace WebStore.App_Data.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class ItemCategory
+    public partial class UserRole
     {
-        public ItemCategory()
+        public UserRole()
         {
-            this.Items = new HashSet<Item>();
+            this.Users = new HashSet<User>();
         }
     
-        public int ID { get; set; }
+        public byte ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public bool CanEditItem { get; set; }
+        public bool CanEditItemCategory { get; set; }
+        public bool CanEditPaymentMethod { get; set; }
+        public bool CanIssueOrder { get; set; }
+        public bool CanApproveOrder { get; set; }
+        public bool CanManageUser { get; set; }
     
-        public virtual ICollection<Item> Items { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

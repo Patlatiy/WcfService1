@@ -1,14 +1,14 @@
-﻿using WebStore.EntityDataModel;
+﻿using WebStore.App_Data.Model;
 
 namespace WebStore.SingletonSample
 {
     public class WebStoreEntitiesContextSingleton
     {
-        private WebStoreEntitiesContext _webStoreEntitiesContext;
+        private WebStoreEntities _webStoreEntitiesContext;
 
         protected WebStoreEntitiesContextSingleton()
         {
-            _webStoreEntitiesContext = new WebStoreEntitiesContext();
+            _webStoreEntitiesContext = new WebStoreEntities();
         }
 
         private sealed class WebStoreEntitiesSingleton
@@ -21,7 +21,7 @@ namespace WebStore.SingletonSample
             }
         }
 
-        public static WebStoreEntitiesContext Instance
+        public static WebStoreEntities Instance
         {
             get { return WebStoreEntitiesSingleton.Instance._webStoreEntitiesContext; }
         }

@@ -7,14 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebStore
+namespace WebStore.App_Data.Model
 {
     using System;
     using System.Collections.Generic;
     
     public partial class OrderPosition
     {
-        public int ID { get; set; }
         public int OrderID { get; set; }
         public int ItemID { get; set; }
         public int ItemQuantity { get; set; }

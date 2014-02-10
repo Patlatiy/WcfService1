@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebStore
+namespace WebStore.App_Data.Model
 {
     using System;
     using System.Collections.Generic;
@@ -24,6 +24,7 @@ namespace WebStore
         public Nullable<int> CategoryID { get; set; }
         public int Quantity { get; set; }
         public decimal Price { get; set; }
+        public string Image { get; set; }
     
         public virtual ItemCategory ItemCategory { get; set; }
         public virtual ICollection<OrderPosition> OrderPositions { get; set; }

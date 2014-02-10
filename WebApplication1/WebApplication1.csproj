@@ -186,6 +186,23 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
+    <EntityDeploy Include="App_Data\Model\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="App_Data\Model\Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_Data\Model\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
+    <Content Include="App_Data\Model\Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -194,23 +211,6 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
-    <EntityDeploy Include="WebStoreEntityDataModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>WebStoreEntityDataModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="WebStoreEntityDataModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>WebStoreEntityDataModel.edmx</DependentUpon>
-      <LastGenOutput>WebStoreEntityDataModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="WebStoreEntityDataModel.edmx.diagram">
-      <DependentUpon>WebStoreEntityDataModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="WebStoreEntityDataModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>WebStoreEntityDataModel.edmx</DependentUpon>
-      <LastGenOutput>WebStoreEntityDataModel.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\_references.js" />
@@ -274,26 +274,49 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Item.cs">
-      <DependentUpon>WebStoreEntityDataModel.tt</DependentUpon>
+    <Compile Include="App_Data\Model\Item.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="ItemCategory.cs">
-      <DependentUpon>WebStoreEntityDataModel.tt</DependentUpon>
+    <Compile Include="App_Data\Model\ItemCategory.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Order.cs">
-      <DependentUpon>WebStoreEntityDataModel.tt</DependentUpon>
+    <Compile Include="App_Data\Model\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="OrderPosition.cs">
-      <DependentUpon>WebStoreEntityDataModel.tt</DependentUpon>
+    <Compile Include="App_Data\Model\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="OrderState.cs">
-      <DependentUpon>WebStoreEntityDataModel.tt</DependentUpon>
+    <Compile Include="App_Data\Model\Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
-    <Compile Include="PaymentMethod.cs">
-      <DependentUpon>WebStoreEntityDataModel.tt</DependentUpon>
+    <Compile Include="App_Data\Model\Order.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="PocoModels\PocoUser.cs" />
+    <Compile Include="App_Data\Model\OrderPosition.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Data\Model\OrderState.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Data\Model\PaymentMethod.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PocoModels\Item.cs" />
+    <Compile Include="PocoModels\ItemCategory.cs" />
+    <Compile Include="PocoModels\Order.cs" />
+    <Compile Include="PocoModels\OrderPosition.cs" />
+    <Compile Include="PocoModels\OrderState.cs" />
+    <Compile Include="PocoModels\PaymentMethod.cs" />
+    <Compile Include="PocoModels\User.cs" />
+    <Compile Include="PocoModels\UserRole.cs" />
     <Compile Include="Providers\MembershipProvider.cs" />
+    <Compile Include="Providers\RoleProvider.cs" />
     <Compile Include="SingletonSample\WebStoreEntities.cs" />
     <Compile Include="Store\Shop.aspx.cs">
       <DependentUpon>Shop.aspx</DependentUpon>
@@ -327,11 +350,11 @@
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
-    <Compile Include="User.cs">
-      <DependentUpon>WebStoreEntityDataModel.tt</DependentUpon>
+    <Compile Include="App_Data\Model\User.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="UserRole.cs">
-      <DependentUpon>WebStoreEntityDataModel.tt</DependentUpon>
+    <Compile Include="App_Data\Model\UserRole.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
@@ -340,25 +363,8 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
-    <Compile Include="WebStoreEntityDataModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>WebStoreEntityDataModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="WebStoreEntityDataModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>WebStoreEntityDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="WebStoreEntityDataModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>WebStoreEntityDataModel.edmx</DependentUpon>
-    </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Account\Web.config" />
     <Content Include="Site.Master" />
