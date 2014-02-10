@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebApplication1.Account
+namespace WebStore.Account
 {
 
 
@@ -30,6 +30,6 @@ namespace WebApplication1.Account
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::WebApplication1.Account.OpenAuthProviders OpenAuthLogin;
+        protected global::WebStore.Account.OpenAuthProviders OpenAuthLogin;
     }
 }

@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="WebApplication1.SiteMaster" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="WebStore.SiteMaster" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -52,9 +52,9 @@
                 </section>
                 <nav>
                     <ul id="menu">
-                        <li><a runat="server" href="~/">News</a></li>
-                        <li><a runat="server" href="~/Shop">Store</a></li>
-                        <li><a runat="server" href="~/About">About</a></li>
+                        <li><a runat="server" href="~/News/News.aspx">News</a></li>
+                        <li><a runat="server" href="~/Store/Shop.aspx">Store</a></li>
+                        <li><a runat="server" href="~/About.aspx">About</a></li>
                         <li style="display:none"><a runat="server" href="~/Contact">Contact</a></li>
                     </ul>
                 </nav>

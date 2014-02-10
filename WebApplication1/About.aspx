@@ -1,4 +1,4 @@
-﻿<%@ Page Title="About" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="About.aspx.cs" Inherits="WebApplication1.About" %>
+﻿<%@ Page Title="About" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="About.aspx.cs" Inherits="WebStore.About" %>
 
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
     <hgroup class="title">
@@ -20,9 +20,9 @@
             You can visit other pages:
         </p>
         <ul>
-            <li><a runat="server" href="~/">Home</a></li>
-            <li><a id="A1" runat="server" href="~/Shop">Store</a></li>
-            <li><a runat="server" href="~/About">About</a></li>
+            <li><a runat="server" href="~/News/News.aspx">News</a></li>
+            <li><a id="A1" runat="server" href="~/Store/Shop.aspx">Store</a></li>
+            <li><a runat="server" href="~/About.aspx">About</a></li>
             <li style="display:none"><a runat="server" href="~/Contact">Contact</a></li>
         </ul>
     </aside>

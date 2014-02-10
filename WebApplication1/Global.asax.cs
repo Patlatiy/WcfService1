@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Routing;
 using System.Web.Security;
-using WebApplication1;
+using WebStore;
 
-namespace WebApplication1
+namespace WebStore
 {
     public class Global : HttpApplication
     {
