@@ -1,42 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Security;
-using System.Web.UI.WebControls;
 using WebStore.App_Data.Model;
-using WebStore.SingletonSample;
+using WebStore.Vasya;
 
 namespace WebStore.Providers
 {
-    public class CustomMembershipProvider : System.Web.Security.MembershipProvider
+    public class CustomMembershipProvider : MembershipProvider
     {
-
-        public void CreateUser(PocoModels.User user)
-        {
-            var newUser = new User()
-            {
-                Email = user.Email,
-                IsBlocked = user.IsBlocked,
-                LastActiveDateTime = null,
-                RegistrationDateTime = user.RegistrationDateTime,
-                Login = user.Login,
-                Password = user.Password,
-                RoleID = user.RoleId
-            };
-
-            var webStoreContext = WebStoreEntitiesContextSingleton.Instance;
-            webStoreContext.Users.Add(newUser);
-            try
-            {
-                webStoreContext.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Shit happens");
-            }
-        }
-
         public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer,
             bool isApproved, object providerUserKey, out MembershipCreateStatus status)
         {
@@ -46,13 +17,13 @@ namespace WebStore.Providers
                 IsBlocked = false,
                 LastActiveDateTime = DateTime.Now,
                 RegistrationDateTime = DateTime.Now,
-                Name = username,
-                Login = username,
                 Password = password,
+                Login = username,
+                Name = string.Empty,
                 RoleID = (byte)UserRoles.Admin
             };
 
-            var webStoreContext = WebStoreEntitiesContextSingleton.Instance;
+            var webStoreContext = DbWorkerVasya.Instance;
             webStoreContext.Users.Add(newUser);
             try
             {
@@ -60,7 +31,7 @@ namespace WebStore.Providers
             }
             catch (Exception ex)
             {
-                throw new Exception("Shit happens");
+                throw new Exception(ex.InnerException.InnerException.Message);
             }
             
             status = MembershipCreateStatus.Success;
@@ -94,9 +65,18 @@ namespace WebStore.Providers
 
         public override bool ChangePassword(string username, string oldPassword, string newPassword)
         {
-            throw new NotImplementedException();
-            //var webStoreContext = WebStoreEntitiesContextSingleton.Instance;
-            
+            //throw new NotImplementedException();
+            var webStoreContext = DbWorkerVasya.Instance;
+            var user = webStoreContext.Users.First(usr => usr.Login == username);
+            if (user.Password == oldPassword)
+            {
+                user.Password = newPassword;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public override string ResetPassword(string username, string answer)
@@ -178,7 +158,7 @@ namespace WebStore.Providers
 
         public override int MaxInvalidPasswordAttempts
         {
-            get { throw new NotImplementedException(); }
+            get { return 10; }
         }
 
         public override int PasswordAttemptWindow
@@ -188,7 +168,7 @@ namespace WebStore.Providers
 
         public override bool RequiresUniqueEmail
         {
-            get { throw new NotImplementedException(); }
+            get { return true; }
         }
 
         public override MembershipPasswordFormat PasswordFormat

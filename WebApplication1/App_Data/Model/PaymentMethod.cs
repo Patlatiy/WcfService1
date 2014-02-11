@@ -16,6 +16,7 @@ namespace WebStore.App_Data.Model
     {
         public PaymentMethod()
         {
+            this.Orders = new HashSet<Order>();
         }
     
         public byte ID { get; set; }

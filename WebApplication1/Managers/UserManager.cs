@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using WebStore.PocoModels;
+using System.Linq;
+using WebStore.App_Data.Model;
+using WebStore.Vasya;
 using WebStore.Providers;
 
 namespace WebStore.Managers
 {
     public class UserManager
     {
-        public enum UserRoles {Admin = 2, Salesperson = 4, User = 5}
-        public static WebStore.PocoModels.User CreateUser(string login, string name, string password, string email)
+        public static void CreateUser(string login, string name, string password, string email)
         {
-            var prov = new CustomMembershipProvider();
-            
-            return new WebStore.PocoModels.User()
+            var webStoreContext = DbWorkerVasya.Instance;
+            var newUser = new User
             {
+                Login = login,
                 Email = email,
                 IsBlocked = false,
                 LastActiveDateTime = null,
@@ -21,8 +22,24 @@ namespace WebStore.Managers
                 Orders = new List<Order>(),
                 Password = password,
                 RegistrationDateTime = DateTime.Now,
-                RoleId = (Byte)UserRoles.User
+                RoleID = (Byte)UserRoles.SimpleUser,
+                UserRole = webStoreContext.UserRoles.First(role => role.ID == (byte)UserRoles.SimpleUser)
             };
+
+            webStoreContext.Users.Add(newUser);
+            webStoreContext.SaveChanges();
+        }
+
+        /// <summary>
+        /// Sets login for user with specified name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="shownname"></param>
+        public static void SetShownName(string name, string shownname)
+        {
+            var dbContext = DbWorkerVasya.Instance;
+            dbContext.Users.First(usr => usr.Login == name).Name = shownname;
+            dbContext.SaveChanges();
         }
     }
 }

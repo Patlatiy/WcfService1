@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.Membership.OpenAuth;
-using WebStore.Providers;
+using WebStore.App_Data.Model;
+using WebStore.Managers;
+using WebStore.Vasya;
 
 namespace WebStore.Account
 {
@@ -19,7 +19,11 @@ namespace WebStore.Account
 
         protected void RegisterUser_CreatedUser(object sender, EventArgs e)
         {
+            
             FormsAuthentication.SetAuthCookie(RegisterUser.UserName, createPersistentCookie: false);
+            var shownNameTextBox = (TextBox)RegisterUserWizardStep.ContentTemplateContainer.FindControl("ShownName");
+            var nameTextBox = (TextBox)RegisterUserWizardStep.ContentTemplateContainer.FindControl("UserName");
+            UserManager.SetShownName(nameTextBox.Text, shownNameTextBox.Text);
 
             string continueUrl = RegisterUser.ContinueDestinationPageUrl;
             if (!OpenAuth.IsLocalUrl(continueUrl))
