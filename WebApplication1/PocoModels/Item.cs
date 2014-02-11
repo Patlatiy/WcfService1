@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace WebStore.PocoModels
 {
@@ -12,7 +10,7 @@ namespace WebStore.PocoModels
         }
 
         public string Name { get; set; }
-        public Nullable<int> CategoryID { get; set; }
+        public int? CategoryId { get; set; }
         public int Quantity { get; set; }
         public decimal Price { get; set; }
         public string Image { get; set; }

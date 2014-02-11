@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace WebStore.PocoModels
 {
@@ -11,6 +8,7 @@ namespace WebStore.PocoModels
         {
         }
 
+        public byte Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public bool CanEditItem { get; set; }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace WebStore.PocoModels
+﻿namespace WebStore.PocoModels
 {
     public class OrderPosition
     {
@@ -12,8 +7,8 @@ namespace WebStore.PocoModels
         {
         }
 
-        public int OrderID { get; set; }
-        public int ItemID { get; set; }
+        public int OrderId { get; set; }
+        public int ItemId { get; set; }
         public int ItemQuantity { get; set; }
 
         public Item Item { get; set; }

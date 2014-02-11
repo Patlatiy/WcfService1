@@ -307,6 +307,9 @@
     <Compile Include="App_Data\Model\PaymentMethod.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Managers\ItemManager.cs" />
+    <Compile Include="Managers\OrderManager.cs" />
+    <Compile Include="Managers\UserManager.cs" />
     <Compile Include="PocoModels\Item.cs" />
     <Compile Include="PocoModels\ItemCategory.cs" />
     <Compile Include="PocoModels\Order.cs" />

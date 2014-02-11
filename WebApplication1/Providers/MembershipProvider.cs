@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
+using System.Web.UI.WebControls;
 using WebStore.App_Data.Model;
 using WebStore.SingletonSample;
 
@@ -10,10 +11,36 @@ namespace WebStore.Providers
 {
     public class CustomMembershipProvider : System.Web.Security.MembershipProvider
     {
+
+        public void CreateUser(PocoModels.User user)
+        {
+            var newUser = new User()
+            {
+                Email = user.Email,
+                IsBlocked = user.IsBlocked,
+                LastActiveDateTime = null,
+                RegistrationDateTime = user.RegistrationDateTime,
+                Login = user.Login,
+                Password = user.Password,
+                RoleID = user.RoleId
+            };
+
+            var webStoreContext = WebStoreEntitiesContextSingleton.Instance;
+            webStoreContext.Users.Add(newUser);
+            try
+            {
+                webStoreContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Shit happens");
+            }
+        }
+
         public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer,
             bool isApproved, object providerUserKey, out MembershipCreateStatus status)
         {
-            var newUser = new User
+            var newUser = new User()
             {
                 Email = email,
                 IsBlocked = false,

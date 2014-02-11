@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace WebStore.PocoModels
 {
@@ -11,11 +9,11 @@ namespace WebStore.PocoModels
         {
         }
 
-        public int UserID { get; set; }
-        public Nullable<System.DateTime> DateIssued { get; set; }
-        public Nullable<System.DateTime> DateEnded { get; set; }
-        public byte StateID { get; set; }
-        public Nullable<byte> PaymentMethodID { get; set; }
+        public int UserId { get; set; }
+        public DateTime? DateIssued { get; set; }
+        public DateTime? DateEnded { get; set; }
+        public byte StateId { get; set; }
+        public byte? PaymentMethodId { get; set; }
 
         public OrderState OrderState { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
