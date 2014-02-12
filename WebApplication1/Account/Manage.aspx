@@ -64,12 +64,15 @@
                                     CssClass="field-validation-error" ErrorMessage="The current password field is required."
                                     ValidationGroup="ChangePassword" />
                             </li>
-                            <li>
+                            <li style="text-align: left">
                                 <asp:Label runat="server" ID="NewPasswordLabel" AssociatedControlID="NewPassword">New password</asp:Label>
                                 <asp:TextBox runat="server" ID="NewPassword" CssClass="passwordEntry" TextMode="Password" />
                                 <asp:RequiredFieldValidator runat="server" ControlToValidate="NewPassword"
                                     CssClass="field-validation-error" ErrorMessage="The new password is required."
                                     ValidationGroup="ChangePassword" />
+                                <asp:CustomValidator ID="PasswordStrengthValidator" runat="server" ControlToValidate="NewPassword" CssClass="field-validation-error" 
+                                    ErrorMessage="Six chars long, at least one number please."
+                                    ValidationGroup="ChangePassword" OnServerValidate="PasswordValidation" />
                             </li>
                             <li>
                                 <asp:Label runat="server" ID="ConfirmNewPasswordLabel" AssociatedControlID="ConfirmNewPassword">Confirm new password</asp:Label>
@@ -89,7 +92,7 @@
         </asp:PlaceHolder>
     </section>
 
-    <section id="externalLoginsForm">
+    <section id="externalLoginsForm" style="display: none">
         
         <asp:ListView runat="server" ID="externalLoginsList" ViewStateMode="Disabled"
             DataKeyNames="ProviderName,ProviderUserId" OnItemDeleting="externalLoginsList_ItemDeleting">

@@ -10,16 +10,7 @@
 namespace WebStore {
     
     
-    public partial class About {
-        
-        /// <summary>
-        /// TestButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button TestButton;
+    public partial class Cart {
         
         /// <summary>
         /// A1 control.

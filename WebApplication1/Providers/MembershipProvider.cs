@@ -8,10 +8,12 @@ namespace WebStore.Providers
 {
     public class CustomMembershipProvider : MembershipProvider
     {
+        private readonly WebStoreEntities _dbContext = DbWorkerVasya.Instance;
+
         public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer,
             bool isApproved, object providerUserKey, out MembershipCreateStatus status)
         {
-            var newUser = new User()
+            var newUser = new User
             {
                 Email = email,
                 IsBlocked = false,
@@ -20,7 +22,7 @@ namespace WebStore.Providers
                 Password = password,
                 Login = username,
                 Name = string.Empty,
-                RoleID = (byte)UserRoles.Admin
+                RoleID = (byte) UserRoles.Admin
             };
 
             var webStoreContext = DbWorkerVasya.Instance;
@@ -33,7 +35,7 @@ namespace WebStore.Providers
             {
                 throw new Exception(ex.InnerException.InnerException.Message);
             }
-            
+
             status = MembershipCreateStatus.Success;
             return new MembershipUser(
                 providerName: "CustomMembershipProvider",
@@ -61,22 +63,15 @@ namespace WebStore.Providers
         public override string GetPassword(string username, string answer)
         {
             throw new NotImplementedException();
-            }
+        }
 
         public override bool ChangePassword(string username, string oldPassword, string newPassword)
         {
-            //throw new NotImplementedException();
-            var webStoreContext = DbWorkerVasya.Instance;
-            var user = webStoreContext.Users.First(usr => usr.Login == username);
-            if (user.Password == oldPassword)
-            {
-                user.Password = newPassword;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            var user = _dbContext.Users.First(usr => usr.Login == username);
+            if (user.Password != oldPassword) return false;
+            user.Password = newPassword;
+            _dbContext.SaveChanges();
+            return true;
         }
 
         public override string ResetPassword(string username, string answer)
@@ -86,17 +81,34 @@ namespace WebStore.Providers
 
         public override void UpdateUser(MembershipUser user)
         {
-            throw new NotImplementedException();
+            var dbUser = _dbContext.Users.First(usr => usr.Login == user.UserName);
+            dbUser.Name = user.UserName;
+            dbUser.Login = user.Comment;
+            dbUser.Password = user.GetPassword();
+            dbUser.IsBlocked = user.IsLockedOut;
+            dbUser.LastActiveDateTime = user.LastActivityDate;
+            dbUser.RegistrationDateTime = user.CreationDate;
+            _dbContext.SaveChanges();
         }
 
         public override bool ValidateUser(string username, string password)
         {
-            throw new NotImplementedException();
+            var user = DbWorkerVasya.Instance.Users.First(usr => usr.Login == username && usr.Password == password);
+            return user != null;
         }
 
         public override bool UnlockUser(string userName)
         {
-            throw new NotImplementedException();
+            _dbContext.Users.First(usr => usr.Login == userName).IsBlocked = false;
+            _dbContext.SaveChanges();
+            return true;
+        }
+
+        public bool LockUser(string userName)
+        {
+            _dbContext.Users.First(usr => usr.Login == userName).IsBlocked = true;
+            _dbContext.SaveChanges();
+            return true;
         }
 
         public override MembershipUser GetUser(object providerUserKey, bool userIsOnline)
@@ -106,17 +118,33 @@ namespace WebStore.Providers
 
         public override MembershipUser GetUser(string username, bool userIsOnline)
         {
-            throw new NotImplementedException();
+            var user = DbWorkerVasya.Instance.Users.First(usr => usr.Login == username);
+            return new MembershipUser(
+                providerName: "CustomMembershipProvider", 
+                name: user.Login, 
+                providerUserKey: user.Login, 
+                email: user.Email, 
+                passwordQuestion: string.Empty, 
+                comment: user.Name, 
+                isApproved: true, 
+                isLockedOut: user.IsBlocked, 
+                creationDate: user.RegistrationDateTime, 
+                lastLoginDate: user.LastActiveDateTime == null ? DateTime.MinValue : (DateTime)user.LastActiveDateTime, 
+                lastActivityDate: user.LastActiveDateTime == null ? DateTime.MinValue : (DateTime)user.LastActiveDateTime,
+                lastPasswordChangedDate: DateTime.MinValue,
+                lastLockoutDate: DateTime.MinValue);
         }
 
         public override string GetUserNameByEmail(string email)
         {
-            throw new NotImplementedException();
+            return _dbContext.Users.First(usr => usr.Email == email).Login;
         }
 
         public override bool DeleteUser(string username, bool deleteAllRelatedData)
         {
-            throw new NotImplementedException();
+            _dbContext.Users.Remove(_dbContext.Users.First(usr => usr.Login == username));
+            _dbContext.SaveChanges();
+            return true;
         }
 
         public override MembershipUserCollection GetAllUsers(int pageIndex, int pageSize, out int totalRecords)
@@ -183,12 +211,12 @@ namespace WebStore.Providers
 
         public override int MinRequiredNonAlphanumericCharacters
         {
-            get { throw new NotImplementedException(); }
+            get { return 0; }
         }
 
         public override string PasswordStrengthRegularExpression
         {
-            get { throw new NotImplementedException(); }
+            get { return @"^.*(?=.{6,})(?=.*\d).*$"; }
         }
     }
 }

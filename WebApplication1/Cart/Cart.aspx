@@ -1,4 +1,4 @@
-﻿<%@ Page Title="About" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="About.aspx.cs" Inherits="WebStore.About" %>
+﻿<%@ Page Title="Your order" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Cart.aspx.cs" Inherits="WebStore.Cart" %>
 
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
     <hgroup class="title">
@@ -7,16 +7,9 @@
 
     <article>
         <p>        
-             This is my test task as a beginning developer in Akvelon company. It features a simple web store selling various things. It is written on ASP.NET.
+             Your current order will be displayed here in nearest future.
         </p>
-        <p>
-            Current roles are: <br/>
-            <%= GetRoles() %>
-            <asp:Button ID="TestButton" runat="server" Text="Do something" OnClick="TestMethod" />
-        </p>
-        <p>
-            Thanks for visiting!
-        </p>
+
     </article>
 
     <aside>

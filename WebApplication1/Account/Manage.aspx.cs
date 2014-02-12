@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Linq.Expressions;
+using System.Text.RegularExpressions;
+using System.Web.Security;
 using System.Web.UI.WebControls;
 
 using Microsoft.AspNet.Membership.OpenAuth;
@@ -99,6 +101,13 @@ namespace WebStore.Account
             // offset and format. Here we're converting it to the server timezone and formatting
             // as a short date and a long time string, using the current thread culture.
             return utcDateTime.HasValue ? utcDateTime.Value.ToLocalTime().ToString("G") : "[never]";
+        }
+
+        protected void PasswordValidation(object source, ServerValidateEventArgs args)
+        {
+            var expString = Membership.Provider.PasswordStrengthRegularExpression;
+            var exp = new Regex(expString);
+            args.IsValid = (exp.IsMatch(args.Value));
         }
     }
 }
