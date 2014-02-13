@@ -47,7 +47,9 @@
                                 <asp:Label runat="server" AssociatedControlID="Password">Password</asp:Label>
                                 <asp:TextBox runat="server" ID="Password" TextMode="Password" />
                                 <asp:RequiredFieldValidator runat="server" ControlToValidate="Password"
-                                    CssClass="field-validation-error" ErrorMessage="The password field is required." />
+                                    CssClass="field-validation-error" ErrorMessage="The password field is required." Display="Dynamic"/>
+                                <asp:CustomValidator ID="PasswordStrengthValidator" runat="server" ControlToValidate="Password" CssClass="field-validation-error" 
+                                    ErrorMessage="Six characters long, at least one number please." OnServerValidate="PasswordValidation" Display="Dynamic"/>
                             </li>
                             <li>
                                 <asp:Label runat="server" AssociatedControlID="ConfirmPassword">Confirm password</asp:Label>

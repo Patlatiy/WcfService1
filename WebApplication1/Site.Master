@@ -1,4 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="WebStore.SiteMaster" %>
+<%@ Import Namespace="WebStore.App_Data.Model" %>
 <% @Register tagPrefix="ws" tagName="Cart" src="~/Controls/CartTile.ascx" %>
 
 <!DOCTYPE html>
@@ -29,7 +30,8 @@
             </div>
             <div class="float-right">
                 <section id="login">
-                    <asp:LoginView runat="server" ViewStateMode="Disabled">
+                    Session id: <%: Session.SessionID %>
+                    <asp:LoginView ID="LoginView1" runat="server" ViewStateMode="Disabled">
                         <AnonymousTemplate>
                             <ul>
                                 <li><a id="registerLink" runat="server" href="~/Account/Register">Register</a></li>
@@ -39,9 +41,10 @@
                         <LoggedInTemplate>
                             <p>
                                 Hello, <a runat="server" class="username" href="~/Account/Manage" title="Manage your account">
-                                    <asp:LoginName runat="server" CssClass="username" />
+                                    <asp:Label ID="LoginName1" runat="server" CssClass="username" />
+                                    <asp:LoginName ID = "LoginName2" runat="server" Visible="False" />
                                 </a>!
-                                <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" />
+                                <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggedOut="Unnamed1_LoggedOut"/>
                             </p>
                         </LoggedInTemplate>
                     </asp:LoginView>

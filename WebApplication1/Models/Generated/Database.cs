@@ -25,7 +25,7 @@
 // 
 //     Connection String Name: `WebStoreEntities`
 //     Provider:               `System.Data.EntityClient`
-//     Connection String:      `metadata=res://*/App_Data.Model.Model1.csdl|res://*/App_Data.Model.Model1.ssdl|res://*/App_Data.Model.Model1.msl;provider=System.Data.SqlClient;provider connection string="data source=ALSORo;initial catalog=WebStore;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework"`
+//     Connection String:      `metadata=res://*/MyShop.csdl|res://*/MyShop.ssdl|res://*/MyShop.msl;provider=System.Data.SqlClient;provider connection string="data source=ALSORO;initial catalog=WebStore;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework"`
 //     Schema:                 ``
 //     Include Views:          `False`
 

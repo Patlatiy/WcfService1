@@ -5,9 +5,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace WebStore
+namespace WebStore.News
 {
-    public partial class _Default : Page
+    public partial class News : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

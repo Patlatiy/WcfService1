@@ -25,6 +25,7 @@ namespace WebStore.App_Data.Model
         public int Quantity { get; set; }
         public decimal Price { get; set; }
         public string Image { get; set; }
+        public string Description { get; set; }
     
         public virtual ItemCategory ItemCategory { get; set; }
         public virtual ICollection<OrderPosition> OrderPositions { get; set; }

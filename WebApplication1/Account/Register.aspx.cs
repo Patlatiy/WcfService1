@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -32,6 +33,13 @@ namespace WebStore.Account
             }
             Response.Redirect(continueUrl);
 
+        }
+
+        protected void PasswordValidation(object source, ServerValidateEventArgs args)
+        {
+            var expString = Membership.Provider.PasswordStrengthRegularExpression;
+            var exp = new Regex(expString);
+            args.IsValid = (exp.IsMatch(args.Value));
         }
     }
 }

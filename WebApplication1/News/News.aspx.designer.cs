@@ -7,11 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebStore
-{
-
-
-    public partial class _Default
-    {
+namespace WebStore.News {
+    
+    
+    public partial class News {
     }
 }

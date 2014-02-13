@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using WebStore.App_Data.Model;
+using WebStore.Vasya;
 
 namespace WebStore.Account
 {
@@ -19,6 +21,11 @@ namespace WebStore.Account
             {
                 RegisterHyperLink.NavigateUrl += "?ReturnUrl=" + returnUrl;
             }
+        }
+
+        protected void LogIn_LoggedIn(object sender, EventArgs e)
+        {
+            
         }
     }
 }

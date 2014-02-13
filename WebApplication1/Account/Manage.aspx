@@ -69,10 +69,10 @@
                                 <asp:TextBox runat="server" ID="NewPassword" CssClass="passwordEntry" TextMode="Password" />
                                 <asp:RequiredFieldValidator runat="server" ControlToValidate="NewPassword"
                                     CssClass="field-validation-error" ErrorMessage="The new password is required."
-                                    ValidationGroup="ChangePassword" />
+                                    ValidationGroup="ChangePassword" Display="Dynamic"/>
                                 <asp:CustomValidator ID="PasswordStrengthValidator" runat="server" ControlToValidate="NewPassword" CssClass="field-validation-error" 
-                                    ErrorMessage="Six chars long, at least one number please."
-                                    ValidationGroup="ChangePassword" OnServerValidate="PasswordValidation" />
+                                    ErrorMessage="Six characters long, at least one number please."
+                                    ValidationGroup="ChangePassword" OnServerValidate="PasswordValidation" Display="Dynamic"/>
                             </li>
                             <li>
                                 <asp:Label runat="server" ID="ConfirmNewPasswordLabel" AssociatedControlID="ConfirmNewPassword">Confirm new password</asp:Label>

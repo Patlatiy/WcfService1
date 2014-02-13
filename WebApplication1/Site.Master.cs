@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using WebStore.App_Data.Model;
+using WebStore.Vasya;
 
 namespace WebStore
 {
@@ -67,7 +69,24 @@ namespace WebStore
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Page.User.Identity.IsAuthenticated && Session["ID"] == null)
+            {
+                var usr = DbWorkerVasya.Instance.Users.First(user => user.Login == Page.User.Identity.Name);
+                Session["ID"] = usr.ID;
+                Session["Name"] = usr.Name;
+                Session["Login"] = usr.Login;
+                Session["Email"] = usr.Email;
+            }
+            var loginName1 = (Label) LoginView1.FindControl("LoginName1");
+            if (loginName1 != null && Session["Name"] != null)
+            {
+                loginName1.Text = (string)Session["Name"];
+            }
+        }
 
+        protected void Unnamed1_LoggedOut(object sender, EventArgs e)
+        {
+            Session.Abandon();
         }
     }
 }
