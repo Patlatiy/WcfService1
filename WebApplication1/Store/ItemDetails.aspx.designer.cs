@@ -13,6 +13,15 @@ namespace WebStore.Store {
     public partial class ItemDetails {
         
         /// <summary>
+        /// ItemCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ItemCount;
+        
+        /// <summary>
         /// AddToCartButton control.
         /// </summary>
         /// <remarks>
@@ -20,5 +29,14 @@ namespace WebStore.Store {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button AddToCartButton;
+        
+        /// <summary>
+        /// LabelAdd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelAdd;
     }
 }

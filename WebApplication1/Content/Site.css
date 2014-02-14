@@ -42,6 +42,11 @@ mark {
     padding-right: 5px;
 }
 
+.SmallButton {
+    font-size: 80pt;
+    color: red;
+}
+
 .float-left {
     float: left;
 }

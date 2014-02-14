@@ -1,27 +1,56 @@
-﻿<%@ Page Title="Your order" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Cart.aspx.cs" Inherits="WebStore.Cart" %>
+﻿<%@ Page Title="Your order" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Cart.aspx.cs" Inherits="WebStore.Cart.Cart" %>
 
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
     <hgroup class="title">
         <h1><%: Title %></h1>
     </hgroup>
-
-    <article>
-        <p>        
-             Your current order will be displayed here in nearest future.
-        </p>
-
-    </article>
-
-    <aside>
-        <h3>By the way...</h3>
-        <p>        
-            You can visit other pages:
-        </p>
-        <ul>
-            <li><a runat="server" href="~/News/News.aspx">News</a></li>
-            <li><a id="A1" runat="server" href="~/Store/Shop.aspx">Store</a></li>
-            <li><a runat="server" href="~/About.aspx">About</a></li>
-            <li style="display:none"><a runat="server" href="~/Contact">Contact</a></li>
-        </ul>
-    </aside>
+    <asp:LoginView runat="server" ID="CartLoginView">
+        <LoggedInTemplate>
+            <p>
+                Here is your order details:
+            </p>    
+            <asp:ListView runat="server" 
+                ID="CartList" 
+                DataKeyNames="ID" 
+                ItemType="WebStore.App_Data.Model.Item" 
+                SelectMethod="GetItems">
+                <ItemTemplate>
+                    <div>
+                        <img src="/Images/Items/Thumbs/<%#:Item.Image %>" alt="<%#:Item.Name %>"
+                            width="100" height="75" style="border: solid; float: left; margin-right: 20px"/>
+                        <span>
+                            <b><%#:Item.Name%></b>
+                        </span>
+                        <br />
+                        <span>
+                            <%#:GetTotalItemPrice(Item.ID)%>
+                        </span>
+                        <br/>
+                        <asp:Button ID="Button1" runat="server" Text="Remove" Font-Size="7" />
+                        <p>&nbsp;</p>
+                    </div>
+                </ItemTemplate>
+                <EmptyDataTemplate>
+                    <p>
+                        You have no items in cart. Go to the <b><a href="../Store/Shop.aspx">store page</a></b> and get what you want!
+                    </p>
+                </EmptyDataTemplate>
+                <LayoutTemplate>
+                    <hr/>
+                    <p>&nbsp;</p>
+                    <p runat="server" ID="itemPlaceholder"></p>
+                    <hr/>
+                    <h2>Total: 
+                    <asp:PlaceHolder ID="TotalPricePlaceholder" runat="server">
+                        <%= GetTotalItemPriceForAllItems() %>
+                    </asp:PlaceHolder></h2>
+                </LayoutTemplate>
+            </asp:ListView>  
+        </LoggedInTemplate>
+        <AnonymousTemplate>
+            <p>        
+                Please <b><a href="../Account/Login.aspx">log in</a></b> or <b><a href="../Account/Register.aspx">register</a></b> to complete your purchase.
+            </p>    
+        </AnonymousTemplate>
+    </asp:LoginView>
 </asp:Content>

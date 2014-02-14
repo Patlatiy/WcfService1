@@ -43,7 +43,7 @@
                                 Hello, <a runat="server" class="username" href="~/Account/Manage" title="Manage your account">
                                     <asp:Label ID="LoginName1" runat="server" CssClass="username" />
                                     <asp:LoginName ID = "LoginName2" runat="server" Visible="False" />
-                                </a>!
+                                </a>
                                 <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggedOut="Unnamed1_LoggedOut"/>
                             </p>
                         </LoggedInTemplate>

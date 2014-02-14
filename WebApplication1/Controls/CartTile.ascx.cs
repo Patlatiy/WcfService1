@@ -14,9 +14,10 @@ namespace WebStore.Controls
 
         }
 
-        public string ItemsInOrder()
+        protected string ItemsInOrder()
         {
-            return "3";
+            var cart = (Dictionary<int, int>) Session["Cart"];
+            return cart == null ? "0" : cart.Count.ToString("G");
         }
     }
 }
