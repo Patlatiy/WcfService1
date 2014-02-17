@@ -102,6 +102,12 @@ h5, h6 {
     max-width: 960px;
 }
 
+.field-item-added {
+    color: #e80c4d;
+    font-weight: bold;
+    text-align: center;
+}
+
 #body {
     background-color: #efeeef;
     clear: both;

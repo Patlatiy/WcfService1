@@ -50,7 +50,7 @@
                     </asp:LoginView>
                 </section>
                 <section id="cartSection">
-                    <ws:Cart ID="Cart" runat="server"></ws:Cart>
+                    <ws:Cart ID="CartTile" runat="server"></ws:Cart>
                 </section>
                 <nav>
                     <ul id="menu">

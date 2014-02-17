@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web.UI;
 using WebStore.App_Data.Model;
+using WebStore.Controls;
 using WebStore.Vasya;
 
 namespace WebStore.Store
@@ -22,7 +23,6 @@ namespace WebStore.Store
             {
                 AddToCartButton.Visible = false;
                 ItemCount.Visible = false;
-
             }
         }
 
@@ -41,6 +41,8 @@ namespace WebStore.Store
             }
             Session["Cart"] = cart;
             LabelAdd.Visible = true;
+            var cartTile = (CartTile) Master.FindControl("CartTile");
+            if (cartTile != null) cartTile.UpdateShownItemCount();
         }
 
         protected string GetImagePath()

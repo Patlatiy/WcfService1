@@ -11,8 +11,11 @@
         <%: GetItemDescription() %> <br/>
         In store: <%: GetItemInStore() %> <br/>
         <asp:TextBox runat="server" ID="ItemCount" Width="25" Text="1"></asp:TextBox>
-        
-        <asp:Button runat="server" ID="AddToCartButton" OnClick="AddToCartButton_OnClick" Text="Add to cart"/>
-        <asp:Label ID="LabelAdd" runat="server" Text="Item added to cart" AssociatedControlID="AddToCartButton" CssClass="field-validation-error" BackColor="yellow" Width="200px" Visible="False"/>
+        <asp:UpdatePanel runat="server" UpdateMode="Conditional">
+            <ContentTemplate>
+                <asp:Button runat="server" ID="AddToCartButton" OnClick="AddToCartButton_OnClick" Text="Add to cart"/>
+                <asp:Label ID="LabelAdd" runat="server" Text="Item added to cart" AssociatedControlID="AddToCartButton" CssClass="field-item-added" BackColor="yellow" Width="200px" Visible="False"/>
+            </ContentTemplate>
+        </asp:UpdatePanel>
     </article>
 </asp:Content>

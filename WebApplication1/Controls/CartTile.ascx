@@ -8,8 +8,12 @@
 <div style="text-align: left">
     <p>
         <img alt="Cart" class="auto-style1" src="../Images/Cart.gif" style="float: left; margin-left: 57px" />
-        <a id="A1" runat="server" href="~/Cart/Cart.aspx">Cart</a><br />
-        Items in cart: <%: ItemsInOrder() %>
+        <asp:UpdatePanel runat="server" ID="ItemCountPanel" UpdateMode="Conditional">
+            <ContentTemplate>
+                <a id="A1" runat="server" href="~/Cart/Cart.aspx">Cart</a><br/>
+                Items in cart: <asp:Label runat="server" ID="ItemsInOrderLabel"><%: ItemsInOrder() %></asp:Label>    
+            </ContentTemplate>
+        </asp:UpdatePanel>
     </p>
 </div>
 <p>&nbsp;</p>

@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 using WebStore.App_Data.Model;
+using WebStore.Controls;
+using WebStore.Managers;
 using WebStore.Vasya;
 
 namespace WebStore.Cart
@@ -19,7 +22,7 @@ namespace WebStore.Cart
         {
             if (Session["Cart"] == null) return null;
             var cart = (Dictionary<int, int>) Session["Cart"];
-            IQueryable<Item> query = DbWorkerVasya.Instance.Items;
+            IQueryable<Item> query = ItemManager.GetItems();
             var itemList = new List<Item>();
             foreach (var query2 in cart.Keys.Select(val => query.Where(item => item.ID == val)))
             {
@@ -31,33 +34,49 @@ namespace WebStore.Cart
 
         protected string GetTotalItemPriceForAllItems()
         {
-            if (Session["Cart"] == null) return "$0";
-            var cart = (Dictionary<int, int>)Session["Cart"];
-            decimal total = 0;
-            foreach (var itemID in cart.Keys)
-            {
-                var item = DbWorkerVasya.Instance.Items.First(it => it.ID == itemID);
-                if (item == null) continue;
-                if (cart[itemID] > 0)
-                {
-                    total += item.Price*cart[itemID];
-                }
-            }
-            return "$" + total.ToString("G");
+            return ItemManager.GetTotalItemPriceForAllItems((Dictionary<int,int>)Session["Cart"]);
         }
         
         protected string GetTotalItemPrice(int itemID)
         {
             if (Session["Cart"] == null) return "$0";
             var cart = (Dictionary<int, int>)Session["Cart"];
-            var item = DbWorkerVasya.Instance.Items.First(it => it.ID == itemID);
-            if (item == null) return "$0";
+            var itemPrice = ItemManager.GetTotalItemPrice(itemID);
             if (cart[itemID] > 1)
             {
-                return "$" + item.Price.ToString("G") + " x " + cart[itemID].ToString("G") + " = $" +
-                       (item.Price*cart[itemID]).ToString("G");
+                return "$" + itemPrice.ToString("G") + " x " + cart[itemID].ToString("G") + " = $" +
+                       (itemPrice*cart[itemID]).ToString("G");
             }
-            return "$" + item.Price.ToString("G");
+            return "$" + itemPrice.ToString("G");
+        }
+
+        private void UpdateUpdPnl()
+        {
+            var listView = (ListView) CartLoginView.FindControl("CartList");
+            listView.DataBind();
+            UpdateCartTile();
+            UpdPnl.Update();
+        }
+
+        protected void RemoveButton_Click(object sender, EventArgs e)
+        {
+            var btn = (Button) sender;
+            int itemID;
+            if (btn.CommandName != "remove") return;
+            if (!int.TryParse(btn.CommandArgument, out itemID)) return;
+            RemoveItemFromCart(itemID);
+            UpdateUpdPnl();
+        }
+
+        private bool RemoveItemFromCart(int itemID)
+        {
+            return Session["Cart"] != null && ((Dictionary<int, int>)Session["Cart"]).Remove(itemID);
+        }
+
+        private void UpdateCartTile()
+        {
+            var cartTile = ((CartTile) Master.FindControl("CartTile"));
+            cartTile.UpdateShownItemCount();
         }
     }
 }

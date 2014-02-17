@@ -13,6 +13,15 @@ namespace WebStore.Controls {
     public partial class CartTile {
         
         /// <summary>
+        /// ItemCountPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel ItemCountPanel;
+        
+        /// <summary>
         /// A1 control.
         /// </summary>
         /// <remarks>
@@ -20,5 +29,14 @@ namespace WebStore.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor A1;
+        
+        /// <summary>
+        /// ItemsInOrderLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ItemsInOrderLabel;
     }
 }

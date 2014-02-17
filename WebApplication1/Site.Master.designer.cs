@@ -31,13 +31,13 @@ namespace WebStore {
         protected global::System.Web.UI.WebControls.LoginView LoginView1;
         
         /// <summary>
-        /// Cart control.
+        /// CartTile control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::WebStore.Controls.CartTile Cart;
+        protected global::WebStore.Controls.CartTile CartTile;
         
         /// <summary>
         /// FeaturedContent control.

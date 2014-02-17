@@ -12,7 +12,16 @@
         <p>
             Current roles are: <br/>
             <%= GetRoles() %>
-            <asp:Button ID="TestButton" runat="server" Text="Do something" OnClick="TestMethod" />
+            <asp:Button ID="TestButton" runat="server" Text="Do something" OnClientClick="PrintColors()" />
+            <br/>
+            <Script type="text/javascript">
+                function PrintColors() {
+                    var colorArray = ["Red", "Blue", "Yellow", "Magenta"];
+                    for (i = 0; i < 4; i++) {
+                        document.write(colorArray[i] + "<br>");
+                    }
+                }
+            </Script>
         </p>
         <p>
             Thanks for visiting!
