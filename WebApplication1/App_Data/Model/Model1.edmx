@@ -35,6 +35,7 @@
           <Property Name="DateEnded" Type="datetime" />
           <Property Name="StateID" Type="tinyint" Nullable="false" />
           <Property Name="PaymentMethodID" Type="tinyint" />
+          <Property Name="DeliveryAddress" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderPosition">
           <Key>
@@ -60,6 +61,7 @@
           <Property Name="ID" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Image" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -252,6 +254,7 @@
           <NavigationProperty Name="PaymentMethod" Relationship="Self.FK_Order_PaymentMethod" FromRole="Order" ToRole="PaymentMethod" />
           <NavigationProperty Name="User" Relationship="Self.FK_Order_User" FromRole="Order" ToRole="User" />
           <NavigationProperty Name="OrderPositions" Relationship="Self.FK_OrderPosition_Order" FromRole="Order" ToRole="OrderPosition" />
+          <Property Name="DeliveryAddress" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="OrderPosition">
           <Key>
@@ -281,6 +284,7 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_PaymentMethod" FromRole="PaymentMethod" ToRole="Order" />
+          <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -466,6 +470,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="WebStore.EntityDataModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="DeliveryAddress" ColumnName="DeliveryAddress" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="DateIssued" ColumnName="DateIssued" />
@@ -496,6 +501,7 @@
           <EntitySetMapping Name="PaymentMethods">
             <EntityTypeMapping TypeName="WebStore.EntityDataModel.PaymentMethod">
               <MappingFragment StoreEntitySet="PaymentMethod">
+                <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />

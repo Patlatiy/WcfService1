@@ -5,7 +5,7 @@ using WebStore.Vasya;
 
 namespace WebStore.Managers
 {
-    public class ItemManager
+    public static class ItemManager
     {
         public static string GetTotalItemPriceForAllItems(Dictionary<int, int> cart)
         {
@@ -32,6 +32,11 @@ namespace WebStore.Managers
         public static IQueryable<Item> GetItems()
         {
             return DbWorkerVasya.Instance.Items;
+        }
+
+        public static Item GetItem(int id)
+        {
+            return DbWorkerVasya.Instance.Items.First(item => item.ID == id);
         }
 }
 }

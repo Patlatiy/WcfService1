@@ -10,7 +10,7 @@
         <img alt="Cart" class="auto-style1" src="../Images/Cart.gif" style="float: left; margin-left: 57px" />
         <asp:UpdatePanel runat="server" ID="ItemCountPanel" UpdateMode="Conditional">
             <ContentTemplate>
-                <a id="A1" runat="server" href="~/Cart/Cart.aspx">Cart</a><br/>
+                <a id="A1" runat="server" href="~/Store/Cart.aspx">Cart</a><br/>
                 Items in cart: <asp:Label runat="server" ID="ItemsInOrderLabel"><%: ItemsInOrder() %></asp:Label>    
             </ContentTemplate>
         </asp:UpdatePanel>

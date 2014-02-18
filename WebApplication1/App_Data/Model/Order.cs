@@ -25,6 +25,7 @@ namespace WebStore.App_Data.Model
         public Nullable<System.DateTime> DateEnded { get; set; }
         public byte StateID { get; set; }
         public Nullable<byte> PaymentMethodID { get; set; }
+        public string DeliveryAddress { get; set; }
     
         public virtual OrderState OrderState { get; set; }
         public virtual PaymentMethod PaymentMethod { get; set; }

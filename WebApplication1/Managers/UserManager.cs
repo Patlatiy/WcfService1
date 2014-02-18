@@ -7,7 +7,7 @@ using WebStore.Providers;
 
 namespace WebStore.Managers
 {
-    public class UserManager
+    public static class UserManager
     {
         public static void CreateUser(string login, string name, string password, string email)
         {
@@ -40,6 +40,11 @@ namespace WebStore.Managers
             var dbContext = DbWorkerVasya.Instance;
             dbContext.Users.First(usr => usr.Login == name).Name = shownname;
             dbContext.SaveChanges();
+        }
+
+        public static User GetUserByLogin(string login)
+        {
+            return DbWorkerVasya.Instance.Users.First(usr => usr.Login == login);
         }
     }
 }

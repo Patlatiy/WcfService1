@@ -15,7 +15,17 @@ namespace WebStore.Cart
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            if (IsPostBack) return;
+            if (User.Identity.IsAuthenticated)
+            {
+                LoggedInPanel.Visible = true;
+                CartList.DataBind();
+                //((TextBox) CartList.nam.FindControl("AddressTextBox")).Text = GetLastOrderAddress();
+            }
+            else
+            {
+                AnonymousPanel.Visible = true;
+            }
         }
 
         public IQueryable<Item> GetItems()
@@ -34,13 +44,13 @@ namespace WebStore.Cart
 
         protected string GetTotalItemPriceForAllItems()
         {
-            return ItemManager.GetTotalItemPriceForAllItems((Dictionary<int,int>)Session["Cart"]);
+            return ItemManager.GetTotalItemPriceForAllItems((Dictionary<int, int>) Session["Cart"]);
         }
-        
+
         protected string GetTotalItemPrice(int itemID)
         {
             if (Session["Cart"] == null) return "$0";
-            var cart = (Dictionary<int, int>)Session["Cart"];
+            var cart = (Dictionary<int, int>) Session["Cart"];
             var itemPrice = ItemManager.GetTotalItemPrice(itemID);
             if (cart[itemID] > 1)
             {
@@ -52,7 +62,7 @@ namespace WebStore.Cart
 
         private void UpdateUpdPnl()
         {
-            var listView = (ListView) CartLoginView.FindControl("CartList");
+            var listView = (ListView) LoggedInPanel.FindControl("CartList");
             listView.DataBind();
             UpdateCartTile();
             UpdPnl.Update();
@@ -70,13 +80,57 @@ namespace WebStore.Cart
 
         private bool RemoveItemFromCart(int itemID)
         {
-            return Session["Cart"] != null && ((Dictionary<int, int>)Session["Cart"]).Remove(itemID);
+            return Session["Cart"] != null && ((Dictionary<int, int>) Session["Cart"]).Remove(itemID);
         }
 
         private void UpdateCartTile()
         {
             var cartTile = ((CartTile) Master.FindControl("CartTile"));
             cartTile.UpdateShownItemCount();
+        }
+
+        public IQueryable<PaymentMethod> GetPaymentMethods()
+        {
+            return PaymentMethodManager.GetPaymentMethods();
+        }
+
+        protected string ImagePath(string fileName)
+        {
+            return "/Images/PaymentMethods/" + fileName;
+        }
+
+        protected void CompletePurchase(object sender, EventArgs e)
+        {
+            var imgBtn = (ImageButton) sender;
+            byte pmID;
+            if (byte.TryParse(imgBtn.CommandName, out pmID))
+            {
+                Session["PaymentMethodID"] = pmID;
+                var addressTextBox = ((TextBox)CartList.FindControl("AddressTextBox"));
+                if (addressTextBox == null)
+                {
+                    Session["Address"] = "N/A";
+                }
+                else
+                {
+                    Session["Address"] = addressTextBox.Text;
+                }
+                Response.Redirect("Complete.aspx");
+            }
+        }
+
+        protected string GetLastOrderAddress()
+        {
+            return User.Identity.IsAuthenticated ? OrderManager.GetLastOrderAddress(User.Identity.Name) : string.Empty;
+        }
+
+        protected void CartList_DataBound(object sender, EventArgs e)
+        {
+            var addressTextBox = (TextBox) CartList.FindControl("AddressTextBox");
+            if (addressTextBox != null)
+            {
+                addressTextBox.Text = GetLastOrderAddress();
+            }
         }
     }
 }

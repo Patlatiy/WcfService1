@@ -114,7 +114,7 @@
     <Content Include="Account\OpenAuthProviders.ascx" />
     <Content Include="Account\Register.aspx" />
     <Content Include="Account\RegisterExternalLogin.aspx" />
-    <Content Include="Cart\Cart.aspx" />
+    <Content Include="Store\Cart.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -173,6 +173,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Controls\CartTile.ascx" />
     <Content Include="Images\Cart.gif" />
+    <Content Include="Store\Complete.aspx" />
     <Content Include="Store\ItemDetails.aspx" />
     <Content Include="Store\Shop.aspx" />
     <Content Include="Images\accent.png" />
@@ -281,11 +282,11 @@
       <DependentUpon>RegisterExternalLogin.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Cart\Cart.aspx.cs">
+    <Compile Include="Store\Cart.aspx.cs">
       <DependentUpon>Cart.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Cart\Cart.aspx.designer.cs">
+    <Compile Include="Store\Cart.aspx.designer.cs">
       <DependentUpon>Cart.aspx</DependentUpon>
     </Compile>
     <Compile Include="Contact.aspx.cs">
@@ -337,6 +338,7 @@
     </Compile>
     <Compile Include="Managers\ItemManager.cs" />
     <Compile Include="Managers\OrderManager.cs" />
+    <Compile Include="Managers\PaymentMethodManager.cs" />
     <Compile Include="Managers\UserManager.cs" />
     <Compile Include="Models\Generated\Database.cs">
       <AutoGen>True</AutoGen>
@@ -346,6 +348,13 @@
     <Compile Include="Models\PetaPoco.cs" />
     <Compile Include="Providers\MembershipProvider.cs" />
     <Compile Include="Providers\RoleProvider.cs" />
+    <Compile Include="Store\Complete.aspx.cs">
+      <DependentUpon>Complete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\Complete.aspx.designer.cs">
+      <DependentUpon>Complete.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Store\ItemDetails.aspx.cs">
       <DependentUpon>ItemDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -402,6 +411,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\Items\Thumbs\" />
+    <Folder Include="Images\PaymentMethods\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />

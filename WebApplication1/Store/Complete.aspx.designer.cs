@@ -7,27 +7,36 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebStore.Cart {
+namespace WebStore.Store {
     
     
-    public partial class Cart {
+    public partial class Complete {
         
         /// <summary>
-        /// UpdPnl control.
+        /// LoggedInPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdPnl;
+        protected global::System.Web.UI.WebControls.Panel LoggedInPanel;
         
         /// <summary>
-        /// CartLoginView control.
+        /// ThankYouLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LoginView CartLoginView;
+        protected global::System.Web.UI.WebControls.Label ThankYouLabel;
+        
+        /// <summary>
+        /// AnonymousPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel AnonymousPanel;
     }
 }
