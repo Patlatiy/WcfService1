@@ -10,8 +10,11 @@ namespace WebStore.Managers
     {
         public static Order CreateOrder(string userLogin, Dictionary<int, int> cart, PaymentMethod paymentMethod, string deliveryAddress)
         {
-            var user = DbWorkerVasya.Instance.Users.First(usr => usr.Login == userLogin);
-            if (user == null) return null;
+            var user = DbContext.Instance.Users.First(usr => usr.Login == userLogin);
+
+            if (user == null) 
+                return null;
+
             var order = new Order();
             var orderPositions = (from orderPos in cart 
                                   let item = ItemManager.GetItem(orderPos.Key)
@@ -23,23 +26,26 @@ namespace WebStore.Managers
                                       ItemID = item.ID, 
                                       ItemQuantity = orderPos.Value
                                   }).ToList();
+
             order.User = user;
             order.UserID = user.ID;
-            order.OrderState = DbWorkerVasya.Instance.OrderStates.First(ost => ost.Name == "Issued");
+            order.OrderState = DbContext.Instance.OrderStates.First(ost => ost.Name == "Issued");
             order.OrderPositions = orderPositions;
             order.DateIssued = DateTime.Now;
             order.PaymentMethod = paymentMethod;
             order.PaymentMethodID = paymentMethod.ID;
             order.DeliveryAddress = deliveryAddress;
-            DbWorkerVasya.Instance.Orders.Add(order);
-            DbWorkerVasya.Instance.SaveChanges();
+
+            DbContext.Instance.Orders.Add(order);
+            DbContext.Instance.SaveChanges();
+
             return order;
         }
 
         public static string GetLastOrderAddress(string userLogin)
         {
             Order order = null;
-            foreach (var ordr in DbWorkerVasya.Instance.Orders)
+            foreach (var ordr in DbContext.Instance.Orders)
             {
                 if (ordr.User.Login == userLogin)
                 {

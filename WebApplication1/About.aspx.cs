@@ -26,7 +26,7 @@ namespace WebStore
 
         protected void TestMethod(object sender, EventArgs e)
         {
-            Roles.Provider.RemoveUsersFromRoles(new []{"Admin"}, new []{"Admin"});
+            throw new Exception("You've broken all!");
         }
     }
 }

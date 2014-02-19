@@ -10,21 +10,10 @@
              This is my test task as a beginning developer in Akvelon company. It features a simple web store selling various things. It is written on ASP.NET.
         </p>
         <p>
-            Current roles are: <br/>
-            <%= GetRoles() %>
-            <asp:Button ID="TestButton" runat="server" Text="Do something" OnClientClick="PrintColors()" />
-            <br/>
-            <Script type="text/javascript">
-                function PrintColors() {
-                    var colorArray = ["Red", "Blue", "Yellow", "Magenta"];
-                    for (i = 0; i < 4; i++) {
-                        document.write(colorArray[i] + "<br>");
-                    }
-                }
-            </Script>
+            Thanks for visiting!
         </p>
         <p>
-            Thanks for visiting!
+            <asp:Button runat="server" OnClick="TestMethod" Text="Сломать всё" BackColor="orange"/>
         </p>
     </article>
 

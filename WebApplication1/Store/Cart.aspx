@@ -39,23 +39,29 @@
                         <p>&nbsp;</p>
                         <p runat="server" id="itemPlaceholder"/>
                         <hr />
+                        <fieldset>
+                            Delivery address: <asp:TextBox runat="server" ID="AddressTextBox" />
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="AddressTextBox"
+                                CssClass="field-validation-error" ErrorMessage="Please enter delivery address."
+                                ValidationGroup="Delivery" Display="Dynamic"/>
+                            <br/>
+                            Select payment method to complete purchase:<br/>
+                            <asp:ListView runat="server"
+                                ID="PaymentMethodList"
+                                DataKeyNames="ID"
+                                ItemType="WebStore.App_Data.Model.PaymentMethod"
+                                SelectMethod="GetPaymentMethods">
+                                <ItemTemplate>
+                                    <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="<%# ImagePath(Item.Image) %>" Width="200" AlternateText="<%#: Item.Name %>" BackColor="transparent" BorderStyle="None" OnClick="CompletePurchase" CommandName="<%#: Item.ID %>" ValidationGroup="Delivery"/>
+                                </ItemTemplate>
+                            </asp:ListView>
+                        </fieldset>
                         <h2>
                             Total: 
                             <asp:PlaceHolder ID="TotalPricePlaceholder" runat="server">
                                 <%= GetTotalItemPriceForAllItems() %>
                             </asp:PlaceHolder>
                         </h2>
-                        Delivery address: <asp:TextBox runat="server" ID="AddressTextBox" />
-                        <br/>
-                        <asp:ListView runat="server"
-                            ID="PaymentMethodList"
-                            DataKeyNames="ID"
-                            ItemType="WebStore.App_Data.Model.PaymentMethod"
-                            SelectMethod="GetPaymentMethods">
-                            <ItemTemplate>
-                                <asp:ImageButton runat="server" ImageUrl="<%# ImagePath(Item.Image) %>" Width="200" AlternateText="<%#: Item.Name %>" BackColor="transparent" BorderStyle="None" OnClick="CompletePurchase" CommandName="<%#: Item.ID %>"/>
-                            </ItemTemplate>
-                        </asp:ListView>
                     </LayoutTemplate>
                 </asp:ListView>
             </asp:Panel>

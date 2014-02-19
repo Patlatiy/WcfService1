@@ -27,10 +27,10 @@
         <div class="content-wrapper">
             <div class="float-left">
                 <p class="site-title"><a runat="server" href="~/">WebStore</a></p>
+                <a href="/"><img src="/Images/akvelon_logo.png" width="300px" alt="Akvelon company logo" /></a>
             </div>
             <div class="float-right">
                 <section id="login">
-                    Session id: <%: Session.SessionID %>
                     <asp:LoginView ID="LoginView1" runat="server" ViewStateMode="Disabled">
                         <AnonymousTemplate>
                             <ul>

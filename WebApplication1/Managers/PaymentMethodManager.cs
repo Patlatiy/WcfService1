@@ -11,12 +11,12 @@ namespace WebStore.Managers
     {
         public static IQueryable<PaymentMethod> GetPaymentMethods()
         {
-            return DbWorkerVasya.Instance.PaymentMethods;
+            return DbContext.Instance.PaymentMethods;
         }
 
         public static PaymentMethod GetPaymentMethodByID(byte id)
         {
-            return DbWorkerVasya.Instance.PaymentMethods.First(mthd => mthd.ID == id);
+            return DbContext.Instance.PaymentMethods.First(mthd => mthd.ID == id);
         }
     }
 }

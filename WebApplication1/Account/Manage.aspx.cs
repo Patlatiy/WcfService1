@@ -7,6 +7,7 @@ using System.Web.Security;
 using System.Web.UI.WebControls;
 
 using Microsoft.AspNet.Membership.OpenAuth;
+using WebStore.Managers;
 
 namespace WebStore.Account
 {
@@ -48,6 +49,10 @@ namespace WebStore.Account
                         : message == "RemoveLoginSuccess" ? "The external login was removed."
                         : String.Empty;
                     successMessage.Visible = !String.IsNullOrEmpty(SuccessMessage);
+                }
+                if (User.Identity.IsAuthenticated)
+                {
+                    ShownNameTextBox.Text = UserManager.GetShownName(User.Identity.Name);
                 }
             }
 
@@ -108,6 +113,18 @@ namespace WebStore.Account
             var expString = Membership.Provider.PasswordStrengthRegularExpression;
             var exp = new Regex(expString);
             args.IsValid = (exp.IsMatch(args.Value));
+        }
+
+        protected void ShownNameValidation(object source, ServerValidateEventArgs args)
+        {
+            args.IsValid = (args.Value.Length > 0 && args.Value.Length <= 50);
+        }
+
+        protected void ChangeShownName(object source, EventArgs args)
+        {
+            var newName = ShownNameTextBox.Text;
+            UserManager.SetShownName(User.Identity.Name, newName);
+            Session["Name"] = newName;
         }
     }
 }

@@ -11,6 +11,9 @@ namespace WebStore
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.EnableFriendlyUrls();
+            routes.MapPageRoute("",
+                "Default.aspx",
+                "~/News/News.aspx");
         }
     }
 }

@@ -71,13 +71,17 @@ namespace WebStore
         {
             if (Page.User.Identity.IsAuthenticated && Session["ID"] == null)
             {
-                var usr = DbWorkerVasya.Instance.Users.First(user => user.Login == Page.User.Identity.Name);
+                var usr = DbContext.Instance.Users.First(user => user.Login == Page.User.Identity.Name);
                 Session["ID"] = usr.ID;
                 Session["Name"] = usr.Name;
                 Session["Login"] = usr.Login;
                 Session["Email"] = usr.Email;
             }
-            var loginName1 = (Label) LoginView1.FindControl("LoginName1");
+        }
+
+        protected void Page_PreRender(object source, EventArgs e)
+        {
+            var loginName1 = (Label)LoginView1.FindControl("LoginName1");
             if (loginName1 != null && Session["Name"] != null)
             {
                 loginName1.Text = (string)Session["Name"];

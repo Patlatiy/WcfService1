@@ -3,20 +3,20 @@ using WebStore.App_Data.Model;
 
 namespace WebStore.Vasya
 {
-    public class DbWorkerVasya
+    public class DbContext
     {
         private readonly WebStoreEntities _webStoreEntitiesContext;
 
-        protected DbWorkerVasya()
+        protected DbContext()
         {
             _webStoreEntitiesContext = new WebStoreEntities();
         }
 
         protected sealed class WebStoreEntitiesSingleton
         {
-            private static readonly DbWorkerVasya instance = new DbWorkerVasya();
+            private static readonly DbContext instance = new DbContext();
 
-            public static DbWorkerVasya Instance
+            public static DbContext Instance
             {
                 get { return instance; }
             }

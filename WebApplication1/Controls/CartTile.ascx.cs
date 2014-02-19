@@ -17,7 +17,7 @@ namespace WebStore.Controls
         protected string ItemsInOrder()
         {
             var cart = (Dictionary<int, int>) Session["Cart"];
-            return cart == null ? "0" : cart.Count.ToString("G");
+            return cart == null ? "0" : cart.Sum(item => item.Value).ToString("G");
         }
 
         public void UpdateShownItemCount()

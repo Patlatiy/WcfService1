@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using WebStore.App_Data.Model;
 using WebStore.Vasya;
 using WebStore.Providers;
@@ -11,7 +12,7 @@ namespace WebStore.Managers
     {
         public static void CreateUser(string login, string name, string password, string email)
         {
-            var webStoreContext = DbWorkerVasya.Instance;
+            var webStoreContext = DbContext.Instance;
             var newUser = new User
             {
                 Login = login,
@@ -30,21 +31,21 @@ namespace WebStore.Managers
             webStoreContext.SaveChanges();
         }
 
-        /// <summary>
-        /// Sets login for user with specified name
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="shownname"></param>
         public static void SetShownName(string name, string shownname)
         {
-            var dbContext = DbWorkerVasya.Instance;
+            var dbContext = DbContext.Instance;
             dbContext.Users.First(usr => usr.Login == name).Name = shownname;
             dbContext.SaveChanges();
         }
 
         public static User GetUserByLogin(string login)
         {
-            return DbWorkerVasya.Instance.Users.First(usr => usr.Login == login);
+            return (login == string.Empty) ? null : DbContext.Instance.Users.First(usr => usr.Login == login);
+        }
+
+        public static string GetShownName(string login)
+        {
+            return (login == string.Empty) ? String.Empty : DbContext.Instance.Users.First(usr => usr.Login == login).Name; 
         }
     }
 }

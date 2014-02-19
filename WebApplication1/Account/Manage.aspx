@@ -3,10 +3,10 @@
 <%@ Import Namespace="Microsoft.AspNet.Membership.OpenAuth" %>
 <asp:Content ContentPlaceHolderID="MainContent" runat="server">
     <hgroup class="title">
-        <h1><%: Title %>.</h1>
+        <h1><%: Title %></h1>
     </hgroup>
 
-    <section id="passwordForm">
+    <section id="passwordForm" style="width: 49%; float: left">
         <asp:PlaceHolder runat="server" ID="successMessage" Visible="false" ViewStateMode="Disabled">
             <p class="message-success"><%: SuccessMessage %></p>
         </asp:PlaceHolder>
@@ -61,14 +61,14 @@
                                 <asp:Label runat="server" ID="CurrentPasswordLabel" AssociatedControlID="CurrentPassword">Current password</asp:Label>
                                 <asp:TextBox runat="server" ID="CurrentPassword" CssClass="passwordEntry" TextMode="Password" />
                                 <asp:RequiredFieldValidator runat="server" ControlToValidate="CurrentPassword"
-                                    CssClass="field-validation-error" ErrorMessage="The current password field is required."
+                                    CssClass="field-validation-error" ErrorMessage="This field is required."
                                     ValidationGroup="ChangePassword" />
                             </li>
                             <li style="text-align: left">
                                 <asp:Label runat="server" ID="NewPasswordLabel" AssociatedControlID="NewPassword">New password</asp:Label>
                                 <asp:TextBox runat="server" ID="NewPassword" CssClass="passwordEntry" TextMode="Password" />
                                 <asp:RequiredFieldValidator runat="server" ControlToValidate="NewPassword"
-                                    CssClass="field-validation-error" ErrorMessage="The new password is required."
+                                    CssClass="field-validation-error" ErrorMessage="This field is required."
                                     ValidationGroup="ChangePassword" Display="Dynamic"/>
                                 <asp:CustomValidator ID="PasswordStrengthValidator" runat="server" ControlToValidate="NewPassword" CssClass="field-validation-error" 
                                     ErrorMessage="Six characters long, at least one number please."
@@ -78,7 +78,7 @@
                                 <asp:Label runat="server" ID="ConfirmNewPasswordLabel" AssociatedControlID="ConfirmNewPassword">Confirm new password</asp:Label>
                                 <asp:TextBox runat="server" ID="ConfirmNewPassword" CssClass="passwordEntry" TextMode="Password" />
                                 <asp:RequiredFieldValidator runat="server" ControlToValidate="ConfirmNewPassword"
-                                    CssClass="field-validation-error" Display="Dynamic" ErrorMessage="Confirm new password is required."
+                                    CssClass="field-validation-error" Display="Dynamic" ErrorMessage="This field is required."
                                     ValidationGroup="ChangePassword" />
                                 <asp:CompareValidator runat="server" ControlToCompare="NewPassword" ControlToValidate="ConfirmNewPassword"
                                     CssClass="field-validation-error" Display="Dynamic" ErrorMessage="The new password and confirmation password do not match."
@@ -89,6 +89,26 @@
                     </fieldset>
                 </ChangePasswordTemplate>
             </asp:ChangePassword>
+        </asp:PlaceHolder>
+
+    </section>
+    <section id="shownNameForm" style="width: 49%; float: right">
+        <asp:PlaceHolder ID="ChangeShownNamePH" runat="server">
+            
+            <fieldset>
+                <legend>Change shown name</legend>
+                <ol>
+                    <li>
+                        <asp:Label runat="server" ID="ShownNameLabel" AssociatedControlID="ShownNameTextBox">Change shown name</asp:Label>
+                        <asp:TextBox runat="server" ID="ShownNameTextBox" />
+                        <asp:CustomValidator ID="PasswordStrengthValidator" runat="server" ControlToValidate="ShownNameTextBox" CssClass="field-validation-error" 
+                            ErrorMessage="The name is too long" ValidationGroup="ShownNameValidation" OnServerValidate="ShownNameValidation" Display="Dynamic"/>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="ShownNameTextBox" 
+                            CssClass="field-validation-error" ErrorMessage="This field is required." ValidationGroup="ShownNameValidation"/>
+                    </li>
+                </ol>
+                <asp:Button ID="Button1" runat="server" ValidationGroup="ShownNameValidation" Text="Set shown name" OnClick="ChangeShownName"/>
+            </fieldset>
         </asp:PlaceHolder>
     </section>
 

@@ -1,15 +1,8 @@
 ﻿<%@ Page Title="Store" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Shop.aspx.cs" Inherits="WebStore.Store.Shop" %>
-
-<asp:Content runat="server" ID="FeaturedContent" ContentPlaceHolderID="FeaturedContent">
-    <section class="featured">
-        <div class="content-wrapper">
-            <hgroup class="title">
-                <h1><%: Title %></h1>
-            </hgroup>
-        </div>
-    </section>
-</asp:Content>
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
+    <hgroup class="title">
+        <h1><%: Title %></h1>
+    </hgroup>
     <asp:ListView ID="categoryList"  
         ItemType="WebStore.App_Data.Model.ItemCategory" 
         runat="server"
@@ -48,32 +41,25 @@
         </GroupTemplate>
         <ItemTemplate>
             <td id="Td1" runat="server">
-                <table>
+                <table style="text-align: center">
+
                     <tr>
                         <td>
                             <a href="ItemDetails.aspx?id=<%#:Item.ID%>">
+                                <span style="font-weight: bold">
+                                    <%#:Item.Name%>
+                                </span>
+                                <br/>
                                 <img src="/Images/Items/Thumbs/<%#:Item.Image %>" alt="<%#:Item.Name %>"
                                     width="100" height="75" style="border: solid"/>
                             </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="ItemDetails.aspx?id=<%#:Item.ID%>">
-                                <span>
-                                    <%#:Item.Name%>
-                                </span>
-                            </a>
                             <br />
                             <span>
-                                <b>Price: </b><%#:String.Format("{0:c}", Item.Price)%>
+                                <%#:String.Format("{0:c}", Item.Price)%>
                             </span>
-                            <br />
                         </td>
                     </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                    </tr>
+
                 </table>
                 </p>
             </td>

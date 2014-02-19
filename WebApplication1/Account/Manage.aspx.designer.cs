@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebStore.Account
-{
-
-
-    public partial class Manage
-    {
-
+namespace WebStore.Account {
+    
+    
+    public partial class Manage {
+        
         /// <summary>
         /// successMessage control.
         /// </summary>
@@ -22,7 +20,7 @@ namespace WebStore.Account
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder successMessage;
-
+        
         /// <summary>
         /// setPassword control.
         /// </summary>
@@ -31,7 +29,7 @@ namespace WebStore.Account
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder setPassword;
-
+        
         /// <summary>
         /// password control.
         /// </summary>
@@ -40,8 +38,7 @@ namespace WebStore.Account
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox password;
-
-
+        
         /// <summary>
         /// newPasswordMessage control.
         /// </summary>
@@ -50,8 +47,7 @@ namespace WebStore.Account
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label newPasswordMessage;
-
-
+        
         /// <summary>
         /// confirmPassword control.
         /// </summary>
@@ -60,7 +56,7 @@ namespace WebStore.Account
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox confirmPassword;
-
+        
         /// <summary>
         /// changePassword control.
         /// </summary>
@@ -69,8 +65,43 @@ namespace WebStore.Account
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder changePassword;
-
-
+        
+        /// <summary>
+        /// ShownNameLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ShownNameLabel;
+        
+        /// <summary>
+        /// ShownNameTextBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ShownNameTextBox;
+        
+        /// <summary>
+        /// PasswordStrengthValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator PasswordStrengthValidator;
+        
+        /// <summary>
+        /// Button1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button1;
+        
         /// <summary>
         /// externalLoginsList control.
         /// </summary>
@@ -79,6 +110,5 @@ namespace WebStore.Account
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListView externalLoginsList;
-
     }
 }

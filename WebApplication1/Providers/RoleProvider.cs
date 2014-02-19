@@ -11,7 +11,7 @@ namespace WebStore.Providers
 
     public class CustomRoleProvider : System.Web.Security.RoleProvider
     {
-        private readonly WebStoreEntities _dbContext = DbWorkerVasya.Instance;
+        private readonly WebStoreEntities _dbContext = DbContext.Instance;
 
         public override bool IsUserInRole(string username, string roleName)
         {

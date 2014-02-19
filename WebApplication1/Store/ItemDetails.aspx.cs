@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 using WebStore.App_Data.Model;
 using WebStore.Controls;
 using WebStore.Vasya;
@@ -18,19 +19,32 @@ namespace WebStore.Store
             var itemID = 0;
             var itemIDString = Request.QueryString["id"];
             Int32.TryParse(itemIDString, out itemID);
-            _currentItem = DbWorkerVasya.Instance.Items.FirstOrDefault(item => item.ID == itemID);
+            _currentItem = DbContext.Instance.Items.FirstOrDefault(item => item.ID == itemID);
+
             if (_currentItem == null)
             {
                 AddToCartButton.Visible = false;
                 ItemCount.Visible = false;
             }
+            else if (_currentItem.Quantity <= 0)
+            {
+                AddToCartButton.Visible = false;
+            }
         }
 
         protected void AddToCartButton_OnClick(object sender, EventArgs e)
         {
+            ItemAddedPanel.Visible = false;
+            if (!IsItemCountValid())
+            {
+                ErrorPanel.Visible = true;
+                return;
+            }
+
             var cart = (Dictionary<int, int>)Session["Cart"] ?? new Dictionary<int, int>();
             int count = 1;
-            Int32.TryParse(ItemCount.Text, out count);
+            int.TryParse(ItemCount.Text, out count);
+
             if (cart.ContainsKey(_currentItem.ID))
             {
                 cart[_currentItem.ID] += count;
@@ -39,8 +53,10 @@ namespace WebStore.Store
             {
                 cart.Add(_currentItem.ID, count);
             }
+
             Session["Cart"] = cart;
-            LabelAdd.Visible = true;
+
+            ItemAddedPanel.Visible = true;
             var cartTile = (CartTile) Master.FindControl("CartTile");
             if (cartTile != null) cartTile.UpdateShownItemCount();
         }
@@ -65,7 +81,19 @@ namespace WebStore.Store
         
         protected string GetItemInStore()
         {
-            return _currentItem == null ? "No such item" : _currentItem.Quantity.ToString("G");
+            if (_currentItem == null)
+                return "No such item";
+            return _currentItem.Quantity <= 0 ? "No" : "Yes";
+        }
+
+        protected bool IsItemCountValid()
+        {
+            var cart = (Dictionary<int, int>) Session["Cart"];
+            var cartItemQuantity = cart == null ? 0 : cart[_currentItem.ID];
+            int itemCount = 1;
+            int.TryParse(ItemCount.Text, out itemCount);
+
+            return itemCount + cartItemQuantity <= _currentItem.Quantity;
         }
     }
 }

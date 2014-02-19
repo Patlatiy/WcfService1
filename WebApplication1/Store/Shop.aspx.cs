@@ -18,7 +18,7 @@ namespace WebStore.Store
 
         public IQueryable<Item> GetItems([QueryString("id")] int? categoryId)
         {
-            IQueryable<Item> query = DbWorkerVasya.Instance.Items;
+            IQueryable<Item> query = DbContext.Instance.Items;
             if (categoryId.HasValue && categoryId > 0)
             {
                 query = query.Where(p => p.CategoryID == categoryId);
@@ -28,7 +28,7 @@ namespace WebStore.Store
 
         public IQueryable<ItemCategory> GetCategories()
         {
-            IQueryable<ItemCategory> query = DbWorkerVasya.Instance.ItemCategories;
+            IQueryable<ItemCategory> query = DbContext.Instance.ItemCategories;
             return query;
         }
     }

@@ -10,7 +10,7 @@ namespace WebStore.Providers
 {
     public class CustomMembershipProvider : MembershipProvider
     {
-        private readonly WebStoreEntities _dbContext = DbWorkerVasya.Instance;
+        private readonly WebStoreEntities _dbContext = DbContext.Instance;
 
         public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer,
             bool isApproved, object providerUserKey, out MembershipCreateStatus status)
@@ -24,21 +24,16 @@ namespace WebStore.Providers
                 Password = password,
                 Login = username,
                 Name = string.Empty,
-                RoleID = (byte) UserRoles.Admin
+                RoleID = (byte)UserRoles.Admin
             };
 
-            var webStoreContext = DbWorkerVasya.Instance;
+            var webStoreContext = DbContext.Instance;
+
             webStoreContext.Users.Add(newUser);
-            try
-            {
-                webStoreContext.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.InnerException.InnerException.Message);
-            }
+            webStoreContext.SaveChanges();
 
             status = MembershipCreateStatus.Success;
+
             return new MembershipUser(
                 providerName: "CustomMembershipProvider",
                 name: newUser.Name,
@@ -95,7 +90,7 @@ namespace WebStore.Providers
 
         public override bool ValidateUser(string username, string password)
         {
-            var user = DbWorkerVasya.Instance.Users.First(usr => usr.Login == username && usr.Password == password);
+            var user = DbContext.Instance.Users.First(usr => usr.Login == username && usr.Password == password);
             return user != null;
         }
 
@@ -120,18 +115,18 @@ namespace WebStore.Providers
 
         public override MembershipUser GetUser(string username, bool userIsOnline)
         {
-            var user = DbWorkerVasya.Instance.Users.First(usr => usr.Login == username);
+            var user = DbContext.Instance.Users.First(usr => usr.Login == username);
             return new MembershipUser(
-                providerName: "CustomMembershipProvider", 
-                name: user.Login, 
-                providerUserKey: user.Login, 
-                email: user.Email, 
-                passwordQuestion: string.Empty, 
-                comment: user.Name, 
-                isApproved: true, 
-                isLockedOut: user.IsBlocked, 
-                creationDate: user.RegistrationDateTime, 
-                lastLoginDate: user.LastActiveDateTime == null ? DateTime.MinValue : (DateTime)user.LastActiveDateTime, 
+                providerName: "CustomMembershipProvider",
+                name: user.Login,
+                providerUserKey: user.Login,
+                email: user.Email,
+                passwordQuestion: string.Empty,
+                comment: user.Name,
+                isApproved: true,
+                isLockedOut: user.IsBlocked,
+                creationDate: user.RegistrationDateTime,
+                lastLoginDate: user.LastActiveDateTime == null ? DateTime.MinValue : (DateTime)user.LastActiveDateTime,
                 lastActivityDate: user.LastActiveDateTime == null ? DateTime.MinValue : (DateTime)user.LastActiveDateTime,
                 lastPasswordChangedDate: DateTime.MinValue,
                 lastLockoutDate: DateTime.MinValue);

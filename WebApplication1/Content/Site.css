@@ -19,7 +19,7 @@ a {
     outline: none;
     padding-left: 3px;
     padding-right: 3px;
-    text-decoration: underline;
+    border: none;
 }
 
     a:link, a:visited,
@@ -27,9 +27,7 @@ a {
         color: #333;
     }
 
-    a:hover {
-        background-color: #c7d1d6;
-    }
+    
 
 header, footer, hgroup,
 nav, section {
@@ -103,7 +101,7 @@ h5, h6 {
 }
 
 .field-item-added {
-    color: #e80c4d;
+    background-color: #33e80c;
     font-weight: bold;
     text-align: center;
 }
@@ -222,10 +220,10 @@ ul#menu {
 }
 
     .featured .content-wrapper {
-        background-color: #7ac0da;
+        background-color: #ff7110;
         background-image: -ms-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
         background-image: -o-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
-        background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #7ac0da), color-stop(1, #a4d4e6));
+        background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #ffa100), color-stop(1, #ffa100));
         background-image: -webkit-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
         background-image: linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
         color: #3e5667;
@@ -233,7 +231,7 @@ ul#menu {
     }
 
         .featured hgroup.title h1, .featured hgroup.title h2 {
-            color: #fff;
+            color: #000;
         }
 
         .featured p {

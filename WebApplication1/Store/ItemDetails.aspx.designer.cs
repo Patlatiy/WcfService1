@@ -22,6 +22,15 @@ namespace WebStore.Store {
         protected global::System.Web.UI.WebControls.TextBox ItemCount;
         
         /// <summary>
+        /// ItemUpdatePanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel ItemUpdatePanel;
+        
+        /// <summary>
         /// AddToCartButton control.
         /// </summary>
         /// <remarks>
@@ -31,6 +40,15 @@ namespace WebStore.Store {
         protected global::System.Web.UI.WebControls.Button AddToCartButton;
         
         /// <summary>
+        /// ItemAddedPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel ItemAddedPanel;
+        
+        /// <summary>
         /// LabelAdd control.
         /// </summary>
         /// <remarks>
@@ -38,5 +56,32 @@ namespace WebStore.Store {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelAdd;
+        
+        /// <summary>
+        /// LabelStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelStore;
+        
+        /// <summary>
+        /// ErrorPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel ErrorPanel;
+        
+        /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
     }
 }
