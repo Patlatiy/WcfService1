@@ -30,6 +30,19 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
+    <IncludeIisSettings>true</IncludeIisSettings>
+    <PublishDatabaseSettings>
+      <Objects>
+        <ObjectGroup Name="WebStoreEntities-Deployment" Order="1">
+          <Destination Path="Data Source=localhost%3bInitial Catalog=WebStore%3bPersist Security Info=True%3bUser ID=wsuser%3bPassword=zUzU35142" />
+          <Object Type="DbFullSql">
+            <PreSource Path="Data Source=localhost%3bInitial Catalog=WebStore%3bIntegrated Security=True%3bApplication Name=EntityFramework" ScriptSchema="True" ScriptData="True" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Debug\AutoScripts\WebStoreEntities-Deployment_SchemaAndData.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+      </Objects>
+    </PublishDatabaseSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -114,9 +127,49 @@
     <Content Include="Account\OpenAuthProviders.ascx" />
     <Content Include="Account\Register.aspx" />
     <Content Include="Account\RegisterExternalLogin.aspx" />
+    <Content Include="Administration\UserAdmin.aspx" />
     <Content Include="Error\404.aspx" />
     <Content Include="Error\Error.aspx" />
     <Content Include="Images\akvelon_logo.png" />
+    <Content Include="Images\Items\boatbig.png" />
+    <Content Include="Images\Items\boatpaper.png" />
+    <Content Include="Images\Items\boatsail.png" />
+    <Content Include="Images\Items\busdouble.png" />
+    <Content Include="Images\Items\busgreen.png" />
+    <Content Include="Images\Items\busred.png" />
+    <Content Include="Images\Items\carconvert.png" />
+    <Content Include="Images\Items\carearly.png" />
+    <Content Include="Images\Items\carfast.png" />
+    <Content Include="Images\Items\carfaster.png" />
+    <Content Include="Images\Items\carracer.png" />
+    <Content Include="Images\Items\noimage.png" />
+    <Content Include="Images\Items\planeace.png" />
+    <Content Include="Images\Items\planeglider.png" />
+    <Content Include="Images\Items\planepaper.png" />
+    <Content Include="Images\Items\planeprop.png" />
+    <Content Include="Images\Items\rocket.png" />
+    <Content Include="Images\Items\Thumbs\boatbig.png" />
+    <Content Include="Images\Items\Thumbs\boatpaper.png" />
+    <Content Include="Images\Items\Thumbs\boatsail.png" />
+    <Content Include="Images\Items\Thumbs\busdouble.png" />
+    <Content Include="Images\Items\Thumbs\busgreen.png" />
+    <Content Include="Images\Items\Thumbs\busred.png" />
+    <Content Include="Images\Items\Thumbs\carconvert.png" />
+    <Content Include="Images\Items\Thumbs\carearly.png" />
+    <Content Include="Images\Items\Thumbs\carfast.png" />
+    <Content Include="Images\Items\Thumbs\carfaster.png" />
+    <Content Include="Images\Items\Thumbs\carracer.png" />
+    <Content Include="Images\Items\Thumbs\planeace.png" />
+    <Content Include="Images\Items\Thumbs\planeglider.png" />
+    <Content Include="Images\Items\Thumbs\planepaper.png" />
+    <Content Include="Images\Items\Thumbs\planeprop.png" />
+    <Content Include="Images\Items\Thumbs\rocket.png" />
+    <Content Include="Images\Items\Thumbs\truckbig.png" />
+    <Content Include="Images\Items\Thumbs\truckearly.png" />
+    <Content Include="Images\Items\Thumbs\truckfire.png" />
+    <Content Include="Images\Items\truckbig.png" />
+    <Content Include="Images\Items\truckearly.png" />
+    <Content Include="Images\Items\truckfire.png" />
     <Content Include="Store\Cart.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\Site.css" />
@@ -219,6 +272,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Database.cs</LastGenOutput>
     </Content>
+    <None Include="Properties\PublishProfiles\WebStore.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -241,6 +295,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Administration\UserAdmin.aspx.cs">
+      <DependentUpon>UserAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Administration\UserAdmin.aspx.designer.cs">
+      <DependentUpon>UserAdmin.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
@@ -428,7 +489,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Images\Items\Thumbs\" />
     <Folder Include="Images\PaymentMethods\" />
   </ItemGroup>
   <ItemGroup>
@@ -451,13 +511,12 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>49580</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:51740/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl>http://localhost</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

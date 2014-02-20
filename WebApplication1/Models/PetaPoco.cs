@@ -1,4 +1,4 @@
-/* PetaPoco - A Tiny ORMish thing for your POCO's.
+﻿/* PetaPoco - A Tiny ORMish thing for your POCO's.
  * Copyright © 2011-2012 Topten Software.  All Rights Reserved.
  * 
  * Apache License 2.0 - http://www.toptensoftware.com/petapoco/license
@@ -2715,7 +2715,7 @@ namespace PetaPoco
 		}
 
 		/// <summary>
-		/// User property to hold anything.
+		/// UserAdmin property to hold anything.
 		/// </summary>
 		public object Context 
 		{ 
@@ -4097,7 +4097,7 @@ namespace PetaPoco
 		{
 			public override string GetParameterPrefix(string ConnectionString)
 			{
-				if (ConnectionString != null && ConnectionString.IndexOf("Allow User Variables=true") >= 0)
+				if (ConnectionString != null && ConnectionString.IndexOf("Allow UserAdmin Variables=true") >= 0)
 					return "?";
 				else
 					return "@";

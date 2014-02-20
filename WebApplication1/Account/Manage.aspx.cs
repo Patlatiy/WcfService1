@@ -30,11 +30,11 @@ namespace WebStore.Account
             if (!IsPostBack)
             {
                 // Determine the sections to render
-                var hasLocalPassword = OpenAuth.HasLocalPassword(User.Identity.Name);
-                setPassword.Visible = !hasLocalPassword;
-                changePassword.Visible = hasLocalPassword;
+                //var hasLocalPassword = OpenAuth.HasLocalPassword(UserAdmin.Identity.Name);
+                //setPassword.Visible = !hasLocalPassword;
+                changePassword.Visible = true;
 
-                CanRemoveExternalLogins = hasLocalPassword;
+                //CanRemoveExternalLogins = hasLocalPassword;
 
                 // Render success message
                 var message = Request.QueryString["m"];

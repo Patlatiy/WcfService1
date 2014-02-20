@@ -83,7 +83,7 @@ namespace WebStore.Account
                 return;
             }
 
-            // User has logged in with provider successfully
+            // UserAdmin has logged in with provider successfully
             // Check if user is already registered locally
             if (OpenAuth.Login(authResult.Provider, authResult.ProviderUserId, createPersistentCookie: false))
             {
@@ -100,13 +100,13 @@ namespace WebStore.Account
 
             if (User.Identity.IsAuthenticated)
             {
-                // User is already authenticated, add the external login and redirect to return url
+                // UserAdmin is already authenticated, add the external login and redirect to return url
                 OpenAuth.AddAccountToExistingUser(ProviderName, ProviderUserId, ProviderUserName, User.Identity.Name);
                 RedirectToReturnUrl();
             }
             else
             {
-                // User is new, ask for their desired membership name
+                // UserAdmin is new, ask for their desired membership name
                 userName.Text = authResult.UserName;
             }
         }
@@ -127,7 +127,7 @@ namespace WebStore.Account
             }
             else
             {
-                // User created & associated OK
+                // UserAdmin created & associated OK
                 if (OpenAuth.Login(ProviderName, ProviderUserId, createPersistentCookie: false))
                 {
                     RedirectToReturnUrl();

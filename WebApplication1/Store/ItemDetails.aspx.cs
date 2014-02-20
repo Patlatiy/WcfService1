@@ -89,7 +89,7 @@ namespace WebStore.Store
         protected bool IsItemCountValid()
         {
             var cart = (Dictionary<int, int>) Session["Cart"];
-            var cartItemQuantity = cart == null ? 0 : cart[_currentItem.ID];
+            var cartItemQuantity = cart == null ? 0 : cart.ContainsKey(_currentItem.ID) ? cart[_currentItem.ID] : 0;
             int itemCount = 1;
             int.TryParse(ItemCount.Text, out itemCount);
 

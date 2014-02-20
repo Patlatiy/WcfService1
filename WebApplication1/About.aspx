@@ -13,7 +13,12 @@
             Thanks for visiting!
         </p>
         <p>
-            <asp:Button runat="server" OnClick="TestMethod" Text="Сломать всё" BackColor="orange"/>
+            Your current role is <b><%: UserRole() %></b>
+            <br/>
+            <asp:Button ID="Button2" runat="server" Text="Make me user!" OnClick="MakeMeUser" BackColor="orange"/>
+            <asp:Button runat="server" Text="Make me admin!" OnClick="MakeMeAdmin" BackColor="orange"/>
+            <br/>
+            <asp:Button ID="Button1" runat="server" OnClick="TestMethod" Text="Break the whole damned thing" BackColor="red" ForeColor="yellow"/>
         </p>
     </article>
 

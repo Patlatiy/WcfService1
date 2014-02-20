@@ -19,16 +19,16 @@
             </p>
             <ol>
                 <li class="email">
-                    <asp:Label runat="server" AssociatedControlID="userName">User name</asp:Label>
+                    <asp:Label runat="server" AssociatedControlID="userName">UserAdmin name</asp:Label>
                     <asp:TextBox runat="server" ID="userName" />
                     <asp:RequiredFieldValidator runat="server" ControlToValidate="userName"
-                        Display="Dynamic" ErrorMessage="User name is required" ValidationGroup="NewUser" />
+                        Display="Dynamic" ErrorMessage="UserAdmin name is required" ValidationGroup="NewUserAdmin" />
                     
                     <asp:Label runat="server" ID="userNameMessage" CssClass="field-validation-error" />
                     
                 </li>
             </ol>
-            <asp:Button runat="server" Text="Log in" ValidationGroup="NewUser" OnClick="logIn_Click" />
+            <asp:Button runat="server" Text="Log in" ValidationGroup="NewUserAdmin" OnClick="logIn_Click" />
             <asp:Button runat="server" Text="Cancel" CausesValidation="false" OnClick="cancel_Click" />
         </fieldset>
     </asp:PlaceHolder>

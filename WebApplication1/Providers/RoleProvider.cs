@@ -7,7 +7,7 @@ using WebStore.Vasya;
 
 namespace WebStore.Providers
 {
-    public enum UserRoles { Admin = 2, Salesperson = 4, SimpleUser = 5 }
+    public enum UserRoles { Admin = 2, Salesperson = 4, User = 5 }
 
     public class CustomRoleProvider : System.Web.Security.RoleProvider
     {
@@ -49,8 +49,8 @@ namespace WebStore.Providers
             foreach (var username in usernames)
             {
                 var user = _dbContext.Users.First(usr => usr.Login == username);
-                user.UserRole = _dbContext.UserRoles.First(usrRole => usrRole.ID == (byte)UserRoles.SimpleUser);
-                user.RoleID = (byte) UserRoles.SimpleUser;
+                user.UserRole = _dbContext.UserRoles.First(usrRole => usrRole.ID == (byte)UserRoles.User);
+                user.RoleID = (byte) UserRoles.User;
                 _dbContext.SaveChanges();
             }
         }

@@ -115,12 +115,12 @@
     <section id="externalLoginsForm" style="display: none">
         
         <asp:ListView runat="server" ID="externalLoginsList" ViewStateMode="Disabled"
-            DataKeyNames="ProviderName,ProviderUserId" OnItemDeleting="externalLoginsList_ItemDeleting">
+            DataKeyNames="ProviderName,ProviderUserAdminId" OnItemDeleting="externalLoginsList_ItemDeleting">
         
             <LayoutTemplate>
                 <h3>Registered external logins</h3>
                 <table>
-                    <thead><tr><th>Service</th><th>User Name</th><th>Last Used</th><th>&nbsp;</th></tr></thead>
+                    <thead><tr><th>Service</th><th>UserAdmin Name</th><th>Last Used</th><th>&nbsp;</th></tr></thead>
                     <tbody>
                         <tr runat="server" id="itemPlaceholder"></tr>
                     </tbody>

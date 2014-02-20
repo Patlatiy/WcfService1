@@ -24,7 +24,7 @@ namespace WebStore.Providers
                 Password = password,
                 Login = username,
                 Name = string.Empty,
-                RoleID = (byte)UserRoles.Admin
+                RoleID = (byte)UserRoles.User
             };
 
             var webStoreContext = DbContext.Instance;

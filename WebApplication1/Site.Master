@@ -27,7 +27,7 @@
         <div class="content-wrapper">
             <div class="float-left">
                 <p class="site-title"><a runat="server" href="~/">WebStore</a></p>
-                <a href="/"><img src="/Images/akvelon_logo.png" width="300px" alt="Akvelon company logo" /></a>
+                <a href="/"><img src="/Images/akvelon_logo.png" width="300" alt="Akvelon company logo" /></a>
             </div>
             <div class="float-right">
                 <section id="login">
@@ -57,7 +57,7 @@
                         <li><a runat="server" href="~/News/News.aspx">News</a></li>
                         <li><a runat="server" href="~/Store/Shop.aspx">Store</a></li>
                         <li><a runat="server" href="~/About.aspx">About</a></li>
-                        <li style="display:none"><a runat="server" href="~/Contact">Contact</a></li>
+                        <li style="display: <%: AdminPanelDisplay() %>"><a runat="server" href="~/Administration/UserAdmin.aspx">Admin page</a></li>
                     </ul>
                 </nav>
             </div>

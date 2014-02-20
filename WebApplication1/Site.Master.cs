@@ -6,6 +6,7 @@ using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebStore.App_Data.Model;
+using WebStore.Managers;
 using WebStore.Vasya;
 
 namespace WebStore
@@ -91,6 +92,12 @@ namespace WebStore
         protected void Unnamed1_LoggedOut(object sender, EventArgs e)
         {
             Session.Abandon();
+        }
+
+        protected string AdminPanelDisplay()
+        {
+            if (!Page.User.Identity.IsAuthenticated) return "none";
+            return Page.User.IsInRole("Admin") ? string.Empty : "none";
         }
     }
 }

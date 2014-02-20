@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Security;
 using System.Web.UI;
+using WebStore.Managers;
 using WebStore.Providers;
 
 namespace WebStore
@@ -27,6 +28,21 @@ namespace WebStore
         protected void TestMethod(object sender, EventArgs e)
         {
             throw new Exception("You've broken all!");
+        }
+
+        protected void MakeMeAdmin(object sender, EventArgs e)
+        {
+            UserManager.GrantRole(User.Identity.Name, "Admin");
+        }
+
+        protected void MakeMeUser(object sender, EventArgs e)
+        {
+            UserManager.GrantRole(User.Identity.Name, "User");
+        }
+
+        protected string UserRole()
+        {
+            return UserManager.GetUserRole(User.Identity.Name);
         }
     }
 }

@@ -67,6 +67,15 @@ namespace WebStore.Account {
         protected global::System.Web.UI.WebControls.PlaceHolder changePassword;
         
         /// <summary>
+        /// ChangeShownNamePH control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder ChangeShownNamePH;
+        
+        /// <summary>
         /// ShownNameLabel control.
         /// </summary>
         /// <remarks>
@@ -92,6 +101,15 @@ namespace WebStore.Account {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CustomValidator PasswordStrengthValidator;
+        
+        /// <summary>
+        /// RequiredFieldValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
         
         /// <summary>
         /// Button1 control.
