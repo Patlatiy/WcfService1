@@ -1,5 +1,4 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="WebStore.SiteMaster" %>
-<%@ Import Namespace="WebStore.App_Data.Model" %>
 <% @Register tagPrefix="ws" tagName="Cart" src="~/Controls/CartTile.ascx" %>
 
 <!DOCTYPE html>
@@ -50,7 +49,7 @@
                     </asp:LoginView>
                 </section>
                 <section id="cartSection">
-                    <ws:Cart ID="CartTile" runat="server"></ws:Cart>
+                    <ws:Cart ID="CartTile" runat="server" />
                 </section>
                 <nav>
                     <ul id="menu">

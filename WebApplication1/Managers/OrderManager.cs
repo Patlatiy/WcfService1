@@ -15,7 +15,7 @@ namespace WebStore.Managers
             if (user == null) 
                 return null;
 
-            var order = new Order();
+            var order = DbContext.Instance.Orders.Create();
             var orderPositions = (from orderPos in cart 
                                   let item = ItemManager.GetItem(orderPos.Key)
                                   select new OrderPosition
@@ -53,6 +53,32 @@ namespace WebStore.Managers
                 }
             }
             return order == null ? string.Empty : order.DeliveryAddress;
+        }
+
+        public static List<OrderPosition> GetPositions(int orderID)
+        {
+            return DbContext.Instance.OrderPositions.Where(op => op.OrderID == orderID).ToList();
+        }
+
+        public static IQueryable<Order> GetOrders()
+        {
+            return DbContext.Instance.Orders;
+        }
+
+        public static IQueryable<OrderState> GetStates()
+        {
+            return DbContext.Instance.OrderStates;
+        }
+
+        public static decimal GetTotal(int orderID)
+        {
+            var order = DbContext.Instance.Orders.First(ordr => ordr.ID == orderID);
+            return order.OrderPositions.Sum(position => position.Item.Price * position.ItemQuantity);
+        }
+
+        public static int GetStateIDForOrderID(int orderID)
+        {
+            return DbContext.Instance.Orders.First(order => order.ID == orderID).StateID;
         }
     }
 }

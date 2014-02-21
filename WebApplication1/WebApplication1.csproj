@@ -127,7 +127,9 @@
     <Content Include="Account\OpenAuthProviders.ascx" />
     <Content Include="Account\Register.aspx" />
     <Content Include="Account\RegisterExternalLogin.aspx" />
+    <Content Include="Administration\OrderAdmin.aspx" />
     <Content Include="Administration\UserAdmin.aspx" />
+    <Content Include="Controls\AdminNavigation.ascx" />
     <Content Include="Error\404.aspx" />
     <Content Include="Error\Error.aspx" />
     <Content Include="Images\akvelon_logo.png" />
@@ -295,6 +297,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Administration\OrderAdmin.aspx.cs">
+      <DependentUpon>OrderAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Administration\OrderAdmin.aspx.designer.cs">
+      <DependentUpon>OrderAdmin.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Administration\UserAdmin.aspx.cs">
       <DependentUpon>UserAdmin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

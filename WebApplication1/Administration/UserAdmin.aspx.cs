@@ -37,7 +37,32 @@ namespace WebStore.Administration
         protected void Index_Changed(Object sender, EventArgs e)
         {
             var dropList = (DropDownList) sender;
-            UserManager.GrantRole(Page.User.Identity.Name, dropList.SelectedItem.Text);
+            //UserManager.GrantRole(, dropList.SelectedItem.Text);
+        }
+
+        protected void BlockUser_Clicked(Object sender, EventArgs e)
+        {
+            var senderBtn = (Button) sender;
+            bool userBlockedState;
+            bool.TryParse(senderBtn.CommandName, out userBlockedState);
+            UserManager.SetUserBlock(senderBtn.CommandArgument, !userBlockedState);
+            senderBtn.Text = userBlockedState ? "Block" : "Unblock";
+            senderBtn.CommandName = (!userBlockedState).ToString();
+        }
+
+        protected void CorrectButtonName(Object sender, EventArgs e)
+        {
+            if (IsPostBack) return;
+            var senderBtn = (Button)sender;
+            switch (senderBtn.Text)
+            {
+                case "True":
+                    senderBtn.Text = "Unblock";
+                    break;
+                case "False":
+                    senderBtn.Text = "Block";
+                    break;
+            }
         }
     }
 }

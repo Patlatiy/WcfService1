@@ -1,9 +1,12 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="UserAdmin.aspx.cs" Inherits="WebStore.Administration.UserAdmin" %>
+﻿<%@ Page Title="User Management" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="UserAdmin.aspx.cs" Inherits="WebStore.Administration.UserAdmin" %>
+<% @Register tagPrefix="ws" tagName="Nav" src="~/Controls/AdminNavigation.ascx" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="FeaturedContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
+    <ws:Nav runat="server" />
     <asp:Panel runat="server" ID="AdminPanel" Visible="False">
         <asp:ListView runat="server"
             ID="UserList"
@@ -11,13 +14,16 @@
             ItemType="WebStore.App_Data.Model.User"
             SelectMethod="GetUsers">
             <LayoutTemplate>
-                <table>
+                <table class="bottomBorder">
                     <tr>
                         <td>
                             <b>Name</b>
                         </td>
                         <td>
                             <b>Role</b>
+                        </td>
+                        <td>
+                            
                         </td>
                     </tr>
                     <asp:PlaceHolder runat="server" ID="ItemPlaceholder" />
@@ -39,7 +45,9 @@
                             OnSelectedIndexChanged="Index_Changed"
                             AutoPostBack="True"/>
                     </td>
-                    
+                    <td>
+                        <asp:Button runat="server" OnPreRender="CorrectButtonName" OnClick="BlockUser_Clicked" CommandName="<%# Item.IsBlocked.ToString() %>" CommandArgument="<%# Item.Login %>" Text="<%# Item.IsBlocked.ToString() %>" Font-Size="7"/>
+                    </td>
                 </tr>
             </ItemTemplate>
         </asp:ListView>

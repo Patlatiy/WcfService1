@@ -95,6 +95,17 @@ h5, h6 {
 
 /* main layout
 ----------------------------------------------------------*/
+
+
+table.bottomBorder {
+     border-collapse:collapse;
+}
+table.bottomBorder td, table.bottomBorder th {
+     border-bottom:1px dotted black;
+     padding:5px;
+}
+
+
 .content-wrapper {
     margin: 0 auto;
     max-width: 960px;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
+using DotNetOpenAuth.OpenId.Extensions.SimpleRegistration;
 using WebStore.App_Data.Model;
 using WebStore.Vasya;
 using WebStore.Providers;
@@ -82,6 +83,15 @@ namespace WebStore.Managers
         public static IQueryable<UserRole> GetAllRoles()
         {
             return DbContext.Instance.UserRoles;
+        }
+
+        public static bool SetUserBlock(string login, bool blocked)
+        {
+            var user = DbContext.Instance.Users.First(usr => usr.Login == login);
+            if (user == null) return false;
+            user.IsBlocked = blocked;
+            DbContext.Instance.SaveChanges();
+            return true;
         }
     }
 }
