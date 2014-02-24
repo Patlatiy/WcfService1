@@ -115,6 +115,11 @@ namespace WebStore.Cart
                 {
                     Session["Address"] = addressTextBox.Text;
                 }
+                var commentTextBox = ((TextBox) CartList.FindControl("CommentTextBox"));
+                if (commentTextBox != null)
+                {
+                    Session["Comment"] = commentTextBox.Text;
+                }
                 Response.Redirect("Complete.aspx");
             }
         }

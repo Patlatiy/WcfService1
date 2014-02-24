@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebStore.App_Data.Model;
+using WebStore.Controls;
 using WebStore.Managers;
 
 namespace WebStore.Administration
@@ -13,7 +14,7 @@ namespace WebStore.Administration
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack && User.IsInRole("Admin"))
+            if (!IsPostBack && User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Salesman")))
             {
                 AdminPanel.Visible = true;
             }
@@ -49,8 +50,21 @@ namespace WebStore.Administration
 
         protected void Index_Changed(object sender, EventArgs e)
         {
-            var dropList = (DropDownList)sender;
-            
+            var dropList = (ListWithValue)sender;
+            int orderID;
+            int.TryParse(dropList.Value, out orderID);
+            byte stateID;
+            byte.TryParse(dropList.SelectedValue, out stateID);
+
+            OrderManager.SetState(orderID, stateID);
+            OrderList.DataBind();
+            //OrderAdminUpdatePanel.Update();
+        }
+
+        protected void Comment_Changed(object sender, EventArgs e)
+        {
+            var commentTextBox = (TextBox) sender;
+            int orderID;
         }
     }
 }

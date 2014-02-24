@@ -32,16 +32,25 @@
                                     CssClass="field-validation-error" ErrorMessage="This field is required." />
                             </li>
                             <li>
-                                <asp:Label runat="server" AssociatedControlID="UserName">UserAdmin login</asp:Label>
+                                <asp:Label runat="server" AssociatedControlID="UserName">Login</asp:Label>
                                 <asp:TextBox runat="server" ID="UserName" />
                                 <asp:RequiredFieldValidator runat="server" ControlToValidate="UserName"
-                                    CssClass="field-validation-error" ErrorMessage="This field is required." />
+                                    CssClass="field-validation-error" ErrorMessage="This field is required." Display="Dynamic"/>
+                                <asp:CustomValidator runat="server" ControlToValidate="UserName"
+                                    CssClass="field-validation-error" ErrorMessage="This user already exists."
+                                    OnServerValidate="LoginExistsValidation" Display="Dynamic"/>
                             </li>
                             <li>
                                 <asp:Label runat="server" AssociatedControlID="Email">Email address</asp:Label>
                                 <asp:TextBox runat="server" ID="Email" />
                                 <asp:RequiredFieldValidator runat="server" ControlToValidate="Email"
-                                    CssClass="field-validation-error" ErrorMessage="This field is required." />
+                                    CssClass="field-validation-error" ErrorMessage="This field is required." Display="Dynamic"/>
+                                <asp:CustomValidator runat="server"  ControlToValidate="Email"
+                                    CssClass="field-validation-error" ErrorMessage="The email address is not valid."
+                                    OnServerValidate="EmailValidation" Display="Dynamic"/>
+                                <asp:CustomValidator runat="server" ControlToValidate="Email"
+                                    CssClass="field-validation-error" ErrorMessage="This email address already exists."
+                                    OnServerValidate="EmailExistsValidation" Display="Dynamic"></asp:CustomValidator>
                             </li>
                             <li>
                                 <asp:Label runat="server" AssociatedControlID="Password">Password</asp:Label>

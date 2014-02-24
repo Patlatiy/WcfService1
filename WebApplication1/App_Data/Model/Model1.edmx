@@ -36,6 +36,7 @@
           <Property Name="StateID" Type="tinyint" Nullable="false" />
           <Property Name="PaymentMethodID" Type="tinyint" />
           <Property Name="DeliveryAddress" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="OrderPosition">
           <Key>
@@ -255,6 +256,7 @@
           <NavigationProperty Name="User" Relationship="Self.FK_Order_User" FromRole="Order" ToRole="User" />
           <NavigationProperty Name="OrderPositions" Relationship="Self.FK_OrderPosition_Order" FromRole="Order" ToRole="OrderPosition" />
           <Property Name="DeliveryAddress" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="OrderPosition">
           <Key>
@@ -470,6 +472,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="WebStore.EntityDataModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="DeliveryAddress" ColumnName="DeliveryAddress" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />

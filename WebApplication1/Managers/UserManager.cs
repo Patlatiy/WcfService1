@@ -44,6 +44,11 @@ namespace WebStore.Managers
             return (login == string.Empty) ? null : DbContext.Instance.Users.First(usr => usr.Login == login);
         }
 
+        public static User GetUserByID(int id)
+        {
+            return DbContext.Instance.Users.First(usr => usr.ID == id);
+        }
+
         public static string GetShownName(string login)
         {
             return (login == string.Empty) ? String.Empty : DbContext.Instance.Users.First(usr => usr.Login == login).Name; 
@@ -54,9 +59,9 @@ namespace WebStore.Managers
             return DbContext.Instance.Users;
         }
 
-        public static void GrantRole(string login, string rolename)
+        public static void GrantRole(string login, string roleName)
         {
-            var userRole = DbContext.Instance.UserRoles.First(role => role.Name == rolename);
+            var userRole = DbContext.Instance.UserRoles.First(role => role.Name == roleName);
             var user = DbContext.Instance.Users.First(usr => usr.Login == login);
 
             if (userRole == null || user == null) return;
@@ -87,11 +92,23 @@ namespace WebStore.Managers
 
         public static bool SetUserBlock(string login, bool blocked)
         {
-            var user = DbContext.Instance.Users.First(usr => usr.Login == login);
+            var user = UserManager.GetUserByLogin(login);
             if (user == null) return false;
             user.IsBlocked = blocked;
             DbContext.Instance.SaveChanges();
             return true;
+        }
+
+        public static bool EmailExists(string email)
+        {
+            var user = DbContext.Instance.Users.FirstOrDefault(usr => usr.Email == email);
+            return user != null;
+        }
+
+        public static bool LoginExists(string login)
+        {
+            var user = DbContext.Instance.Users.FirstOrDefault(usr => usr.Login == login);
+            return user != null;
         }
     }
 }

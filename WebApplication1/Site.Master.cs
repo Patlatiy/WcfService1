@@ -97,7 +97,7 @@ namespace WebStore
         protected string AdminPanelDisplay()
         {
             if (!Page.User.Identity.IsAuthenticated) return "none";
-            return Page.User.IsInRole("Admin") ? string.Empty : "none";
+            return Page.User.IsInRole("Admin") || Page.User.IsInRole("Salesperson") ? string.Empty : "none";
         }
     }
 }

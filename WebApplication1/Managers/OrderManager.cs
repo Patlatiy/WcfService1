@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using WebStore.App_Data.Model;
 using WebStore.Vasya;
@@ -8,7 +9,7 @@ namespace WebStore.Managers
 {
     public static class OrderManager
     {
-        public static Order CreateOrder(string userLogin, Dictionary<int, int> cart, PaymentMethod paymentMethod, string deliveryAddress)
+        public static Order CreateOrder(string userLogin, Dictionary<int, int> cart, PaymentMethod paymentMethod, string deliveryAddress, string comment)
         {
             var user = DbContext.Instance.Users.First(usr => usr.Login == userLogin);
 
@@ -35,6 +36,7 @@ namespace WebStore.Managers
             order.PaymentMethod = paymentMethod;
             order.PaymentMethodID = paymentMethod.ID;
             order.DeliveryAddress = deliveryAddress;
+            order.Comment = comment;
 
             DbContext.Instance.Orders.Add(order);
             DbContext.Instance.SaveChanges();
@@ -79,6 +81,36 @@ namespace WebStore.Managers
         public static int GetStateIDForOrderID(int orderID)
         {
             return DbContext.Instance.Orders.First(order => order.ID == orderID).StateID;
+        }
+
+        public static void SetState(int orderID, byte stateID)
+        {
+            var order = GetOrderByID(orderID);
+            var state = GetStateByID(stateID);
+
+            order.OrderState = state;
+            order.StateID = stateID;
+            if (state.Name == "Delivered")
+            {
+                order.DateEnded = DateTime.Now;
+            }
+            else
+            {
+                order.DateEnded = null;
+            }
+                
+
+            DbContext.Instance.SaveChanges();
+        }
+
+        public static Order GetOrderByID(int orderID)
+        {
+            return DbContext.Instance.Orders.First(ordr => ordr.ID == orderID);
+        }
+
+        public static OrderState GetStateByID(byte stateID)
+        {
+            return DbContext.Instance.OrderStates.First(os => os.ID == stateID);
         }
     }
 }

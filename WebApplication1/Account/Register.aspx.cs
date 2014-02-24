@@ -41,5 +41,24 @@ namespace WebStore.Account
             var exp = new Regex(expString);
             args.IsValid = (exp.IsMatch(args.Value));
         }
+
+        protected void EmailValidation(object source, ServerValidateEventArgs args)
+        {
+            const string theEmailPattern = @"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*"
+                                           + "@"
+                                           + @"((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$";
+            var exp = new Regex(theEmailPattern);
+            args.IsValid = (exp.IsMatch(args.Value));
+        }
+
+        protected void EmailExistsValidation(object source, ServerValidateEventArgs args)
+        {
+            args.IsValid = !UserManager.EmailExists(args.Value);
+        }
+
+        protected void LoginExistsValidation(object source, ServerValidateEventArgs args)
+        {
+            args.IsValid = !UserManager.LoginExists(args.Value);
+        }
     }
 }

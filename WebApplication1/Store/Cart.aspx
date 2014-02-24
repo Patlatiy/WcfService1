@@ -40,10 +40,19 @@
                         <p runat="server" id="itemPlaceholder"/>
                         <hr />
                         <fieldset>
-                            Delivery address: <asp:TextBox runat="server" ID="AddressTextBox" />
+                            <br/>
+                            Delivery address: * 
+                            <br/>
+                            <asp:TextBox runat="server" ID="AddressTextBox" />
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="AddressTextBox"
                                 CssClass="field-validation-error" ErrorMessage="Please enter delivery address."
                                 ValidationGroup="Delivery" Display="Dynamic"/>
+                            <br/>
+                            <br/>
+                            Any additional information:
+                            <br/>
+                            <asp:TextBox runat="server" ID="CommentTextBox" TextMode="MultiLine"/>
+                            <br/>
                             <br/>
                             Select payment method to complete purchase:<br/>
                             <asp:ListView runat="server"

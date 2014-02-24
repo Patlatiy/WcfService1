@@ -40,6 +40,11 @@ namespace WebStore
             UserManager.GrantRole(User.Identity.Name, "User");
         }
 
+        protected void MakeMeSalesperson(object sender, EventArgs e)
+        {
+            UserManager.GrantRole(User.Identity.Name, "Salesperson");
+        }
+
         protected string UserRole()
         {
             return UserManager.GetUserRole(User.Identity.Name);

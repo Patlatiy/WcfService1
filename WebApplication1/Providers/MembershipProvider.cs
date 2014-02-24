@@ -15,17 +15,16 @@ namespace WebStore.Providers
         public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer,
             bool isApproved, object providerUserKey, out MembershipCreateStatus status)
         {
-            var newUser = new User
-            {
-                Email = email,
-                IsBlocked = false,
-                LastActiveDateTime = DateTime.Now,
-                RegistrationDateTime = DateTime.Now,
-                Password = password,
-                Login = username,
-                Name = string.Empty,
-                RoleID = (byte)UserRoles.User
-            };
+            var newUser = DbContext.Instance.Users.Create();
+            newUser.Email = email;
+            newUser.IsBlocked = false;
+            newUser.LastActiveDateTime = DateTime.Now;
+            newUser.RegistrationDateTime = DateTime.Now;
+            newUser.Password = password;
+            newUser.Login = username;
+            newUser.Name = string.Empty;
+            newUser.UserRole = DbContext.Instance.UserRoles.First(role => role.Name == "User");
+            newUser.RoleID = newUser.UserRole.ID;
 
             var webStoreContext = DbContext.Instance;
 
@@ -97,13 +96,6 @@ namespace WebStore.Providers
         public override bool UnlockUser(string userName)
         {
             _dbContext.Users.First(usr => usr.Login == userName).IsBlocked = false;
-            _dbContext.SaveChanges();
-            return true;
-        }
-
-        public bool LockUser(string userName)
-        {
-            _dbContext.Users.First(usr => usr.Login == userName).IsBlocked = true;
             _dbContext.SaveChanges();
             return true;
         }

@@ -1,4 +1,6 @@
 ﻿<%@ Page Title="User Management" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="UserAdmin.aspx.cs" Inherits="WebStore.Administration.UserAdmin" %>
+
+<%@ Register Assembly="WebStore" Namespace="WebStore.Controls" TagPrefix="ws" %>
 <% @Register tagPrefix="ws" tagName="Nav" src="~/Controls/AdminNavigation.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
@@ -20,6 +22,9 @@
                             <b>Name</b>
                         </td>
                         <td>
+                            <b>Login</b>
+                        </td>
+                        <td>
                             <b>Role</b>
                         </td>
                         <td>
@@ -36,14 +41,18 @@
                         <%#: Item.Name %>
                     </td>
                     <td>
-                        <asp:DropDownList ID="RoleDropDown" runat="server"
-                            SelectMethod="GetAllRoles"
-                            ItemType="WebStore.App_Data.Model.UserRole"
-                            DataTextField="Name"
-                            DataValueField="ID"
-                            SelectedValue="<%# GetRoleIDForUser(Item.Login) %>"
-                            OnSelectedIndexChanged="Index_Changed"
-                            AutoPostBack="True"/>
+                        <%#: Item.Login %>
+                    </td>
+                    <td>
+                        <ws:ListWithValue ID="RoleDropDown" runat="server"
+                                     SelectMethod="GetAllRoles"
+                                     ItemType="WebStore.App_Data.Model.UserRole"
+                                     DataTextField="Name"
+                                     DataValueField="ID"
+                                     SelectedValue="<%# GetRoleIDForUser(Item.Login) %>"
+                                     OnSelectedIndexChanged="Index_Changed"
+                                     AutoPostBack="True" 
+                                     Value="<%#: Item.Login %>"/>
                     </td>
                     <td>
                         <asp:Button runat="server" OnPreRender="CorrectButtonName" OnClick="BlockUser_Clicked" CommandName="<%# Item.IsBlocked.ToString() %>" CommandArgument="<%# Item.Login %>" Text="<%# Item.IsBlocked.ToString() %>" Font-Size="7"/>
