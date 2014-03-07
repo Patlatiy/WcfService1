@@ -2,7 +2,7 @@
 using System.Data.Objects;
 using WebStore.App_Data.Model;
 
-namespace WebStore.Vasya
+namespace WebStore.DbWorker
 {
     public class DbContext
     {

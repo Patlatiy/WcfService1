@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using WebStore.App_Data.Model;
-using WebStore.Managers;
-using WebStore.Vasya;
+using WebStore.DbWorker;
 
 namespace WebStore
 {
@@ -96,8 +93,20 @@ namespace WebStore
 
         protected string AdminPanelDisplay()
         {
-            if (!Page.User.Identity.IsAuthenticated) return "none";
+            if (!Page.User.Identity.IsAuthenticated) 
+                return "none";
             return Page.User.IsInRole("Admin") || Page.User.IsInRole("Salesperson") ? string.Empty : "none";
+        }
+
+        protected string AdminPanelTitle()
+        {
+            if (!Page.User.Identity.IsAuthenticated) 
+                return string.Empty;
+            if (Page.User.IsInRole("Admin"))
+                return "Admin page";
+            if (Page.User.IsInRole("Salesperson"))
+                return "Manage orders";
+            return string.Empty;
         }
     }
 }

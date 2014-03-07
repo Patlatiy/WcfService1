@@ -127,6 +127,7 @@
     <Content Include="Account\OpenAuthProviders.ascx" />
     <Content Include="Account\Register.aspx" />
     <Content Include="Account\RegisterExternalLogin.aspx" />
+    <Content Include="Administration\ItemAdmin.aspx" />
     <Content Include="Administration\OrderAdmin.aspx" />
     <Content Include="Administration\UserAdmin.aspx" />
     <Content Include="Controls\AdminNavigation.ascx" />
@@ -268,12 +269,6 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Generated\PetaPoco.Generator.ttinclude" />
-    <Content Include="Models\Generated\PetaPoco.Core.ttinclude" />
-    <Content Include="Models\Generated\Database.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Database.cs</LastGenOutput>
-    </Content>
     <None Include="Properties\PublishProfiles\WebStore.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
@@ -297,6 +292,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Administration\ItemAdmin.aspx.cs">
+      <DependentUpon>ItemAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Administration\ItemAdmin.aspx.designer.cs">
+      <DependentUpon>ItemAdmin.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Administration\OrderAdmin.aspx.cs">
       <DependentUpon>OrderAdmin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -360,6 +362,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Controls\RoleList.cs" />
+    <Compile Include="Controls\ValueTextBox.cs" />
     <Compile Include="Error\404.aspx.cs">
       <DependentUpon>404.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -433,12 +436,6 @@
     <Compile Include="Managers\OrderManager.cs" />
     <Compile Include="Managers\PaymentMethodManager.cs" />
     <Compile Include="Managers\UserManager.cs" />
-    <Compile Include="Models\Generated\Database.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Database.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PetaPoco.cs" />
     <Compile Include="Providers\MembershipProvider.cs" />
     <Compile Include="Providers\RoleProvider.cs" />
     <Compile Include="Store\Complete.aspx.cs">

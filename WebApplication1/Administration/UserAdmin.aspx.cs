@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebStore.App_Data.Model;
 using WebStore.Controls;
@@ -63,6 +60,10 @@ namespace WebStore.Administration
                 case "False":
                     senderBtn.Text = "Block";
                     break;
+            }
+            if (Page.User.Identity.IsAuthenticated && Page.User.Identity.Name == senderBtn.CommandArgument)
+            {
+                senderBtn.Visible = false;
             }
         }
     }

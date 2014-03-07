@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using WebStore.App_Data.Model;
 using WebStore.Controls;
 using WebStore.Managers;
@@ -58,13 +56,15 @@ namespace WebStore.Administration
 
             OrderManager.SetState(orderID, stateID);
             OrderList.DataBind();
-            //OrderAdminUpdatePanel.Update();
         }
 
         protected void Comment_Changed(object sender, EventArgs e)
         {
-            var commentTextBox = (TextBox) sender;
+            var commentTextBox = (ValueTextBox) sender;
             int orderID;
+            int.TryParse(commentTextBox.Value, out orderID);
+
+            OrderManager.SetComment(orderID, commentTextBox.Text);
         }
     }
 }

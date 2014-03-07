@@ -19,5 +19,10 @@ namespace WebStore.Controls
         {
             return Page.User.IsInRole("Salesperson") || Page.User.IsInRole("Admin") ? string.Empty : "none";
         }
+
+        protected string ItemAdminVisibility()
+        {
+            return Page.User.IsInRole("Salesperson") || Page.User.IsInRole("Admin") ? string.Empty : "none";
+        }
     }
 }

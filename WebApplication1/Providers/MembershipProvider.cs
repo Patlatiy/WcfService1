@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Linq;
-using System.Web.ModelBinding;
 using System.Web.Security;
-using System.Web.UI;
 using WebStore.App_Data.Model;
-using WebStore.Vasya;
+using WebStore.DbWorker;
 
 namespace WebStore.Providers
 {
@@ -89,8 +87,8 @@ namespace WebStore.Providers
 
         public override bool ValidateUser(string username, string password)
         {
-            var user = DbContext.Instance.Users.First(usr => usr.Login == username && usr.Password == password);
-            return user != null;
+            var user = DbContext.Instance.Users.FirstOrDefault(usr => usr.Login == username && usr.Password == password);
+            return user != null && !user.IsBlocked;
         }
 
         public override bool UnlockUser(string userName)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using WebStore.App_Data.Model;
-using WebStore.Vasya;
+using WebStore.DbWorker;
 
 namespace WebStore.Managers
 {
@@ -111,6 +111,14 @@ namespace WebStore.Managers
         public static OrderState GetStateByID(byte stateID)
         {
             return DbContext.Instance.OrderStates.First(os => os.ID == stateID);
+        }
+
+        public static void SetComment(int orderID, string comment)
+        {
+            var order = DbContext.Instance.Orders.FirstOrDefault(ordr => ordr.ID == orderID);
+            if (order == null) return;
+            order.Comment = comment;
+            DbContext.Instance.SaveChanges();
         }
     }
 }

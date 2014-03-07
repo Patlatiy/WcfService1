@@ -16,12 +16,14 @@ namespace WebStore
         protected string GetRoles()
         {
             var roles = Roles.Provider.GetAllRoles();
+
             var result = "<ul>";
             foreach (var role in roles)
             {
                 result += "<li>" + role + "</li>";
             }
             result += "</ul>";
+
             return result;
         }
 

@@ -7,45 +7,36 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebStore.Store {
+namespace WebStore.Administration {
     
     
-    public partial class Cart {
+    public partial class ItemAdmin {
         
         /// <summary>
-        /// UpdPnl control.
+        /// FileList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdPnl;
+        protected global::System.Web.UI.WebControls.DropDownList FileList;
         
         /// <summary>
-        /// LoggedInPanel control.
+        /// AdminPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel LoggedInPanel;
+        protected global::System.Web.UI.WebControls.Panel AdminPanel;
         
         /// <summary>
-        /// CartList control.
+        /// ItemList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListView CartList;
-        
-        /// <summary>
-        /// AnonymousPanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel AnonymousPanel;
+        protected global::System.Web.UI.WebControls.ListView ItemList;
     }
 }

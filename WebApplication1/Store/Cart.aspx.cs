@@ -6,9 +6,8 @@ using System.Web.UI.WebControls;
 using WebStore.App_Data.Model;
 using WebStore.Controls;
 using WebStore.Managers;
-using WebStore.Vasya;
 
-namespace WebStore.Cart
+namespace WebStore.Store
 {
     public partial class Cart : Page
     {

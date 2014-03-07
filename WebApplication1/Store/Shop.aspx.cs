@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
 using WebStore.App_Data.Model;
-using WebStore.Vasya;
+using WebStore.DbWorker;
 using System.Web.UI.WebControls;
 using System.Web.ModelBinding;
 

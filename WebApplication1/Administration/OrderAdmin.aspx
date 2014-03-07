@@ -1,6 +1,5 @@
 ﻿<%@ Page Title="Order Management" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="OrderAdmin.aspx.cs" Inherits="WebStore.Administration.OrderAdmin" %>
 
-<%@ Import Namespace="System.Globalization" %>
 <%@ Register Assembly="WebStore" Namespace="WebStore.Controls" TagPrefix="ws" %>
 
 <%@ Register TagPrefix="ws" TagName="Nav" Src="~/Controls/AdminNavigation.ascx" %>
@@ -75,8 +74,8 @@
                         <%#: Item.DateEnded == null ? string.Empty : Item.DateEnded.Value.ToString("d") %>
                     </td>
                     <td>
-                        <asp:TextBox runat="server" Text="<%#: Item.Comment %>" Width="150"
-                            AutoPostBack="True" OnTextChanged="Comment_Changed" />
+                        <ws:ValueTextBox runat="server" Text="<%#: Item.Comment %>" Width="150"
+                            AutoPostBack="True" OnTextChanged="Comment_Changed" Value="<%#: Item.ID %>"/>
                     </td>
                 </tr>
             </ItemTemplate>

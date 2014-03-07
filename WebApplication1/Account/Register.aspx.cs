@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.Membership.OpenAuth;
-using WebStore.App_Data.Model;
 using WebStore.Managers;
-using WebStore.Vasya;
 
 namespace WebStore.Account
 {

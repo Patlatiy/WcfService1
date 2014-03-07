@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebStore.App_Data.Model;
 using WebStore.Controls;
-using WebStore.Vasya;
+using WebStore.DbWorker;
 
 namespace WebStore.Store
 {

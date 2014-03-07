@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebStore.App_Data.Model;
-using WebStore.Vasya;
+using WebStore.DbWorker;
 
 namespace WebStore.Managers
 {
@@ -10,6 +10,7 @@ namespace WebStore.Managers
         public static string GetTotalItemPriceForAllItems(Dictionary<int, int> cart)
         {
             if (cart == null) return "$0";
+
             decimal total = 0;
             foreach (var itemID in cart.Keys)
             {
@@ -17,9 +18,10 @@ namespace WebStore.Managers
                 if (item == null) continue;
                 if (cart[itemID] > 0)
                 {
-                    total += item.Price*cart[itemID];
+                    total += item.Price * cart[itemID];
                 }
             }
+
             return "$" + total.ToString("G");
         }
 
@@ -38,5 +40,64 @@ namespace WebStore.Managers
         {
             return DbContext.Instance.Items.First(item => item.ID == id);
         }
-}
+
+        public static bool SetName(int itemID, string name)
+        {
+            var item = GetItem(itemID);
+            if (item == null) return false;
+
+            item.Name = name;
+
+            DbContext.Instance.SaveChanges();
+            return true;
+        }
+
+        public static bool SetImage(int itemID, string imagepath)
+        {
+            var item = GetItem(itemID);
+            if (item == null) 
+                return false;
+
+            item.Image = imagepath;
+
+            DbContext.Instance.SaveChanges();
+            return true;
+        }
+
+        public static bool SetDescription(int itemID, string desc)
+        {
+            var item = GetItem(itemID);
+            if (item == null)
+                return false;
+
+            item.Description = desc;
+
+            DbContext.Instance.SaveChanges();
+            return true;
+        }
+
+        public static bool SetQuantity(int itemID, int quantity)
+        {
+            var item = GetItem(itemID);
+            if (item == null)
+                return false;
+
+            item.Quantity = quantity;
+
+            DbContext.Instance.SaveChanges();
+            return true;
+        }
+
+        public static bool SetPrice(int itemID, decimal price)
+        {
+            var item = GetItem(itemID);
+            if (item == null)
+                return false;
+
+            item.Price = price;
+
+            DbContext.Instance.SaveChanges();
+            return true;
+        }
+    }
 }
