@@ -5,6 +5,7 @@
             <li style="display: <%: UserAdminVisibility() %>"><a href="/Administration/UserAdmin.aspx">Edit users</a></li>
             <li style="display: <%: OrderAdminVisibility() %>"><a href="/Administration/OrderAdmin.aspx">Edit orders</a></li>
             <li style="display: <%: ItemAdminVisibility() %>"><a href="/Administration/ItemAdmin.aspx">Edit items</a></li>
+            <li style="display: <%: CategoryAdminVisibility() %>"><a href="/Administration/ItemCategoryAdmin.aspx">Edit categories</a></li>
         </ul>
         <div style="width: 0px; height: 100px; float: left; border: 1px inset; margin-right: 10px"></div>
     </nav>

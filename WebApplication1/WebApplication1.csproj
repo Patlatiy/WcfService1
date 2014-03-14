@@ -128,6 +128,8 @@
     <Content Include="Account\Register.aspx" />
     <Content Include="Account\RegisterExternalLogin.aspx" />
     <Content Include="Administration\ItemAdmin.aspx" />
+    <Content Include="Administration\ItemCategoryAdmin.aspx" />
+    <Content Include="Administration\NewCategoryPopup.aspx" />
     <Content Include="Administration\OrderAdmin.aspx" />
     <Content Include="Administration\UserAdmin.aspx" />
     <Content Include="Controls\AdminNavigation.ascx" />
@@ -298,6 +300,20 @@
     </Compile>
     <Compile Include="Administration\ItemAdmin.aspx.designer.cs">
       <DependentUpon>ItemAdmin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Administration\ItemCategoryAdmin.aspx.cs">
+      <DependentUpon>ItemCategoryAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Administration\ItemCategoryAdmin.aspx.designer.cs">
+      <DependentUpon>ItemCategoryAdmin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Administration\NewCategoryPopup.aspx.cs">
+      <DependentUpon>NewCategoryPopup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Administration\NewCategoryPopup.aspx.designer.cs">
+      <DependentUpon>NewCategoryPopup.aspx</DependentUpon>
     </Compile>
     <Compile Include="Administration\OrderAdmin.aspx.cs">
       <DependentUpon>OrderAdmin.aspx</DependentUpon>

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Web;
 using System.Web.UI.WebControls;
+using DotNetOpenAuth.OpenId.Extensions.SimpleRegistration;
 using WebStore.App_Data.Model;
 using WebStore.Controls;
 using WebStore.Managers;
@@ -40,21 +41,6 @@ namespace WebStore.Administration
                 return;
 
             ItemManager.SetName(itemID, text);
-        }
-
-        protected void ImagePath_Changed(object sender, EventArgs e)
-        {
-            var senderTextBox = (ValueTextBox)sender;
-            var text = senderTextBox.Text;
-            if (string.IsNullOrEmpty(text))
-                return;
-
-            int itemID;
-            if (!int.TryParse(senderTextBox.Value, out itemID))
-                return;
-
-            ItemManager.SetImage(itemID, text);
-            ItemList.DataBind();
         }
 
         protected void PopulateList(object sender, EventArgs e)
@@ -129,6 +115,50 @@ namespace WebStore.Administration
             senderTextBox.Text = itemPrice.ToString("F");
 
             ItemManager.SetPrice(itemID, itemPrice);
+        }
+
+        protected void SaveChanges(object sender, EventArgs e)
+        {
+            var changesSavedLabel1 = (Label) ItemList.FindControl("ChangesSavedLabel1");
+            var changesSavedLabel2 = (Label) ItemList.FindControl("ChangesSavedLabel2");
+
+            changesSavedLabel1.Visible = true;
+            changesSavedLabel2.Visible = true;
+        }
+
+        protected static string GetCategoryNameForItem(int itemID)
+        {
+            var category = ItemManager.GetItemCategory(itemID);
+            return category == null ? null : category.Name;
+        }
+
+        protected void Category_Changed(object sender, EventArgs e)
+        {
+            var senderList = (ListWithValue) sender;
+            int itemID;
+            if (!int.TryParse(senderList.Value, out itemID))
+                return;
+            var categoryName = senderList.Text;
+            if (string.IsNullOrEmpty(categoryName))
+                categoryName = null;
+
+            ItemManager.SetCategory(itemID, categoryName);
+        }
+
+        protected void FillDropDownWithCategories(object sender, EventArgs e)
+        {
+            var senderDropDown = (ListWithValue) sender;
+            int itemID;
+            int.TryParse(senderDropDown.Value, out itemID);
+            senderDropDown.Items.Clear();
+            senderDropDown.Items.Add(string.Empty);
+            var categories = ItemManager.GetCategories();
+
+            foreach (var itemCategory in categories)
+            {
+                senderDropDown.Items.Add(itemCategory.Name);
+            }
+            senderDropDown.SelectedValue = ItemManager.GetItemCategoryName(itemID);
         }
     }
 }

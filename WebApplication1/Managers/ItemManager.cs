@@ -55,7 +55,7 @@ namespace WebStore.Managers
         public static bool SetImage(int itemID, string imagepath)
         {
             var item = GetItem(itemID);
-            if (item == null) 
+            if (item == null)
                 return false;
 
             item.Image = imagepath;
@@ -95,6 +95,113 @@ namespace WebStore.Managers
                 return false;
 
             item.Price = price;
+
+            DbContext.Instance.SaveChanges();
+            return true;
+        }
+
+        public static IQueryable<ItemCategory> GetCategories()
+        {
+            return DbContext.Instance.ItemCategories;
+        }
+
+        public static ItemCategory GetCategory(int categoryID)
+        {
+            if (categoryID == 0)
+                return null;
+            return DbContext.Instance.ItemCategories.First(cat => cat.ID == categoryID);
+        }
+
+        public static ItemCategory GetCategory(string categoryName)
+        {
+            if (string.IsNullOrEmpty(categoryName))
+                return null;
+            return DbContext.Instance.ItemCategories.FirstOrDefault(cat => cat.Name == categoryName);
+        }
+
+        public static ItemCategory GetItemCategory(int itemID)
+        {
+            var item = DbContext.Instance.Items.FirstOrDefault(itm => itm.ID == itemID);
+            return item == null ? null : item.ItemCategory;
+        }
+
+        public static string GetItemCategoryName(int itemID)
+        {
+            var itemCategory = GetItemCategory(itemID);
+            return itemCategory != null ? itemCategory.Name : string.Empty;
+        }
+
+        public static bool SetCategory(int itemID, int categoryID)
+        {
+            var item = GetItem(itemID);
+            if (item == null)
+                return false;
+            var category = GetCategory(categoryID);
+
+            item.ItemCategory = category;
+            item.CategoryID = category != null ? (int?)category.ID : null;
+
+            DbContext.Instance.SaveChanges();
+            return true;
+        }
+
+        public static bool SetCategory(int itemID, string categoryName)
+        {
+            var category = GetCategory(categoryName);
+            return category == null ? SetCategory(itemID, 0) : SetCategory(itemID, category.ID);
+        }
+
+        public static bool SetCategoryName(int categoryID, string categoryName)
+        {
+            var category = GetCategory(categoryID);
+            if (category == null)
+                return false;
+
+            category.Name = categoryName;
+            DbContext.Instance.SaveChanges();
+            return true;
+        }
+
+        public static bool SetCategoryDescription(int categoryID, string categoryDescription)
+        {
+            var category = GetCategory(categoryID);
+            if (category == null)
+                return false;
+
+            category.Description = categoryDescription;
+            DbContext.Instance.SaveChanges();
+            return true;
+        }
+
+        public static bool DeleteCategory(int categoryID)
+        {
+            var category = GetCategory(categoryID);
+            if (category == null)
+                return false;
+
+            foreach (var item in category.Items)
+            {
+                item.CategoryID = null;
+                item.ItemCategory = null;
+            }
+
+            DbContext.Instance.ItemCategories.Remove(category);
+            DbContext.Instance.SaveChanges();
+            return true;
+        }
+
+        public static bool CreateCategory(string name, string description)
+        {
+            if (string.IsNullOrEmpty(name))
+                return false;
+            if (DbContext.Instance.ItemCategories.FirstOrDefault(cat => cat.Name == name) != null)
+                return false;
+
+            var category = DbContext.Instance.ItemCategories.Create();
+            category.Name = name;
+            if (!string.IsNullOrEmpty(description))
+                category.Description = description;
+            DbContext.Instance.ItemCategories.Add(category);
 
             DbContext.Instance.SaveChanges();
             return true;
