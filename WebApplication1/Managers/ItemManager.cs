@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using WebStore.App_Data.Model;
 using WebStore.DbWorker;
@@ -38,7 +39,7 @@ namespace WebStore.Managers
 
         public static Item GetItem(int id)
         {
-            return DbContext.Instance.Items.First(item => item.ID == id);
+            return DbContext.Instance.Items.FirstOrDefault(item => item.ID == id);
         }
 
         public static bool SetName(int itemID, string name)
@@ -205,6 +206,45 @@ namespace WebStore.Managers
 
             DbContext.Instance.SaveChanges();
             return true;
+        }
+
+        public static bool CreateItem(string name, string description, string image, decimal price, int quantity, string category)
+        {
+            try
+            {
+                var newItem = DbContext.Instance.Items.Create();
+
+                newItem.Name = name;
+                newItem.Description = description;
+                newItem.Image = image;
+                newItem.Price = price;
+                newItem.Quantity = quantity;
+                newItem.ItemCategory = GetCategory(category);
+
+                DbContext.Instance.Items.Add(newItem);
+                DbContext.Instance.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public static bool DeleteItem(int itemID)
+        {
+            var item = GetItem(itemID);
+            if (item == null)
+                return false;
+
+            DbContext.Instance.Items.Remove(item);
+            DbContext.Instance.SaveChanges();
+            return true;
+        }
+
+        public static Item GetItem(string itemName)
+        {
+            return DbContext.Instance.Items.FirstOrDefault(item => item.Name == itemName);
         }
     }
 }

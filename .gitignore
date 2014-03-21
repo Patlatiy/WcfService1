@@ -222,3 +222,4 @@ pip-log.txt
 *.mdf
 *.ldf
 WebApplication1/App_Data/ErrorLog.txt
+WebApplication1/App_Data/ErrorLog.txt

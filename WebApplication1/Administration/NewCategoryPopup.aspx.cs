@@ -21,8 +21,6 @@ namespace WebStore.Administration
 
             if (ItemManager.CreateCategory(NameTextBox.Text, DescriptionTextBox.Text))
             {
-                //const string jScript = "<script>close_window();</script>";
-                //ClientScript.RegisterClientScriptBlock(this.GetType(), "keyClientBlock", jScript);
                 Response.Write("<script type=\"text/javascript\">window.opener.location=\"ItemCategoryAdmin.aspx\"; this.close();</script>");
             }
             else

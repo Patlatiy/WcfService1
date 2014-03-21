@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Web;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using DotNetOpenAuth.OpenId.Extensions.SimpleRegistration;
 using WebStore.App_Data.Model;
@@ -119,8 +120,8 @@ namespace WebStore.Administration
 
         protected void SaveChanges(object sender, EventArgs e)
         {
-            var changesSavedLabel1 = (Label) ItemList.FindControl("ChangesSavedLabel1");
-            var changesSavedLabel2 = (Label) ItemList.FindControl("ChangesSavedLabel2");
+            var changesSavedLabel1 = (HtmlGenericControl) ItemList.FindControl("ChangesSavedLabel1");
+            var changesSavedLabel2 = (HtmlGenericControl) ItemList.FindControl("ChangesSavedLabel2");
 
             changesSavedLabel1.Visible = true;
             changesSavedLabel2.Visible = true;
@@ -159,6 +160,17 @@ namespace WebStore.Administration
                 senderDropDown.Items.Add(itemCategory.Name);
             }
             senderDropDown.SelectedValue = ItemManager.GetItemCategoryName(itemID);
+        }
+
+        protected void DeleteItem(object sender, EventArgs e)
+        {
+            var senderButton = (Button) sender;
+            int itemID;
+            if (!int.TryParse(senderButton.CommandName, out itemID))
+                return;
+
+            ItemManager.DeleteItem(itemID);
+            ItemList.DataBind();
         }
     }
 }

@@ -3,17 +3,13 @@
 <!DOCTYPE html>
 <script type="text/javascript">
     function SubmitPage() {
-        //window.opener.document.getElementById('TextBox1').value = document.getElementById('TextBox1').value;
-        //window.opener.document.getElementById('TextBox2').value = document.getElementById('TextBox2').value;
-        //window.opener.document.getElementById('TextBox3').value = document.getElementById('TextBox3').value;
-        //window.opener.document.getElementById('TextBox1').focus();
         window.opener.location.reload(false);
         this.close();
     }
 </script>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>Create new category</title>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -41,7 +37,7 @@
             <br/>
             <asp:Label runat="server" 
                 ID="ErrorLabel" 
-                Text="An error occured. Try again or go whine about it." 
+                Text="An error occured. Try again!" 
                 Font-Bold="True" 
                 ForeColor="orangered" 
                 Visible="False"/>

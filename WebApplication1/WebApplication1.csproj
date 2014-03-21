@@ -130,6 +130,7 @@
     <Content Include="Administration\ItemAdmin.aspx" />
     <Content Include="Administration\ItemCategoryAdmin.aspx" />
     <Content Include="Administration\NewCategoryPopup.aspx" />
+    <Content Include="Administration\NewItemPopup.aspx" />
     <Content Include="Administration\OrderAdmin.aspx" />
     <Content Include="Administration\UserAdmin.aspx" />
     <Content Include="Controls\AdminNavigation.ascx" />
@@ -314,6 +315,13 @@
     </Compile>
     <Compile Include="Administration\NewCategoryPopup.aspx.designer.cs">
       <DependentUpon>NewCategoryPopup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Administration\NewItemPopup.aspx.cs">
+      <DependentUpon>NewItemPopup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Administration\NewItemPopup.aspx.designer.cs">
+      <DependentUpon>NewItemPopup.aspx</DependentUpon>
     </Compile>
     <Compile Include="Administration\OrderAdmin.aspx.cs">
       <DependentUpon>OrderAdmin.aspx</DependentUpon>

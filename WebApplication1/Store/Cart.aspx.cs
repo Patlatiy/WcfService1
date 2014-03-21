@@ -14,6 +14,20 @@ namespace WebStore.Store
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            //Some items could be deleted from databse by admin, so we'll check it out:
+            if (Session["Cart"] != null)
+            {
+                var cart = (Dictionary<int, int>)Session["Cart"];
+                var hasChanged = false;
+                foreach (var key in cart.Keys.Where(key => ItemManager.GetItem(key) == null))
+                {
+                    cart.Remove(key);
+                    hasChanged = true;
+                }
+                if (hasChanged)
+                    Session["Cart"] = cart;
+            }
+
             if (IsPostBack) return;
             if (User.Identity.IsAuthenticated)
             {

@@ -30,7 +30,9 @@
             params += ', status=no';
             params += ', toolbar=no';
             var newwin = window.open(url, 'windowname5', params);
-            if (window.focus) { newwin.focus() }
+            if (window.focus) {
+                newwin.focus();
+            }
             return false;
         }
     </script>
@@ -54,10 +56,10 @@
                     <asp:PlaceHolder runat="server" ID="ItemPlaceholder" />
                     <tr>
                         <td style="border-bottom: transparent">
-                            <asp:Button runat="server" 
-                                OnClientClick="OpenPopup()" 
+                            <asp:Button runat="server"
+                                OnClientClick="OpenPopup()"
                                 Text="New category"
-                                Font-Size="9"/>
+                                Font-Size="9" />
                         </td>
                     </tr>
                 </table>

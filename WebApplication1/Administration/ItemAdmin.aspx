@@ -8,6 +8,40 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="FeaturedContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
+    <script type="text/javascript">
+
+        function OpenPopup() {
+            hideLabels();
+            popup("/Administration/NewItemPopup.aspx");
+            return false;
+        }
+
+        function popup(url) {
+            var width = 800;
+            var height = 300;
+            var left = (screen.width - width) / 2;
+            var top = (screen.height - height) / 2;
+            var params = 'width=' + width + ', height=' + height;
+            params += ', top=' + top + ', left=' + left;
+            params += ', directories=no';
+            params += ', location=no';
+            params += ', menubar=no';
+            params += ', resizable=no';
+            params += ', scrollbars=no';
+            params += ', status=no';
+            params += ', toolbar=no';
+            var newwin = window.open(url, 'windowname5', params);
+            if (window.focus) {
+                newwin.focus();
+            }
+            return false;
+        }
+
+        function hideLabels() {
+            $(".successlabel").hide();
+        }
+
+    </script>
     <ws:Nav runat="server" />
     <asp:DropDownList runat="server"
         ID="FileList"
@@ -23,20 +57,19 @@
                     ItemType="WebStore.App_Data.Model.Item"
                     SelectMethod="GetItems">
                     <LayoutTemplate>
+                        <span style="font-size: 10px">
+                            <asp:Button runat="server"
+                                Text="Save changes"
+                                UseSubmitBehavior="False"
+                                OnClick="SaveChanges"
+                                OnClientClick="hideLabels" />
+                            <asp:Button runat="server"
+                                Text="New Item"
+                                OnClientClick="OpenPopup(); return false;" />
+                            <span runat="server" id="ChangesSavedLabel1" visible="False" class="successlabel">Changes saved!
+                            </span>
+                        </span>
                         <table class="bottomBorder">
-                            <tr>
-                                <td style="border-bottom: transparent">
-                                    <asp:Button runat="server" 
-                                        Text="Save changes" 
-                                        UseSubmitBehavior="False" 
-                                        OnClick="SaveChanges"/>
-                                    <asp:Label runat="server" 
-                                        ID="ChangesSavedLabel1" 
-                                        Visible="False" 
-                                        Text="Changes saved!" 
-                                        BackColor="yellow" />
-                                </td>
-                            </tr>
                             <tr>
                                 <td>
                                     <b>Item image</b>
@@ -52,20 +85,20 @@
                                 </td>
                             </tr>
                             <asp:PlaceHolder runat="server" ID="ItemPlaceholder" />
-                            <tr>
-                                <td style="border-bottom: transparent">
-                                    <asp:Button runat="server" 
-                                        Text="Save changes" 
-                                        UseSubmitBehavior="False" 
-                                        OnClick="SaveChanges"/>
-                                    <asp:Label runat="server" 
-                                        ID="ChangesSavedLabel2" 
-                                        Visible="False" 
-                                        Text="Changes saved!" 
-                                        BackColor="yellow"/>
-                                </td>
-                            </tr>
                         </table>
+                        <span style="margin-left: 165px; font-size: 10px">
+                            <asp:Button runat="server"
+                                Text="Save changes"
+                                UseSubmitBehavior="False"
+                                OnClick="SaveChanges"
+                                OnClientClick="hideLabels" />
+                            <asp:Button runat="server"
+                                Text="New Item"
+                                UseSubmitBehavior="False"
+                                OnClientClick="OpenPopup(); return false;" />
+                            <span runat="server" id="ChangesSavedlabel2" visible="False" class="successlabel">Changes saved!
+                            </span>
+                        </span>
                     </LayoutTemplate>
                     <ItemTemplate>
                         <tr style="vertical-align: top">
@@ -80,48 +113,54 @@
                                 <br />
                                 <img src="/Images/Items/<%#: Item.Image %>" alt="Item image" />
                             </td>
-                            <td>
-                                Name:<br/>
-                                <ws:ValueTextBox runat="server" 
-                                    Text="<%#: Item.Name %>" 
+                            <td>Name:<br />
+                                <ws:ValueTextBox runat="server"
+                                    Text="<%#: Item.Name %>"
                                     Width="150"
-                                    AutoPostBack="False" 
-                                    OnTextChanged="Name_Changed" 
+                                    AutoPostBack="False"
+                                    OnTextChanged="Name_Changed"
                                     Value="<%#: Item.ID %>" />
-                                <br/>
-                                Description:<br/>
-                                <ws:ValueTextBox runat="server" 
-                                    Text="<%#: Item.Description %>" 
+                                <br />
+                                Description:<br />
+                                <ws:ValueTextBox runat="server"
+                                    Text="<%#: Item.Description %>"
                                     Font-Size="9"
-                                    AutoPostBack="False" 
-                                    OnTextChanged="Description_Changed" 
+                                    AutoPostBack="False"
+                                    OnTextChanged="Description_Changed"
                                     Value="<%#: Item.ID %>"
-                                    TextMode="MultiLine" 
-                                    Wrap="True" 
+                                    TextMode="MultiLine"
+                                    Wrap="True"
                                     Width="300"
                                     Height="30" />
-                                <br/>
-                                Category:<br/>
-                                <ws:ListWithValue runat="server" 
+                                <br />
+                                Category:<br />
+                                <ws:ListWithValue runat="server"
                                     Value="<%#: Item.ID %>"
                                     OnPreRender="FillDropDownWithCategories"
                                     OnSelectedIndexChanged="Category_Changed" />
                             </td>
-                            <td>x<ws:ValueTextBox runat="server" 
-                                Text="<%#: Item.Quantity %>" 
-                                Font-Size="9" 
+                            <td>x<ws:ValueTextBox runat="server"
+                                Text="<%#: Item.Quantity %>"
+                                Font-Size="9"
                                 Width="40"
-                                AutoPostBack="False" 
-                                OnTextChanged="Quantity_Changed" 
+                                AutoPostBack="False"
+                                OnTextChanged="Quantity_Changed"
                                 Value="<%#: Item.ID %>" />
                             </td>
-                            <td>$<ws:ValueTextBox runat="server" 
-                                Text="<%#: Item.Price %>" 
-                                Font-Size="9" 
+                            <td>$<ws:ValueTextBox runat="server"
+                                Text="<%#: Item.Price %>"
+                                Font-Size="9"
                                 Width="50"
-                                AutoPostBack="False" 
-                                OnTextChanged="Price_Changed" 
+                                AutoPostBack="False"
+                                OnTextChanged="Price_Changed"
                                 Value="<%#: Item.ID %>" />
+                            </td>
+                            <td>
+                                <asp:Button runat="server"
+                                    Font-Size="10px"
+                                    Text="Delete" 
+                                    CommandName="<%#: Item.ID %>"
+                                    OnClick="DeleteItem"/>
                             </td>
                         </tr>
                     </ItemTemplate>

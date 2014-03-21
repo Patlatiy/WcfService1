@@ -6,6 +6,7 @@ using WebStore.App_Data.Model;
 using WebStore.DbWorker;
 using System.Web.UI.WebControls;
 using System.Web.ModelBinding;
+using WebStore.Managers;
 
 namespace WebStore.Store
 {
