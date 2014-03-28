@@ -35,6 +35,8 @@ namespace WebStore.Store
         protected void AddToCartButton_OnClick(object sender, EventArgs e)
         {
             ItemAddedPanel.Visible = false;
+            ErrorPanel.Visible = false;
+
             if (!IsItemCountValid())
             {
                 ErrorPanel.Visible = true;
@@ -63,7 +65,6 @@ namespace WebStore.Store
 
         protected string GetImagePath()
         {
-            
             return _currentItem == null ? "noimage.png" : _currentItem.Image;
         }
 

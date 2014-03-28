@@ -237,6 +237,7 @@
     <Content Include="Images\Cart.gif" />
     <Content Include="Store\Complete.aspx" />
     <Content Include="Store\ItemDetails.aspx" />
+    <Content Include="Store\NoItems.aspx" />
     <Content Include="Store\Shop.aspx" />
     <Content Include="Images\accent.png" />
     <Content Include="Images\bullet.png" />
@@ -475,6 +476,13 @@
     </Compile>
     <Compile Include="Store\ItemDetails.aspx.designer.cs">
       <DependentUpon>ItemDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Store\NoItems.aspx.cs">
+      <DependentUpon>NoItems.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\NoItems.aspx.designer.cs">
+      <DependentUpon>NoItems.aspx</DependentUpon>
     </Compile>
     <Compile Include="Vasya\WebStoreEntities.cs" />
     <Compile Include="Store\Shop.aspx.cs">

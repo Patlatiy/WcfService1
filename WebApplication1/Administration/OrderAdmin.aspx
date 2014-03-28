@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="Order Management" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="OrderAdmin.aspx.cs" Inherits="WebStore.Administration.OrderAdmin" %>
+<%@ Import Namespace="WebStore.Managers" %>
 
 <%@ Register Assembly="WebStore" Namespace="WebStore.Controls" TagPrefix="ws" %>
 
@@ -17,6 +18,12 @@
             ItemType="WebStore.App_Data.Model.Order"
             SelectMethod="GetOrders">
             <LayoutTemplate>
+                Show orders in state:
+                <asp:DropDownList runat="server"
+                    ID="FilterList"
+                    OnLoad="FillFilterList"
+                    OnSelectedIndexChanged="OnFilterChange"
+                    AutoPostBack="True"/>
                 <table class="bottomBorder">
                     <tr>
                         <td>
@@ -63,9 +70,10 @@
                             DataTextField="Name"
                             DataValueField="ID"
                             SelectedValue="<%# GetStateIDForOrder(Item.ID) %>"
-                            OnSelectedIndexChanged="Index_Changed"
+                            OnSelectedIndexChanged="OrderState_Index_Changed"
                             AutoPostBack="True"
-                            Value="<%# Item.ID %>" />
+                            Value="<%# Item.ID %>" 
+                            Enabled="<%# !OrderManager.IsStateFinal(Item.OrderState.ID) %>"/>
                     </td>
                     <td>
                         <%#: Item.DateIssued == null ? string.Empty : Item.DateIssued.Value.ToString("d") %>

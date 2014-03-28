@@ -14,6 +14,11 @@ namespace WebStore.Administration
         {
             if (IsPostBack)
                 return;
+            if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                AdminPanel.Visible = true;
+            }
+
             files = Directory.GetFiles(MapPath(@"~\Images\Items\"), "*.png");
             for (int x = 0; x < files.Length; x++)
                 files[x] = Path.GetFileName(files[x]);

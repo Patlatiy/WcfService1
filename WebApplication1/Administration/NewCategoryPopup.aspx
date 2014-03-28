@@ -13,35 +13,37 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
-            Name:
-            <asp:TextBox 
-                ID="NameTextBox" 
-                runat="server" 
+        <asp:Panel runat="server" ID="AdminPanel">
+            <div>
+                Name:
+            <asp:TextBox
+                ID="NameTextBox"
+                runat="server"
                 ClientIDMode="Static" />
-            <asp:RequiredFieldValidator runat="server"
-                ErrorMessage="Please enter category name"
-                ControlToValidate="NameTextBox"
-                Display="Dynamic"/>
-            <br/>
-            Description:
-            <asp:TextBox 
-                ID="DescriptionTextBox" 
-                runat="server" 
+                <asp:RequiredFieldValidator runat="server"
+                    ErrorMessage="Please enter category name"
+                    ControlToValidate="NameTextBox"
+                    Display="Dynamic" />
+                <br />
+                Description:
+            <asp:TextBox
+                ID="DescriptionTextBox"
+                runat="server"
                 ClientIDMode="Static" />
-            <br/>
-            <asp:Button 
-                runat="server" 
-                Text="Submit" 
-                OnClick="SubmitPage" />
-            <br/>
-            <asp:Label runat="server" 
-                ID="ErrorLabel" 
-                Text="An error occured. Try again!" 
-                Font-Bold="True" 
-                ForeColor="orangered" 
-                Visible="False"/>
-        </div>
+                <br />
+                <asp:Button
+                    runat="server"
+                    Text="Submit"
+                    OnClick="SubmitPage" />
+                <br />
+                <asp:Label runat="server"
+                    ID="ErrorLabel"
+                    Text="An error occured. Try again!"
+                    Font-Bold="True"
+                    ForeColor="orangered"
+                    Visible="False" />
+            </div>
+        </asp:Panel>
     </form>
 </body>
 </html>

@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.UI.WebControls;
 using WebStore.App_Data.Model;
 using WebStore.Controls;
+using WebStore.DbWorker;
 using WebStore.Managers;
 
 namespace WebStore.Administration
@@ -26,9 +29,12 @@ namespace WebStore.Administration
             return new HtmlString(result);
         }
 
-        public static IEnumerable<Order> GetOrders()
+        public IEnumerable<Order> GetOrders()
         {
-            return OrderManager.GetOrders();
+            var filterList = (DropDownList) OrderList.FindControl("FilterList");
+            var orders = filterList.SelectedIndex == 0 ? OrderManager.GetOrders() : OrderManager.GetOrdersInState(filterList.Text);
+            
+            return orders;
         }
 
         protected static string GetTotal(int orderID)
@@ -46,7 +52,7 @@ namespace WebStore.Administration
             return OrderManager.GetStateIDForOrderID(itemID).ToString("G");
         }
 
-        protected void Index_Changed(object sender, EventArgs e)
+        protected void OrderState_Index_Changed(object sender, EventArgs e)
         {
             var dropList = (ListWithValue)sender;
             int orderID;
@@ -54,7 +60,14 @@ namespace WebStore.Administration
             byte stateID;
             byte.TryParse(dropList.SelectedValue, out stateID);
 
-            OrderManager.SetState(orderID, stateID);
+            if (!OrderManager.SetState(orderID, stateID))
+                return;
+
+            dropList.Enabled = OrderManager.IsStateFinal(stateID);
+            if (OrderManager.IsStateDelivered(stateID))
+            {
+                
+            }
             OrderList.DataBind();
         }
 
@@ -65,6 +78,25 @@ namespace WebStore.Administration
             int.TryParse(commentTextBox.Value, out orderID);
 
             OrderManager.SetComment(orderID, commentTextBox.Text);
+        }
+
+        protected void FillFilterList(object sender, EventArgs e)
+        {
+            if (IsPostBack)
+                return;
+
+            var filterList = (DropDownList) sender;
+            
+            filterList.Items.Add("All states");
+            foreach (var state in DbContext.Instance.OrderStates)
+            {
+                filterList.Items.Add(state.Name);
+            }
+        }
+
+        protected void OnFilterChange(object sender, EventArgs e)
+        {
+            OrderList.DataBind();
         }
     }
 }

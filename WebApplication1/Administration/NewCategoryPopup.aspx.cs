@@ -12,7 +12,10 @@ namespace WebStore.Administration
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack && User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                AdminPanel.Visible = true;
+            }
         }
 
         protected void SubmitPage(object sender, EventArgs e)

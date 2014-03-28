@@ -51,9 +51,9 @@
                                 </span>
                                 <br/>
                                 <img src="/Images/Items/Thumbs/<%#:Item.Image %>" alt="<%#:Item.Name %>"
-                                    width="100" height="75" style="border: solid"/>
+                                    width="100" height="80" style="border: solid"/>
                             </a>
-                            <br />
+                            <br/>
                             <span>
                                 <%#:String.Format("{0:c}", Item.Price)%>
                             </span>

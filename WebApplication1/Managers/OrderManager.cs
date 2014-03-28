@@ -9,12 +9,12 @@ namespace WebStore.Managers
 {
     public static class OrderManager
     {
-        public static Order CreateOrder(string userLogin, Dictionary<int, int> cart, PaymentMethod paymentMethod, string deliveryAddress, string comment)
+        public static bool CreateOrder(string userLogin, Dictionary<int, int> cart, PaymentMethod paymentMethod, string deliveryAddress, string comment)
         {
             var user = DbContext.Instance.Users.First(usr => usr.Login == userLogin);
 
             if (user == null) 
-                return null;
+                return false;
 
             var order = DbContext.Instance.Orders.Create();
             var orderPositions = (from orderPos in cart 
@@ -27,6 +27,8 @@ namespace WebStore.Managers
                                       ItemID = item.ID, 
                                       ItemQuantity = orderPos.Value
                                   }).ToList();
+            if (!ItemManager.DecreaseItemQuantity(orderPositions))
+                return false;
 
             order.User = user;
             order.UserID = user.ID;
@@ -38,10 +40,11 @@ namespace WebStore.Managers
             order.DeliveryAddress = deliveryAddress;
             order.Comment = comment;
 
+            
             DbContext.Instance.Orders.Add(order);
             DbContext.Instance.SaveChanges();
 
-            return order;
+            return true;
         }
 
         public static string GetLastOrderAddress(string userLogin)
@@ -83,10 +86,12 @@ namespace WebStore.Managers
             return DbContext.Instance.Orders.First(order => order.ID == orderID).StateID;
         }
 
-        public static void SetState(int orderID, byte stateID)
+        public static bool SetState(int orderID, byte stateID)
         {
             var order = GetOrderByID(orderID);
             var state = GetStateByID(stateID);
+            if (order == null || state == null)
+                return false;
 
             order.OrderState = state;
             order.StateID = stateID;
@@ -99,18 +104,18 @@ namespace WebStore.Managers
                 order.DateEnded = null;
             }
                 
-
             DbContext.Instance.SaveChanges();
+            return true;
         }
 
         public static Order GetOrderByID(int orderID)
         {
-            return DbContext.Instance.Orders.First(ordr => ordr.ID == orderID);
+            return DbContext.Instance.Orders.FirstOrDefault(ordr => ordr.ID == orderID);
         }
 
         public static OrderState GetStateByID(byte stateID)
         {
-            return DbContext.Instance.OrderStates.First(os => os.ID == stateID);
+            return DbContext.Instance.OrderStates.FirstOrDefault(os => os.ID == stateID);
         }
 
         public static void SetComment(int orderID, string comment)
@@ -119,6 +124,27 @@ namespace WebStore.Managers
             if (order == null) return;
             order.Comment = comment;
             DbContext.Instance.SaveChanges();
+        }
+
+        public static bool IsStateFinal(byte stateID)
+        {
+            var orderState = DbContext.Instance.OrderStates.FirstOrDefault(os => os.ID == stateID);
+            if (orderState == null)
+                return false;
+            return orderState.Name == "Declined" || orderState.Name == "Delivered";
+        }
+
+        public static IEnumerable<Order> GetOrdersInState(string stateName)
+        {
+            return DbContext.Instance.Orders.Where(order => order.OrderState.Name == stateName);
+        }
+
+        public static bool IsStateDelivered(byte stateID)
+        {
+            var orderState = DbContext.Instance.OrderStates.FirstOrDefault(os => os.ID == stateID);
+            if (orderState == null)
+                return false;
+            return orderState.Name == "Delivered";
         }
     }
 }

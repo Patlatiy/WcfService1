@@ -246,5 +246,26 @@ namespace WebStore.Managers
         {
             return DbContext.Instance.Items.FirstOrDefault(item => item.Name == itemName);
         }
+
+        public static bool DecreaseItemQuantity(List<OrderPosition> positions)
+        {
+            //First check if we have all the items
+            foreach (var orderPosition in positions)
+            {
+                if (GetItem(orderPosition.ItemID).Quantity < orderPosition.ItemQuantity)
+                    return false;
+            }
+            //Then decrease them all at once
+            foreach (var orderPosition in positions)
+            {
+                GetItem(orderPosition.ItemID).Quantity -= orderPosition.ItemQuantity;
+            }
+            return true;
+        }
+
+        public static bool CheckCart(Dictionary<int, int> cart)
+        {
+            return cart.All(record => GetItem(record.Key).Quantity >= record.Value);
+        }
     }
 }

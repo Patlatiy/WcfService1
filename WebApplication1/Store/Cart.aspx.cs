@@ -14,7 +14,7 @@ namespace WebStore.Store
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Some items could be deleted from databse by admin, so we'll check it out:
+            //Some items could be deleted from database by admin in runtime, so we'll check it out:
             if (Session["Cart"] != null)
             {
                 var cart = (Dictionary<int, int>)Session["Cart"];
@@ -29,16 +29,8 @@ namespace WebStore.Store
             }
 
             if (IsPostBack) return;
-            if (User.Identity.IsAuthenticated)
-            {
-                LoggedInPanel.Visible = true;
-                CartList.DataBind();
-                //((TextBox) CartList.nam.FindControl("AddressTextBox")).Text = GetLastOrderAddress();
-            }
-            else
-            {
-                AnonymousPanel.Visible = true;
-            }
+
+            UpdateLoggedInPanel();
         }
 
         public IQueryable<Item> GetItems()
@@ -78,7 +70,26 @@ namespace WebStore.Store
             var listView = (ListView) LoggedInPanel.FindControl("CartList");
             listView.DataBind();
             UpdateCartTile();
+            UpdateLoggedInPanel();
             UpdPnl.Update();
+        }
+
+        private void UpdateLoggedInPanel()
+        {
+            var cart = (Dictionary<int, int>)Session["Cart"];
+            if (User.Identity.IsAuthenticated && cart != null && cart.Count > 0)
+            {
+                LoggedInPanel.Visible = true;
+                CartList.DataBind();
+            }
+            else if (cart == null || cart.Count == 0)
+            {
+                LoggedInPanel.Visible = false;
+            }
+            else
+            {
+                AnonymousPanel.Visible = true;
+            }
         }
 
         protected void RemoveButton_Click(object sender, EventArgs e)
@@ -87,8 +98,11 @@ namespace WebStore.Store
             int itemID;
             if (btn.CommandName != "remove") return;
             if (!int.TryParse(btn.CommandArgument, out itemID)) return;
-            RemoveItemFromCart(itemID);
-            UpdateUpdPnl();
+            if (RemoveItemFromCart(itemID))
+            {
+                UpdateUpdPnl();
+            }
+                
         }
 
         private bool RemoveItemFromCart(int itemID)
@@ -107,37 +121,48 @@ namespace WebStore.Store
             return PaymentMethodManager.GetPaymentMethods();
         }
 
-        protected string ImagePath(string fileName)
+        protected static string ImagePath(string fileName)
         {
             return "/Images/PaymentMethods/" + fileName;
         }
 
         protected void CompletePurchase(object sender, EventArgs e)
         {
+            var cart = (Dictionary<int, int>) Session["Cart"];
+            if (cart == null || cart.Count == 0)
+            {
+                Response.Redirect("Cart.aspx");
+                return;
+            }
+            if (!ItemManager.CheckCart(cart))
+            {
+                Response.Redirect("NoItems.aspx");
+                return;
+            }
             var imgBtn = (ImageButton) sender;
             byte pmID;
-            if (byte.TryParse(imgBtn.CommandName, out pmID))
+            if (!byte.TryParse(imgBtn.CommandName, out pmID)) return;
+
+            Session["PaymentMethodID"] = pmID;
+            var addressTextBox = ((TextBox)CartList.FindControl("AddressTextBox"));
+            if (addressTextBox == null)
             {
-                Session["PaymentMethodID"] = pmID;
-                var addressTextBox = ((TextBox)CartList.FindControl("AddressTextBox"));
-                if (addressTextBox == null)
-                {
-                    Session["Address"] = "N/A";
-                }
-                else
-                {
-                    Session["Address"] = addressTextBox.Text;
-                }
-                var commentTextBox = ((TextBox) CartList.FindControl("CommentTextBox"));
-                if (commentTextBox != null)
-                {
-                    Session["Comment"] = commentTextBox.Text;
-                }
-                Response.Redirect("Complete.aspx");
+                Session["Address"] = "N/A";
             }
+            else
+            {
+                Session["Address"] = addressTextBox.Text;
+            }
+            var commentTextBox = ((TextBox) CartList.FindControl("CommentTextBox"));
+            if (commentTextBox != null)
+            {
+                Session["Comment"] = commentTextBox.Text;
+            }
+
+            Response.Redirect("Complete.aspx");
         }
 
-        protected string GetLastOrderAddress()
+        private string GetLastOrderAddress()
         {
             return User.Identity.IsAuthenticated ? OrderManager.GetLastOrderAddress(User.Identity.Name) : string.Empty;
         }

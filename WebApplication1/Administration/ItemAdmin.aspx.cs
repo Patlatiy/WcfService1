@@ -18,7 +18,10 @@ namespace WebStore.Administration
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //ItemList.DataBind();
+            if (!IsPostBack && User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Salesman")))
+            {
+                AdminPanel.Visible = true;
+            }
             
             files = Directory.GetFiles(MapPath(@"~\Images\Items\"), "*.png");
             for (int x = 0; x < files.Length; x++)

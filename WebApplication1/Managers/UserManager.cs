@@ -9,24 +9,27 @@ namespace WebStore.Managers
     {
         public static void SetShownName(string name, string shownname)
         {
-            var dbContext = DbContext.Instance;
-            dbContext.Users.First(usr => usr.Login == name).Name = shownname;
-            dbContext.SaveChanges();
+            var user = DbContext.Instance.Users.FirstOrDefault(usr => usr.Login == name);
+            if (user == null) return;
+
+            user.Name = shownname;
+            DbContext.Instance.SaveChanges();
         }
 
         public static User GetUserByLogin(string login)
         {
-            return (login == string.Empty) ? null : DbContext.Instance.Users.First(usr => usr.Login == login);
+            return (login == string.Empty) ? null : DbContext.Instance.Users.FirstOrDefault(usr => usr.Login == login);
         }
 
         public static User GetUserByID(int id)
         {
-            return DbContext.Instance.Users.First(usr => usr.ID == id);
+            return DbContext.Instance.Users.FirstOrDefault(usr => usr.ID == id);
         }
 
         public static string GetShownName(string login)
         {
-            return (login == string.Empty) ? String.Empty : DbContext.Instance.Users.First(usr => usr.Login == login).Name; 
+            var user = DbContext.Instance.Users.FirstOrDefault(usr => usr.Login == login);
+            return (login == string.Empty || user == null) ? String.Empty : user.Name;
         }
 
         public static IQueryable<User> GetUsers()
@@ -36,8 +39,8 @@ namespace WebStore.Managers
 
         public static void GrantRole(string login, string roleName)
         {
-            var userRole = DbContext.Instance.UserRoles.First(role => role.Name == roleName);
-            var user = DbContext.Instance.Users.First(usr => usr.Login == login);
+            var userRole = DbContext.Instance.UserRoles.FirstOrDefault(role => role.Name == roleName);
+            var user = DbContext.Instance.Users.FirstOrDefault(usr => usr.Login == login);
 
             if (userRole == null || user == null) return;
 
@@ -48,13 +51,13 @@ namespace WebStore.Managers
 
         public static string GetUserRole(string login)
         {
-            var user = DbContext.Instance.Users.First(usr => usr.Login == login);
+            var user = DbContext.Instance.Users.FirstOrDefault(usr => usr.Login == login);
             return user == null ? string.Empty : user.UserRole.Name;
         }
 
         public static byte GetUserRoleID(string login)
         {
-            var user = DbContext.Instance.Users.First(usr => usr.Login == login);
+            var user = DbContext.Instance.Users.FirstOrDefault(usr => usr.Login == login);
             return user == null ? (byte) 0 : user.UserRole.ID;
         }
 
