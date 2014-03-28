@@ -144,7 +144,7 @@ namespace WebStore.Store
             if (!byte.TryParse(imgBtn.CommandName, out pmID)) return;
 
             Session["PaymentMethodID"] = pmID;
-            var addressTextBox = ((TextBox)CartList.FindControl("AddressTextBox"));
+            var addressTextBox = ((TextBox)LoggedInPanel.FindControl("AddressTextBox"));
             if (addressTextBox == null)
             {
                 Session["Address"] = "N/A";
@@ -153,7 +153,7 @@ namespace WebStore.Store
             {
                 Session["Address"] = addressTextBox.Text;
             }
-            var commentTextBox = ((TextBox) CartList.FindControl("CommentTextBox"));
+            var commentTextBox = ((TextBox) LoggedInPanel.FindControl("CommentTextBox"));
             if (commentTextBox != null)
             {
                 Session["Comment"] = commentTextBox.Text;
@@ -169,7 +169,7 @@ namespace WebStore.Store
 
         protected void CartList_DataBound(object sender, EventArgs e)
         {
-            var addressTextBox = (TextBox) CartList.FindControl("AddressTextBox");
+            var addressTextBox = (TextBox) LoggedInPanel.FindControl("AddressTextBox");
             if (addressTextBox != null)
             {
                 addressTextBox.Text = GetLastOrderAddress();

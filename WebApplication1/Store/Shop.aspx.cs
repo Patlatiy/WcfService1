@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
 using WebStore.App_Data.Model;
-using WebStore.DbWorker;
 using System.Web.UI.WebControls;
 using System.Web.ModelBinding;
+using WebStore.DbWorker;
 using WebStore.Managers;
 
 namespace WebStore.Store
@@ -14,7 +14,12 @@ namespace WebStore.Store
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            byte id;
+            byte.TryParse(Request.QueryString["id"], out id);
 
+            var categorylabel = (Label) categoryList.FindControl("CategoryLabel");
+
+            categorylabel.Text = id == 0 ? "Showing all items" : ItemManager.GetCategoryDescription(id);
         }
 
         public IQueryable<Item> GetItems([QueryString("id")] int? categoryId)

@@ -267,5 +267,11 @@ namespace WebStore.Managers
         {
             return cart.All(record => GetItem(record.Key).Quantity >= record.Value);
         }
+
+        public static string GetCategoryDescription(byte categoryID)
+        {
+            var category = DbContext.Instance.ItemCategories.FirstOrDefault(cat => cat.ID == categoryID);
+            return category == null ? "No category" : category.Description;
+        }
     }
 }

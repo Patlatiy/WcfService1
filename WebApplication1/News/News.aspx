@@ -16,7 +16,7 @@
         </li>
         <li class="three">
             <h5>There will be more!</h5>
-            We are planning to add various features like a nice design, admin page, blackjack and hookers.
+            We are planning to add various features like a nice design, dynamic content on this news page, blackjack and hookers.
         </li>
     </ol>
 </asp:Content>

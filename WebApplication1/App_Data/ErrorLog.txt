@@ -2715,3 +2715,26 @@ Stack Trace:
    at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
    at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
 
+********** 3/28/2014 3:35:07 PM **********
+Inner Exception Type: System.InvalidOperationException
+Inner Exception: Validation of Anti-XSRF token failed.
+Inner Source: WebStore
+Inner Stack Trace: 
+   at WebStore.SiteMaster.master_Page_PreLoad(Object sender, EventArgs e) in c:\Users\alexander.sorokin\Documents\Visual Studio 2012\Projects\WcfService1\WebApplication1\Site.Master.cs:line 63
+   at System.EventHandler.Invoke(Object sender, EventArgs e)
+   at System.Web.UI.Page.OnPreLoad(EventArgs e)
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+Exception Type: System.Web.HttpUnhandledException
+Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+Source: DefaultPage
+Stack Trace: 
+   at System.Web.UI.Page.HandleError(Exception e)
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   at System.Web.UI.Page.ProcessRequest(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   at System.Web.UI.Page.ProcessRequest()
+   at System.Web.UI.Page.ProcessRequestWithNoAssert(HttpContext context)
+   at System.Web.UI.Page.ProcessRequest(HttpContext context)
+   at ASP.account_login_aspx.ProcessRequest(HttpContext context) in c:\Windows\Microsoft.NET\Framework\v4.0.30319\Temporary ASP.NET Files\root\63fda27f\b75e63bb\App_Web_141k5d4r.1.cs:line 0
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+

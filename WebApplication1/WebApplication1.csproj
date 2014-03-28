@@ -136,7 +136,7 @@
     <Content Include="Controls\AdminNavigation.ascx" />
     <Content Include="Error\404.aspx" />
     <Content Include="Error\Error.aspx" />
-    <Content Include="Images\akvelon_logo.png" />
+    <Content Include="Images\akvelon_logo_edit.png" />
     <Content Include="Images\Items\boatbig.png" />
     <Content Include="Images\Items\boatpaper.png" />
     <Content Include="Images\Items\boatsail.png" />
@@ -484,7 +484,7 @@
     <Compile Include="Store\NoItems.aspx.designer.cs">
       <DependentUpon>NoItems.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Vasya\WebStoreEntities.cs" />
+    <Compile Include="DbWorker\WebStoreEntities.cs" />
     <Compile Include="Store\Shop.aspx.cs">
       <DependentUpon>Shop.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

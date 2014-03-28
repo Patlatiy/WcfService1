@@ -5,7 +5,6 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebStore.App_Data.Model;
-using WebStore.DbWorker;
 
 namespace WebStore.Account
 {

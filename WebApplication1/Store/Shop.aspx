@@ -10,6 +10,8 @@
         <LayoutTemplate>
             <b style="font-size: medium; font-style: normal">
                 <a href="Shop.aspx">All items</a> | <div id="itemPlaceholder" runat="server"></div>
+                <br/>
+                <div><asp:Label runat="server" ID="CategoryLabel" Font-Bold="False"/></div>
             </b>
         </LayoutTemplate>
         <ItemTemplate>

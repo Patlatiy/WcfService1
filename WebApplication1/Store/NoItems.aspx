@@ -9,7 +9,7 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        We don't have so many items, please order fewer.
+        We don't have so many items, please order fewer.<br/>
         <b><a href="/Store/Cart.aspx">Go back to order</a></b>
     </div>
     </form>

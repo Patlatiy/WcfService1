@@ -26,7 +26,7 @@
         <div class="content-wrapper">
             <div class="float-left">
                 <p class="site-title"><a runat="server" href="~/">WebStore</a></p>
-                <a href="/"><img src="/Images/akvelon_logo.png" width="300" alt="Akvelon company logo" /></a>
+                <a href="/"><img src="/Images/akvelon_logo_edit.png" width="330" alt="Akvelon company logo" /></a>
             </div>
             <div class="float-right">
                 <section id="login">
