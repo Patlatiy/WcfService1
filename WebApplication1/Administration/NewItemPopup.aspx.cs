@@ -64,9 +64,10 @@ namespace WebStore.Administration
         protected void FillDropDownWithCategories(object sender, EventArgs e)
         {
             var senderDropDown = (DropDownList)sender;
+            var categories = ItemManager.GetCategories();
+
             senderDropDown.Items.Clear();
             senderDropDown.Items.Add(string.Empty);
-            var categories = ItemManager.GetCategories();
 
             foreach (var itemCategory in categories)
             {

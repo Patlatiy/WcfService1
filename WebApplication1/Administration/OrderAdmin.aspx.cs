@@ -64,10 +64,7 @@ namespace WebStore.Administration
                 return;
 
             dropList.Enabled = OrderManager.IsStateFinal(stateID);
-            if (OrderManager.IsStateDelivered(stateID))
-            {
-                
-            }
+
             OrderList.DataBind();
         }
 
