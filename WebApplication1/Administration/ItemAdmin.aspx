@@ -57,6 +57,14 @@
                     ItemType="WebStore.App_Data.Model.Item"
                     SelectMethod="GetItems">
                     <LayoutTemplate>
+                        <span>Show items in category:
+                            <asp:DropDownList runat="server"
+                                ID="FilterList"
+                                OnLoad="FillFilterList"
+                                OnSelectedIndexChanged="OnFilterChange"
+                                AutoPostBack="True" />
+                        </span>
+                        <br/>
                         <span style="font-size: 10px">
                             <asp:Button runat="server"
                                 Text="Save changes"
@@ -158,9 +166,10 @@
                             <td>
                                 <asp:Button runat="server"
                                     Font-Size="10px"
-                                    Text="Delete" 
+                                    Text="Delete"
                                     CommandName="<%#: Item.ID %>"
-                                    OnClick="DeleteItem"/>
+                                    OnClick="DeleteItem"
+                                    OnClientClick="return confirm('Do you really want to delete this item?')" />
                             </td>
                         </tr>
                     </ItemTemplate>

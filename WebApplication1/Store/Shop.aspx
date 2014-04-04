@@ -47,7 +47,7 @@
 
                     <tr>
                         <td>
-                            <a href="ItemDetails.aspx?id=<%#:Item.ID%>">
+                            <a href="ItemDetails.aspx?id=<%#:Item.ID%>&backid=<%: GetRequestId() %>">
                                 <span style="font-weight: bold">
                                     <%#:Item.Name%>
                                 </span>

@@ -92,7 +92,8 @@
                             Text="Delete"
                             Font-Size="9"
                             CommandName="<%#: Item.ID %>"
-                            OnClick="DeleteButton_Clicked" />
+                            OnClick="DeleteButton_Clicked" 
+                            OnClientClick="return confirm('Do you really want to delete this item category?')"/>
                     </td>
                 </tr>
             </ItemTemplate>

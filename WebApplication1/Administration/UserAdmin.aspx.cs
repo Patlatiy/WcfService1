@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebStore.App_Data.Model;
 using WebStore.Controls;
@@ -11,9 +12,13 @@ namespace WebStore.Administration
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack && User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+            if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
             {
                 AdminPanel.Visible = true;
+            }
+            else
+            {
+                Response.Redirect("/Error/404.aspx");
             }
         }
 
@@ -64,6 +69,15 @@ namespace WebStore.Administration
             if (Page.User.Identity.IsAuthenticated && Page.User.Identity.Name == senderBtn.CommandArgument)
             {
                 senderBtn.Visible = false;
+            }
+        }
+
+        protected void IsItMe(Object sender, EventArgs e)
+        {
+            var senderList = (ListWithValue) sender;
+            if (Page.User.Identity.IsAuthenticated && Page.User.Identity.Name == senderList.Value)
+            {
+                senderList.Visible = false;
             }
         }
     }

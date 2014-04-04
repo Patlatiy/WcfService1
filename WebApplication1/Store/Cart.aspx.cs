@@ -33,6 +33,10 @@ namespace WebStore.Store
             UpdateLoggedInPanel();
         }
 
+        /// <summary>
+        /// Gets list items that are in cart from database
+        /// </summary>
+        /// <returns>List items that are in cart</returns>
         public IQueryable<Item> GetItems()
         {
             if (Session["Cart"] == null) return null;
@@ -47,11 +51,20 @@ namespace WebStore.Store
             return query;
         }
 
+        /// <summary>
+        /// Calculates the sum for all items in cart
+        /// </summary>
+        /// <returns>Sum of all items in cart (string)</returns>
         protected string GetTotalItemPriceForAllItems()
         {
             return ItemManager.GetTotalItemPriceForAllItems((Dictionary<int, int>) Session["Cart"]);
         }
 
+        /// <summary>
+        /// Gets a total item cost for an item with specified ID
+        /// </summary>
+        /// <param name="itemID">Item ID</param>
+        /// <returns>String that is showing calculations and total cost for item</returns>
         protected string GetTotalItemPrice(int itemID)
         {
             if (Session["Cart"] == null) return "$0";
@@ -65,6 +78,9 @@ namespace WebStore.Store
             return "$" + itemPrice.ToString("G");
         }
 
+        /// <summary>
+        /// Updates cart tile and panels on the form
+        /// </summary>
         private void UpdateUpdPnl()
         {
             var listView = (ListView) LoggedInPanel.FindControl("CartList");
@@ -74,6 +90,9 @@ namespace WebStore.Store
             UpdPnl.Update();
         }
 
+        /// <summary>
+        /// Updates "logged in" panel
+        /// </summary>
         private void UpdateLoggedInPanel()
         {
             var cart = (Dictionary<int, int>)Session["Cart"];
@@ -92,6 +111,9 @@ namespace WebStore.Store
             }
         }
 
+        /// <summary>
+        /// RemoveButton click handler
+        /// </summary>
         protected void RemoveButton_Click(object sender, EventArgs e)
         {
             var btn = (Button) sender;
@@ -105,27 +127,47 @@ namespace WebStore.Store
                 
         }
 
+        /// <summary>
+        /// Removes item with specified ID from cart
+        /// </summary>
+        /// <param name="itemID">Item ID</param>
+        /// <returns>True if successful, false if not</returns>
         private bool RemoveItemFromCart(int itemID)
         {
             return Session["Cart"] != null && ((Dictionary<int, int>) Session["Cart"]).Remove(itemID);
         }
 
+        /// <summary>
+        /// Updates cart tile
+        /// </summary>
         private void UpdateCartTile()
         {
             var cartTile = ((CartTile) Master.FindControl("CartTile"));
             cartTile.UpdateShownItemCount();
         }
 
+        /// <summary>
+        /// Retrieves all payment methods from database
+        /// </summary>
+        /// <returns>List of payment methods</returns>
         public IQueryable<PaymentMethod> GetPaymentMethods()
         {
             return PaymentMethodManager.GetPaymentMethods();
         }
 
+        /// <summary>
+        /// Appends payment methods' folder names to image path so it can be used in img tag
+        /// </summary>
+        /// <param name="fileName">Stored file name for payment method</param>
+        /// <returns></returns>
         protected static string ImagePath(string fileName)
         {
             return "/Images/PaymentMethods/" + fileName;
         }
 
+        /// <summary>
+        /// Completes purchase and redirects a user to Complete page
+        /// </summary>
         protected void CompletePurchase(object sender, EventArgs e)
         {
             var cart = (Dictionary<int, int>) Session["Cart"];
@@ -162,11 +204,18 @@ namespace WebStore.Store
             Response.Redirect("Complete.aspx");
         }
 
+        /// <summary>
+        /// Gets last order address for current user
+        /// </summary>
+        /// <returns>Last order address if it exists or empty string if it doesn't</returns>
         private string GetLastOrderAddress()
         {
             return User.Identity.IsAuthenticated ? OrderManager.GetLastOrderAddress(User.Identity.Name) : string.Empty;
         }
 
+        /// <summary>
+        /// DataBound event handler for cart list. Fills last order address text box
+        /// </summary>
         protected void CartList_DataBound(object sender, EventArgs e)
         {
             var addressTextBox = (TextBox) LoggedInPanel.FindControl("AddressTextBox");

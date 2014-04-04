@@ -37,5 +37,10 @@ namespace WebStore.Store
             IQueryable<ItemCategory> query = DbContext.Instance.ItemCategories;
             return query;
         }
+
+        protected string GetRequestId()
+        {
+            return Request.QueryString["id"];
+        }
     }
 }

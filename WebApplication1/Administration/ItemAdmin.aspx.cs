@@ -18,9 +18,13 @@ namespace WebStore.Administration
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack && User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Salesman")))
+            if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Salesperson")))
             {
                 AdminPanel.Visible = true;
+            }
+            else
+            {
+                Response.Redirect("/Error/404.aspx");
             }
             
             files = Directory.GetFiles(MapPath(@"~\Images\Items\"), "*.png");
@@ -28,9 +32,15 @@ namespace WebStore.Administration
                 files[x] = Path.GetFileName(files[x]);
         }
 
-        public static IEnumerable<Item> GetItems()
+        public IEnumerable<Item> GetItems()
         {
-            return ItemManager.GetItems();
+            //return ItemManager.GetItems();
+            var filterList = (DropDownList)ItemList.FindControl("FilterList");
+            IEnumerable<Item> items = filterList.SelectedIndex == 0
+                ? ItemManager.GetItems()
+                : ItemManager.GetItemsInCategory(filterList.Text);
+
+            return items;
         }
 
         protected void Name_Changed(object sender, EventArgs e)
@@ -173,6 +183,25 @@ namespace WebStore.Administration
                 return;
 
             ItemManager.DeleteItem(itemID);
+            ItemList.DataBind();
+        }
+
+        protected void FillFilterList(object sender, EventArgs e)
+        {
+            if (IsPostBack)
+                return;
+
+            var filterList = (DropDownList)sender;
+
+            filterList.Items.Add("All categories");
+            foreach (var cat in ItemManager.GetCategories())
+            {
+                filterList.Items.Add(cat.Name);
+            }
+        }
+
+        protected void OnFilterChange(object sender, EventArgs e)
+        {
             ItemList.DataBind();
         }
     }

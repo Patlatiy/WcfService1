@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using WebStore.App_Data.Model;
 using WebStore.Controls;
 using WebStore.DbWorker;
+using WebStore.Managers;
 
 namespace WebStore.Store
 {
@@ -21,14 +22,10 @@ namespace WebStore.Store
             Int32.TryParse(itemIDString, out itemID);
             _currentItem = DbContext.Instance.Items.FirstOrDefault(item => item.ID == itemID);
 
-            if (_currentItem == null)
+            if (_currentItem == null || _currentItem.Quantity <= 0)
             {
                 AddToCartButton.Visible = false;
                 ItemCount.Visible = false;
-            }
-            else if (_currentItem.Quantity <= 0)
-            {
-                AddToCartButton.Visible = false;
             }
         }
 
@@ -73,6 +70,11 @@ namespace WebStore.Store
             return _currentItem == null ? "Item not found" : _currentItem.Name;
         }
 
+        protected string GetItemQuantity()
+        {
+            return _currentItem.Quantity.ToString("G");
+        }
+
         protected string GetItemDescription()
         {
             if (_currentItem == null) return "Sorry, we can't find such item in our store.";
@@ -84,7 +86,7 @@ namespace WebStore.Store
         {
             if (_currentItem == null)
                 return "No such item";
-            return _currentItem.Quantity <= 0 ? "No" : "Yes";
+            return _currentItem.Quantity <= 0 ? "No" : _currentItem.Quantity.ToString("G");
         }
 
         protected bool IsItemCountValid()
@@ -95,6 +97,11 @@ namespace WebStore.Store
             int.TryParse(ItemCount.Text, out itemCount);
 
             return itemCount + cartItemQuantity <= _currentItem.Quantity;
+        }
+
+        protected string GetRequestBackId()
+        {
+            return Request.QueryString["backid"];
         }
     }
 }

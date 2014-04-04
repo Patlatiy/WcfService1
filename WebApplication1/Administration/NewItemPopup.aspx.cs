@@ -12,12 +12,17 @@ namespace WebStore.Administration
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (IsPostBack)
-                return;
-            if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+            if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Salesperson")))
             {
                 AdminPanel.Visible = true;
             }
+            else
+            {
+                Response.Redirect("/Error/404.aspx");
+            }
+
+            if (IsPostBack)
+                return;
 
             files = Directory.GetFiles(MapPath(@"~\Images\Items\"), "*.png");
             for (int x = 0; x < files.Length; x++)

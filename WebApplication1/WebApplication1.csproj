@@ -137,6 +137,7 @@
     <Content Include="Error\404.aspx" />
     <Content Include="Error\Error.aspx" />
     <Content Include="Images\akvelon_logo_edit.png" />
+    <Content Include="Images\back.png" />
     <Content Include="Images\Items\boatbig.png" />
     <Content Include="Images\Items\boatpaper.png" />
     <Content Include="Images\Items\boatsail.png" />

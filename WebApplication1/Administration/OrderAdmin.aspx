@@ -23,11 +23,11 @@
                     SelectMethod="GetOrders">
                     <LayoutTemplate>
                         Show orders in state:
-                <asp:DropDownList runat="server"
-                    ID="FilterList"
-                    OnLoad="FillFilterList"
-                    OnSelectedIndexChanged="OnFilterChange"
-                    AutoPostBack="True" />
+                        <asp:DropDownList runat="server"
+                            ID="FilterList"
+                            OnLoad="FillFilterList"
+                            OnSelectedIndexChanged="OnFilterChange"
+                            AutoPostBack="True" />
                         <table class="bottomBorder">
                             <tr>
                                 <td>

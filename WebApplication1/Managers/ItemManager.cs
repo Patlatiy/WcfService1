@@ -419,5 +419,16 @@ namespace WebStore.Managers
             var category = DbContext.Instance.ItemCategories.FirstOrDefault(cat => cat.ID == categoryID);
             return category == null ? "No category" : category.Description;
         }
+
+        /// <summary>
+        /// Retrieves all items that are in a category with specified name
+        /// </summary>
+        /// <param name="categoryName">Category name</param>
+        /// <returns>List of items</returns>
+        public static IEnumerable<Item> GetItemsInCategory(string categoryName)
+        {
+            var category = DbContext.Instance.ItemCategories.FirstOrDefault(cat => cat.Name == categoryName);
+            return category == null ? null : category.Items;
+        }
     }
 }

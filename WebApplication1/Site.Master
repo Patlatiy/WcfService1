@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="WebStore.SiteMaster" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="WebStore.SiteMaster"%>
 <% @Register tagPrefix="ws" tagName="Cart" src="~/Controls/CartTile.ascx" %>
 
 <!DOCTYPE html>

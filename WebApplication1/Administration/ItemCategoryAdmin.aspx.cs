@@ -13,7 +13,15 @@ namespace WebStore.Administration
         {
             if (IsPostBack)
                 return;
-            AdminPanel.Visible = Page.User.IsInRole("Admin") || Page.User.IsInRole("Salesperson"); //TODO: Use role provider!
+
+            if (Page.User.IsInRole("Admin") || Page.User.IsInRole("Salesperson"))
+            {
+                AdminPanel.Visible = true;
+            }
+            else
+            {
+                Response.Redirect("/Error/404.aspx");
+            }
         }
 
         public static IEnumerable<ItemCategory> GetCategories()
@@ -23,7 +31,7 @@ namespace WebStore.Administration
 
         protected void Name_Changed(object sender, EventArgs e)
         {
-            var senderTextBox = (ValueTextBox) sender;
+            var senderTextBox = (ValueTextBox)sender;
             int categoryID;
             if (!int.TryParse(senderTextBox.Value, out categoryID))
                 return;
@@ -49,7 +57,7 @@ namespace WebStore.Administration
 
         protected void DeleteButton_Clicked(object sender, EventArgs e)
         {
-            var senderButton = (Button) sender;
+            var senderButton = (Button)sender;
             int categoryID;
             if (!int.TryParse(senderButton.CommandName, out categoryID))
                 return;

@@ -15,9 +15,13 @@ namespace WebStore.Administration
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack && User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Salesman")))
+            if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Salesperson")))
             {
                 AdminPanel.Visible = true;
+            }
+            else
+            {
+                Response.Redirect("/Error/404.aspx");
             }
         }
 
