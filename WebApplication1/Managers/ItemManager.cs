@@ -51,7 +51,7 @@ namespace WebStore.Managers
         /// <returns>List of all items</returns>
         public static IQueryable<Item> GetItems()
         {
-            return DbContext.Instance.Items;
+            return DbContext.Instance.Items.Where(item => item.IsActive == true);
         }
 
         /// <summary>
@@ -363,7 +363,7 @@ namespace WebStore.Managers
             if (item == null)
                 return false;
 
-            DbContext.Instance.Items.Remove(item);
+            item.IsActive = false;
             DbContext.Instance.SaveChanges();
             return true;
         }
@@ -371,7 +371,7 @@ namespace WebStore.Managers
         /// <summary>
         /// Retrieves an item with given name
         /// </summary>
-        /// <param name="itemName"></param>
+        /// <param name="itemName">Name of the item</param>
         /// <returns></returns>
         public static Item GetItem(string itemName)
         {
@@ -429,6 +429,17 @@ namespace WebStore.Managers
         {
             var category = DbContext.Instance.ItemCategories.FirstOrDefault(cat => cat.Name == categoryName);
             return category == null ? null : category.Items;
+        }
+
+        /// <summary>
+        /// Checks whether item is active or deleted
+        /// </summary>
+        /// <param name="itemID">Item ID</param>
+        /// <returns>True if item is active, false if it's not or doesn't exist</returns>
+        public static bool ItemIsActive(int itemID)
+        {
+            var item = DbContext.Instance.Items.FirstOrDefault(itm => itm.ID == itemID);
+            return item != null && item.IsActive;
         }
     }
 }

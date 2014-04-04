@@ -24,7 +24,7 @@ namespace WebStore.Store
 
         public IQueryable<Item> GetItems([QueryString("id")] int? categoryId)
         {
-            IQueryable<Item> query = DbContext.Instance.Items;
+            IQueryable<Item> query = ItemManager.GetItems();
             if (categoryId.HasValue && categoryId > 0)
             {
                 query = query.Where(p => p.CategoryID == categoryId);

@@ -29,7 +29,8 @@ namespace WebStore.Administration
         {
             var result = string.Empty;
             var positions = OrderManager.GetPositions(orderID);
-            result = positions.Aggregate(result, (current, orderPosition) => current + (orderPosition.Item.Name + " x" + orderPosition.ItemQuantity.ToString("G") + "<br/>"));
+            result = positions.Aggregate(result, (current, orderPosition) => 
+                current + (orderPosition.Item.Name + " x" + orderPosition.ItemQuantity.ToString("G") + "<br/>"));
             return new HtmlString(result);
         }
 

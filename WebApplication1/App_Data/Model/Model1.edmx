@@ -16,6 +16,7 @@
           <Property Name="Price" Type="decimal" Precision="16" Scale="2" Nullable="false" />
           <Property Name="Image" Type="nvarchar" MaxLength="50" />
           <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ItemCategory">
           <Key>
@@ -231,6 +232,7 @@
           <NavigationProperty Name="ItemCategory" Relationship="Self.FK_Item_ItemCategory" FromRole="Item" ToRole="ItemCategory" />
           <NavigationProperty Name="OrderPositions" Relationship="Self.FK_OrderPosition_Item" FromRole="Item" ToRole="OrderPosition" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="ItemCategory">
           <Key>
@@ -450,6 +452,7 @@
           <EntitySetMapping Name="Items">
             <EntityTypeMapping TypeName="WebStore.EntityDataModel.Item">
               <MappingFragment StoreEntitySet="Item">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

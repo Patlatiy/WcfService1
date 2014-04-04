@@ -19,7 +19,7 @@ namespace WebStore.Store
             {
                 var cart = (Dictionary<int, int>)Session["Cart"];
                 var hasChanged = false;
-                foreach (var key in cart.Keys.Where(key => ItemManager.GetItem(key) == null))
+                foreach (var key in cart.Keys.Where(key => ItemManager.ItemIsActive(key) == false))
                 {
                     cart.Remove(key);
                     hasChanged = true;

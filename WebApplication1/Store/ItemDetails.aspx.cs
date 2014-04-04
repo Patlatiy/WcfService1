@@ -22,7 +22,13 @@ namespace WebStore.Store
             Int32.TryParse(itemIDString, out itemID);
             _currentItem = DbContext.Instance.Items.FirstOrDefault(item => item.ID == itemID);
 
-            if (_currentItem == null || _currentItem.Quantity <= 0)
+            if (_currentItem == null || _currentItem.IsActive == false)
+            {
+                Response.Redirect("/Error/404.aspx");
+                return;
+            }
+
+            if (_currentItem.Quantity <= 0)
             {
                 AddToCartButton.Visible = false;
                 ItemCount.Visible = false;
