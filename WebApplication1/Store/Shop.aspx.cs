@@ -22,6 +22,11 @@ namespace WebStore.Store
             categorylabel.Text = id == 0 ? "Showing all items" : ItemManager.GetCategoryDescription(id);
         }
 
+        /// <summary>
+        /// Gets all items from current category
+        /// </summary>
+        /// <param name="categoryId">Category ID</param>
+        /// <returns>Queryable list of items</returns>
         public IQueryable<Item> GetItems([QueryString("id")] int? categoryId)
         {
             IQueryable<Item> query = ItemManager.GetItems();
@@ -32,12 +37,20 @@ namespace WebStore.Store
             return query;
         }
 
+        /// <summary>
+        /// Gets all categories from database
+        /// </summary>
+        /// <returns>Queryable list of categories</returns>
         public IQueryable<ItemCategory> GetCategories()
         {
             IQueryable<ItemCategory> query = DbContext.Instance.ItemCategories;
             return query;
         }
 
+        /// <summary>
+        /// An auxiliary function used to get "id" part of current query string
+        /// </summary>
+        /// <returns>String, id from current query string</returns>
         protected string GetRequestId()
         {
             return Request.QueryString["id"];

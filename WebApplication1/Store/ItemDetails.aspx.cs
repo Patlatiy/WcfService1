@@ -66,21 +66,28 @@ namespace WebStore.Store
             if (cartTile != null) cartTile.UpdateShownItemCount();
         }
 
+        /// <summary>
+        /// Gets an image path for current image
+        /// </summary>
+        /// <returns>String - relative image path</returns>
         protected string GetImagePath()
         {
             return _currentItem == null ? "noimage.png" : _currentItem.Image;
         }
 
+        /// <summary>
+        /// Gets name of current item
+        /// </summary>
+        /// <returns>String - name of current item</returns>
         protected string GetItemName()
         {
             return _currentItem == null ? "Item not found" : _currentItem.Name;
         }
 
-        protected string GetItemQuantity()
-        {
-            return _currentItem.Quantity.ToString("G");
-        }
-
+        /// <summary>
+        /// Gets current item description
+        /// </summary>
+        /// <returns>String - current item description</returns>
         protected string GetItemDescription()
         {
             if (_currentItem == null) return "Sorry, we can't find such item in our store.";
@@ -88,6 +95,10 @@ namespace WebStore.Store
             return _currentItem.Description;
         }
         
+        /// <summary>
+        /// Gets current item quantity
+        /// </summary>
+        /// <returns>String - current item quantity or "No" if its 0</returns>
         protected string GetItemInStore()
         {
             if (_currentItem == null)
@@ -95,6 +106,10 @@ namespace WebStore.Store
             return _currentItem.Quantity <= 0 ? "No" : _currentItem.Quantity.ToString("G");
         }
 
+        /// <summary>
+        /// Checks if entered item count is not greater than we have in store
+        /// </summary>
+        /// <returns>True if count is valid, false if not</returns>
         protected bool IsItemCountValid()
         {
             var cart = (Dictionary<int, int>) Session["Cart"];
@@ -105,6 +120,10 @@ namespace WebStore.Store
             return itemCount + cartItemQuantity <= _currentItem.Quantity;
         }
 
+        /// <summary>
+        /// Gets "backid" part of query string
+        /// </summary>
+        /// <returns>"backid" part of query string</returns>
         protected string GetRequestBackId()
         {
             return Request.QueryString["backid"];
