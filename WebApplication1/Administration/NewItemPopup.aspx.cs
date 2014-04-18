@@ -1,13 +1,15 @@
 ﻿using System;
 using System.IO;
 using System.Web.UI.WebControls;
-using WebStore.App_Data.Model;
 using WebStore.Managers;
 
 namespace WebStore.Administration
 {
     public partial class NewItemPopup : System.Web.UI.Page
     {
+        /// <summary>
+        /// Array of item image filenames
+        /// </summary>
         private string[] files;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -54,18 +56,24 @@ namespace WebStore.Administration
             }
         }
 
-        protected void PopulateList(object sender, EventArgs e)
+        /// <summary>
+        /// Populates sender DropDownList with item image filenames and selects "noimage.png"
+        /// </summary>
+        protected void FillDropDownWithImagePaths(object sender, EventArgs e)
         {
-            
             var senderList = (DropDownList)sender;
 
             senderList.DataSource = files;
             senderList.DataBind();
+
             var noImageItem = senderList.Items.FindByText("noimage.png");
             if (noImageItem != null && !IsPostBack)
                 noImageItem.Selected = true;
         }
 
+        /// <summary>
+        /// Fills sender DropDownList with categories
+        /// </summary>
         protected void FillDropDownWithCategories(object sender, EventArgs e)
         {
             var senderDropDown = (DropDownList)sender;

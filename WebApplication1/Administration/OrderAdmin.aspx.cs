@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -25,6 +24,11 @@ namespace WebStore.Administration
             }
         }
 
+        /// <summary>
+        /// Gets item for order with given order ID
+        /// </summary>
+        /// <param name="orderID">Order ID</param>
+        /// <returns>HTML encoded string with all items for given order</returns>
         protected static HtmlString GetItemsForOrder(int orderID)
         {
             var result = string.Empty;
@@ -34,6 +38,10 @@ namespace WebStore.Administration
             return new HtmlString(result);
         }
 
+        /// <summary>
+        /// Gets all orders from database or all orders in state set by FilterList
+        /// </summary>
+        /// <returns>IEnumerable list of orders</returns>
         public IEnumerable<Order> GetOrders()
         {
             var filterList = (DropDownList) OrderList.FindControl("FilterList");
@@ -42,21 +50,38 @@ namespace WebStore.Administration
             return orders;
         }
 
+        /// <summary>
+        /// Calculates total cost for order with given ID
+        /// </summary>
+        /// <param name="orderID">Order ID</param>
+        /// <returns></returns>
         protected static string GetTotal(int orderID)
         {
             return "$" + OrderManager.GetTotal(orderID).ToString("G");
         }
 
+        /// <summary>
+        /// Gets all possible order states
+        /// </summary>
+        /// <returns>IQueryable list of OrderState</returns>
         public static IQueryable<OrderState> GetAllStates()
         {
             return OrderManager.GetStates();
         }
 
-        protected static string GetStateIDForOrder(int itemID)
+        /// <summary>
+        /// Gets state ID for order with given ID
+        /// </summary>
+        /// <param name="orderID">Order ID</param>
+        /// <returns>string state id</returns>
+        protected static string GetStateIDForOrder(int orderID)
         {
-            return OrderManager.GetStateIDForOrderID(itemID).ToString("G");
+            return OrderManager.GetStateIDForOrderID(orderID).ToString("G");
         }
 
+        /// <summary>
+        /// Sets an order state when sender ListWithValue selected index changes
+        /// </summary>
         protected void OrderState_Index_Changed(object sender, EventArgs e)
         {
             var dropList = (ListWithValue)sender;
@@ -73,6 +98,9 @@ namespace WebStore.Administration
             OrderList.DataBind();
         }
 
+        /// <summary>
+        /// Sets an order comment when sender ValueTextBox changes
+        /// </summary>
         protected void Comment_Changed(object sender, EventArgs e)
         {
             var commentTextBox = (ValueTextBox) sender;
@@ -82,6 +110,9 @@ namespace WebStore.Administration
             OrderManager.SetComment(orderID, commentTextBox.Text);
         }
 
+        /// <summary>
+        /// Fills sender filter list with all order states plus "All states" item
+        /// </summary>
         protected void FillFilterList(object sender, EventArgs e)
         {
             if (IsPostBack)
@@ -96,6 +127,9 @@ namespace WebStore.Administration
             }
         }
 
+        /// <summary>
+        /// Refreshes order list when filter changes
+        /// </summary>
         protected void OnFilterChange(object sender, EventArgs e)
         {
             OrderList.DataBind();

@@ -12,15 +12,6 @@
         <p>
             Thanks for visiting!
         </p>
-        <p>
-            Your current role is <b><%: UserRole() %></b>
-            <br/>
-            <asp:Button runat="server" Text="Make me user!" OnClick="MakeMeUser" BackColor="orange"/>
-            <asp:Button runat="server" Text="Make me salesperson!" OnClick="MakeMeSalesperson" BackColor="orange"/>
-            <asp:Button runat="server" Text="Make me admin!" OnClick="MakeMeAdmin" BackColor="orange"/>
-            <br/>
-            <asp:Button ID="Button1" runat="server" OnClick="TestMethod" Text="Break the whole damned thing" BackColor="red" ForeColor="yellow"/>
-        </p>
     </article>
 
     <aside>

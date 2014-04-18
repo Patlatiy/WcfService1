@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using WebStore.App_Data.Model;
 using WebStore.Controls;
 using WebStore.DbWorker;
-using WebStore.Managers;
 
 namespace WebStore.Store
 {

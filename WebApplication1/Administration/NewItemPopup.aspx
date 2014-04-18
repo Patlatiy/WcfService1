@@ -31,7 +31,7 @@
                             <br />
                             <asp:DropDownList runat="server"
                                 ID="FileList"
-                                OnLoad="PopulateList"
+                                OnLoad="FillDropDownWithImagePaths"
                                 AutoPostBack="False"
                                 Width="200" />
                             <img id="ItemImage" src="/Images/Items/noimage.png" alt="Item image" />

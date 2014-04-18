@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using WebStore.App_Data.Model;
 
 namespace WebStore.Account
 {
@@ -24,7 +20,7 @@ namespace WebStore.Account
 
         protected void LogIn_LoggedIn(object sender, EventArgs e)
         {
-            
+            //This method (even empty) is needed by ASP.NET
         }
     }
 }

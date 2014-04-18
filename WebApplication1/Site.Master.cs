@@ -86,27 +86,23 @@ namespace WebStore
             }
         }
 
+        /// <summary>
+        /// Abandons session on user logout
+        /// </summary>
         protected void Unnamed1_LoggedOut(object sender, EventArgs e)
         {
             Session.Abandon();
         }
 
+        /// <summary>
+        /// Determins if navigation link to admin panel should be displayed or not
+        /// </summary>
+        /// <returns></returns>
         protected string AdminPanelDisplay()
         {
             if (!Page.User.Identity.IsAuthenticated) 
                 return "none";
             return Page.User.IsInRole("Admin") || Page.User.IsInRole("Salesperson") ? string.Empty : "none";
-        }
-
-        protected string AdminPanelTitle()
-        {
-            if (!Page.User.Identity.IsAuthenticated) 
-                return string.Empty;
-            if (Page.User.IsInRole("Admin"))
-                return "Admin page";
-            if (Page.User.IsInRole("Salesperson"))
-                return "Manage orders";
-            return string.Empty;
         }
     }
 }

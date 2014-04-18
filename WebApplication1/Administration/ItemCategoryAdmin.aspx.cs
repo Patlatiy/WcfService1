@@ -24,11 +24,18 @@ namespace WebStore.Administration
             }
         }
 
+        /// <summary>
+        /// Gets all categories from database
+        /// </summary>
+        /// <returns>IEnumerable list of ItemCategory</returns>
         public static IEnumerable<ItemCategory> GetCategories()
         {
             return ItemManager.GetCategories();
         }
 
+        /// <summary>
+        /// Sets item category name when sender ValueTextBox changes
+        /// </summary>
         protected void Name_Changed(object sender, EventArgs e)
         {
             var senderTextBox = (ValueTextBox)sender;
@@ -42,6 +49,9 @@ namespace WebStore.Administration
             ItemManager.SetCategoryName(categoryID, categoryName);
         }
 
+        /// <summary>
+        /// Sets item category description when sender ValueTextBox changes
+        /// </summary>
         protected void Description_Changed(object sender, EventArgs e)
         {
             var senderTextBox = (ValueTextBox)sender;
@@ -55,6 +65,9 @@ namespace WebStore.Administration
             ItemManager.SetCategoryDescription(categoryID, categoryDescription);
         }
 
+        /// <summary>
+        /// Deletes an item category
+        /// </summary>
         protected void DeleteButton_Clicked(object sender, EventArgs e)
         {
             var senderButton = (Button)sender;

@@ -100,6 +100,16 @@ namespace WebStore.Managers
         }
 
         /// <summary>
+        /// Return item image or "noimage.png" if item doesn't exist
+        /// </summary>
+        /// <param name="itemID">Item ID</param>
+        public static string GetImage(int itemID)
+        {
+            var item = GetItem(itemID);
+            return item == null ? "noimage.png" : item.Image;
+        }
+
+        /// <summary>
         /// Sets a description for an item with given ID
         /// </summary>
         /// <param name="itemID">ID of the item</param>
@@ -128,6 +138,9 @@ namespace WebStore.Managers
             var item = GetItem(itemID);
             if (item == null)
                 return false;
+
+            if (quantity < 0)
+                quantity = 0;
 
             item.Quantity = quantity;
 

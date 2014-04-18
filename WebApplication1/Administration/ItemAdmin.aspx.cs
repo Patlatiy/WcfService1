@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.IO;
-using System.Web;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using DotNetOpenAuth.OpenId.Extensions.SimpleRegistration;
 using WebStore.App_Data.Model;
 using WebStore.Controls;
 using WebStore.Managers;
@@ -14,6 +11,9 @@ namespace WebStore.Administration
 {
     public partial class ItemAdmin : System.Web.UI.Page
     {
+        /// <summary>
+        /// Array containing file names of item images
+        /// </summary>
         private string[] files;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -26,15 +26,17 @@ namespace WebStore.Administration
             {
                 Response.Redirect("/Error/404.aspx");
             }
-            
             files = Directory.GetFiles(MapPath(@"~\Images\Items\"), "*.png");
             for (int x = 0; x < files.Length; x++)
                 files[x] = Path.GetFileName(files[x]);
         }
 
+        /// <summary>
+        /// Gets items that fit selected category or all items if the category is not selected
+        /// </summary>
+        /// <returns>Enumerable list of items</returns>
         public IEnumerable<Item> GetItems()
         {
-            //return ItemManager.GetItems();
             var filterList = (DropDownList)ItemList.FindControl("FilterList");
             IEnumerable<Item> items = filterList.SelectedIndex == 0
                 ? ItemManager.GetItems()
@@ -43,6 +45,9 @@ namespace WebStore.Administration
             return items;
         }
 
+        /// <summary>
+        /// Runs when name ValueTextBox changes
+        /// </summary>
         protected void Name_Changed(object sender, EventArgs e)
         {
             var senderTextBox = (ValueTextBox)sender;
@@ -57,6 +62,9 @@ namespace WebStore.Administration
             ItemManager.SetName(itemID, text);
         }
 
+        /// <summary>
+        /// Populates sender DropDownList with filenames of item images
+        /// </summary>
         protected void PopulateList(object sender, EventArgs e)
         {
             var senderList = (DropDownList) sender;
@@ -65,34 +73,48 @@ namespace WebStore.Administration
             senderList.DataBind();
         }
 
+        /// <summary>
+        /// Copies all items from FileList to sender ListWithValue
+        /// Probably should rethink this
+        /// </summary>
         protected void CopyList(object sender, EventArgs e)
         {
             var senderList = (ListWithValue)sender;
+            senderList.Items.Clear();
 
-            
             foreach (var itm in FileList.Items)
             {
                 senderList.Items.Add(itm.ToString());
             }
         }
 
+        /// <summary>
+        /// Changes item image in the database according to selected item in ListWithValue sender
+        /// </summary>
         protected void ImageIndex_Changed(object sender, EventArgs e)
         {
             var senderList = (ListWithValue) sender;
             int itemID;
             if (!int.TryParse(senderList.Value, out itemID))
                 return;
-            var item = ItemManager.GetItem(itemID);
-            item.Image = senderList.Text;
+            ItemManager.SetImage(itemID, senderList.Text);
 
             ItemList.DataBind();
         }
 
+        /// <summary>
+        /// Gets image filename for an item with given itemID
+        /// </summary>
+        /// <param name="itemID">ID of the item</param>
+        /// <returns>string, item image</returns>
         protected string GetFileNameForItem(int itemID)
         {
-            return ItemManager.GetItem(itemID).Image;
+            return ItemManager.GetImage(itemID);
         }
 
+        /// <summary>
+        /// Sets a description for item when "description" ValueTextBox changes
+        /// </summary>
         protected void Description_Changed(object sender, EventArgs e)
         {
             var senderTextBox = (ValueTextBox) sender;
@@ -103,6 +125,9 @@ namespace WebStore.Administration
             ItemManager.SetDescription(itemID, senderTextBox.Text);
         }
 
+        /// <summary>
+        /// Sets an item quantity when "quantity" ValueTextBox changes
+        /// </summary>
         protected void Quantity_Changed(object sender, EventArgs e)
         {
             var senderTextBox = (ValueTextBox) sender;
@@ -116,6 +141,9 @@ namespace WebStore.Administration
             ItemManager.SetQuantity(itemID, itemQuant);
         }
 
+        /// <summary>
+        /// Sets an item price when "price" ValueTextBox changes
+        /// </summary>
         protected void Price_Changed(object sender, EventArgs e)
         {
             var senderTextBox = (ValueTextBox) sender;
@@ -131,6 +159,9 @@ namespace WebStore.Administration
             ItemManager.SetPrice(itemID, itemPrice);
         }
 
+        /// <summary>
+        /// Shows "changes saved" labels
+        /// </summary>
         protected void SaveChanges(object sender, EventArgs e)
         {
             var changesSavedLabel1 = (HtmlGenericControl) ItemList.FindControl("ChangesSavedLabel1");
@@ -140,12 +171,9 @@ namespace WebStore.Administration
             changesSavedLabel2.Visible = true;
         }
 
-        protected static string GetCategoryNameForItem(int itemID)
-        {
-            var category = ItemManager.GetItemCategory(itemID);
-            return category == null ? null : category.Name;
-        }
-
+        /// <summary>
+        /// Sets an item category when "Category" ListWithValue changes
+        /// </summary>
         protected void Category_Changed(object sender, EventArgs e)
         {
             var senderList = (ListWithValue) sender;
@@ -159,6 +187,9 @@ namespace WebStore.Administration
             ItemManager.SetCategory(itemID, categoryName);
         }
 
+        /// <summary>
+        /// Fills sender ListWithValue with all existing categories and sets selected one depending on sender value which is taken as itemID
+        /// </summary>
         protected void FillDropDownWithCategories(object sender, EventArgs e)
         {
             var senderDropDown = (ListWithValue) sender;
@@ -175,6 +206,9 @@ namespace WebStore.Administration
             senderDropDown.SelectedValue = ItemManager.GetItemCategoryName(itemID);
         }
 
+        /// <summary>
+        /// Deletes item
+        /// </summary>
         protected void DeleteItem(object sender, EventArgs e)
         {
             var senderButton = (Button) sender;
@@ -186,6 +220,9 @@ namespace WebStore.Administration
             ItemList.DataBind();
         }
 
+        /// <summary>
+        /// Fills sender filter list with all existing categories plus "All categories" item
+        /// </summary>
         protected void FillFilterList(object sender, EventArgs e)
         {
             if (IsPostBack)
@@ -200,6 +237,9 @@ namespace WebStore.Administration
             }
         }
 
+        /// <summary>
+        /// Refreshes list of items
+        /// </summary>
         protected void OnFilterChange(object sender, EventArgs e)
         {
             ItemList.DataBind();

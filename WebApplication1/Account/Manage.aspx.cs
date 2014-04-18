@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using System.Web.Security;
 using System.Web.UI.WebControls;
-
 using Microsoft.AspNet.Membership.OpenAuth;
 using WebStore.Managers;
 
@@ -29,14 +25,8 @@ namespace WebStore.Account
         {
             if (!IsPostBack)
             {
-                // Determine the sections to render
-                //var hasLocalPassword = OpenAuth.HasLocalPassword(UserAdmin.Identity.Name);
-                //setPassword.Visible = !hasLocalPassword;
                 changePassword.Visible = true;
 
-                //CanRemoveExternalLogins = hasLocalPassword;
-
-                // Render success message
                 var message = Request.QueryString["m"];
                 if (message != null)
                 {
@@ -55,14 +45,6 @@ namespace WebStore.Account
                     ShownNameTextBox.Text = UserManager.GetShownName(User.Identity.Name);
                 }
             }
-
-
-            // Data-bind the list of external accounts
-            var accounts = OpenAuth.GetAccountsForUser(User.Identity.Name);
-            CanRemoveExternalLogins = CanRemoveExternalLogins || accounts.Count() > 1;
-            externalLoginsList.DataSource = accounts;
-            externalLoginsList.DataBind();
-
         }
 
         protected void setPassword_Click(object sender, EventArgs e)
@@ -83,7 +65,6 @@ namespace WebStore.Account
             }
         }
 
-
         protected void externalLoginsList_ItemDeleting(object sender, ListViewDeleteEventArgs e)
         {
             var providerName = (string)e.Keys["ProviderName"];
@@ -99,15 +80,19 @@ namespace WebStore.Account
             return GetDataItem() as T ?? default(T);
         }
 
-
+        /// <summary>
+        /// Converting date and time to string
+        /// </summary>
+        /// <param name="utcDateTime">DateTime</param>
+        /// <returns>Converted date and time</returns>
         protected static string ConvertToDisplayDateTime(DateTime? utcDateTime)
         {
-            // You can change this method to convert the UTC date time into the desired display
-            // offset and format. Here we're converting it to the server timezone and formatting
-            // as a short date and a long time string, using the current thread culture.
             return utcDateTime.HasValue ? utcDateTime.Value.ToLocalTime().ToString("G") : "[never]";
         }
 
+        /// <summary>
+        /// Checks if password is of needed strength
+        /// </summary>
         protected void PasswordValidation(object source, ServerValidateEventArgs args)
         {
             var expString = Membership.Provider.PasswordStrengthRegularExpression;
@@ -115,11 +100,17 @@ namespace WebStore.Account
             args.IsValid = (exp.IsMatch(args.Value));
         }
 
+        /// <summary>
+        /// Validates that shown name length is correct
+        /// </summary>
         protected void ShownNameValidation(object source, ServerValidateEventArgs args)
         {
             args.IsValid = (args.Value.Length > 0 && args.Value.Length <= 50);
         }
 
+        /// <summary>
+        /// Changes shown name of current user
+        /// </summary>
         protected void ChangeShownName(object source, EventArgs args)
         {
             var newName = ShownNameTextBox.Text;
