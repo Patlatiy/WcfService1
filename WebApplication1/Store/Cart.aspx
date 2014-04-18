@@ -3,7 +3,20 @@
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
     <hgroup class="title">
         <h1><%: Title %></h1>
+        <script type="text/javascript">
+            function promptForCount() {
+                var count = prompt("Please enter amount", "");
+                if (count != null) {
+                    var newCount = document.getElementById('<%= NewCount.ClientID %>');
+                    newCount.value = count;
+                    return true;
+                }
+                return false;
+            }
+            
+        </script>
     </hgroup>
+    <asp:HiddenField runat="server" ID="NewCount"/>
     <asp:UpdatePanel ID="UpdPnl" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
 
@@ -23,7 +36,8 @@
                             <%#:GetTotalItemPrice(Item.ID)%>
                         </span>
                         <br />
-                        <asp:Button ID="Button1" runat="server" Text="Remove" Font-Size="7" OnClick="RemoveButton_Click" CommandName="remove" CommandArgument='<%# Item.ID %>' />
+                        <asp:Button runat="server" ID="CountChanger" Text ="Change amount" Font-Size="7" OnClick="ChangeCount" CommandName="change" CommandArgument='<%# Item.ID %>' OnClientClick="return promptForCount()" />
+                        <asp:Button runat="server" ID="PostnRemover" Text="Remove" Font-Size="7" OnClick="RemoveButton_Click" CommandName="remove" CommandArgument='<%# Item.ID %>' />
                         <p>&nbsp;</p>
                     </div>
                 </ItemTemplate>

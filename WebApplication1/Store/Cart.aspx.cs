@@ -14,6 +14,9 @@ namespace WebStore.Store
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            //Ensure that the __doPostBack() JavaScript method is created because we will call it from javascript
+            this.ClientScript.GetPostBackEventReference(this, string.Empty); 
+
             //Some items could be deleted from database by admin in runtime, so we'll check it out:
             if (Session["Cart"] != null)
             {
@@ -124,7 +127,6 @@ namespace WebStore.Store
             {
                 UpdateUpdPnl();
             }
-                
         }
 
         /// <summary>
@@ -222,6 +224,29 @@ namespace WebStore.Store
             if (addressTextBox != null)
             {
                 addressTextBox.Text = GetLastOrderAddress();
+            }
+        }
+
+        /// <summary>
+        /// Changes count of given position
+        /// </summary>
+        protected void ChangeCount(object sender, EventArgs e)
+        {
+            var btn = (Button)sender;
+            int itemID;
+            int newCount;
+
+            if (!int.TryParse(btn.CommandArgument, out itemID)) return;
+            if (!int.TryParse(NewCount.Value, out newCount)) return;
+
+            var currentItem = ItemManager.GetItem(itemID);
+            var cart = (Dictionary<int, int>)Session["Cart"];
+
+            if (newCount <= currentItem.Quantity)
+            {
+                cart[itemID] = newCount;
+                Session["Cart"] = cart;
+                CartList.DataBind();
             }
         }
     }

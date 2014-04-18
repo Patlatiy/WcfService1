@@ -37,10 +37,9 @@ namespace WebStore.Administration
         /// <returns>Enumerable list of items</returns>
         public IEnumerable<Item> GetItems()
         {
-            var filterList = (DropDownList)ItemList.FindControl("FilterList");
-            IEnumerable<Item> items = filterList.SelectedIndex == 0
+            IEnumerable<Item> items = FilterList.SelectedIndex == 0
                 ? ItemManager.GetItems()
-                : ItemManager.GetItemsInCategory(filterList.Text);
+                : ItemManager.GetItemsInCategory(FilterList.Text);
 
             return items;
         }
@@ -86,6 +85,12 @@ namespace WebStore.Administration
             {
                 senderList.Items.Add(itm.ToString());
             }
+
+            int itemID;
+            int.TryParse(senderList.Value, out itemID);
+            var item = ItemManager.GetItem(itemID);
+            var selectedItem = senderList.Items.FindByText(item.Image);
+            selectedItem.Selected = true;
         }
 
         /// <summary>
@@ -164,11 +169,12 @@ namespace WebStore.Administration
         /// </summary>
         protected void SaveChanges(object sender, EventArgs e)
         {
-            var changesSavedLabel1 = (HtmlGenericControl) ItemList.FindControl("ChangesSavedLabel1");
-            var changesSavedLabel2 = (HtmlGenericControl) ItemList.FindControl("ChangesSavedLabel2");
+            ChangesSavedLabel1.Visible = true;
 
-            changesSavedLabel1.Visible = true;
+            var changesSavedLabel2 = (HtmlGenericControl) ItemList.FindControl("ChangesSavedLabel2");
             changesSavedLabel2.Visible = true;
+
+            ItemList.DataBind();
         }
 
         /// <summary>

@@ -6,12 +6,12 @@ namespace WebStore.DbWorker
     {
         private readonly WebStoreEntities _webStoreEntitiesContext;
 
-        protected DbContext()
+        private DbContext()
         {
             _webStoreEntitiesContext = new WebStoreEntities();
         }
 
-        protected sealed class WebStoreEntitiesSingleton
+        private sealed class WebStoreEntitiesSingleton
         {
             private static readonly DbContext instance = new DbContext();
 

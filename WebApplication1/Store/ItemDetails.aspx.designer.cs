@@ -22,13 +22,22 @@ namespace WebStore.Store {
         protected global::System.Web.UI.WebControls.TextBox ItemCount;
         
         /// <summary>
-        /// ItemUpdatePanel control.
+        /// RequiredFieldValidatorForItemCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel ItemUpdatePanel;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorForItemCount;
+        
+        /// <summary>
+        /// RangeValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator1;
         
         /// <summary>
         /// AddToCartButton control.

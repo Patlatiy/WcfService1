@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
+using System.Xml.Schema;
 using WebStore.App_Data.Model;
 using WebStore.Controls;
 using WebStore.DbWorker;
@@ -11,6 +12,7 @@ namespace WebStore.Store
     public partial class ItemDetails : Page
     {
         private Item _currentItem;
+        private int _allowedQuantity;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -30,6 +32,29 @@ namespace WebStore.Store
                 AddToCartButton.Visible = false;
                 ItemCount.Visible = false;
             }
+            else
+            {
+                var cart = (Dictionary<int, int>)Session["Cart"];
+                var cartItemQuantity = cart == null ? 0 : cart.ContainsKey(_currentItem.ID) ? cart[_currentItem.ID] : 0;
+                _allowedQuantity = (_currentItem.Quantity - cartItemQuantity);
+                int count;
+                int.TryParse(ItemCount.Text, out count);
+
+                if (_allowedQuantity <= count)
+                {
+                    AddToCartButton.Visible = false;
+                    ItemCount.Visible = false;
+                }
+                else
+                {
+                    var allowedQuantityString = _allowedQuantity.ToString("G");
+                    var errorMessage = "<br/>Please enter a number between 1 and " + allowedQuantityString + ".";
+                    RangeValidator1.MaximumValue = allowedQuantityString;
+                    RangeValidator1.ErrorMessage = errorMessage;
+                    RequiredFieldValidatorForItemCount.ErrorMessage = errorMessage;
+                }
+                
+            }
         }
 
         protected void AddToCartButton_OnClick(object sender, EventArgs e)
@@ -44,7 +69,7 @@ namespace WebStore.Store
             }
 
             var cart = (Dictionary<int, int>)Session["Cart"] ?? new Dictionary<int, int>();
-            int count = 1;
+            int count;
             int.TryParse(ItemCount.Text, out count);
 
             if (cart.ContainsKey(_currentItem.ID))
@@ -59,8 +84,6 @@ namespace WebStore.Store
             Session["Cart"] = cart;
 
             ItemAddedPanel.Visible = true;
-            var cartTile = (CartTile) Master.FindControl("CartTile");
-            if (cartTile != null) cartTile.UpdateShownItemCount();
         }
 
         /// <summary>
@@ -100,21 +123,24 @@ namespace WebStore.Store
         {
             if (_currentItem == null)
                 return "No such item";
-            return _currentItem.Quantity <= 0 ? "No" : _currentItem.Quantity.ToString("G");
+            int count = 0;
+            if (IsPostBack)
+            {
+                int.TryParse(ItemCount.Text, out count);
+            }
+            return _allowedQuantity <= count ? "No" : "Yes"; //_currentItem.Quantity.ToString("G");
         }
 
         /// <summary>
-        /// Checks if entered item count is not greater than we have in store
+        /// Checks if entered item count is not greater than number of items that we have in store
         /// </summary>
         /// <returns>True if count is valid, false if not</returns>
         protected bool IsItemCountValid()
         {
-            var cart = (Dictionary<int, int>) Session["Cart"];
-            var cartItemQuantity = cart == null ? 0 : cart.ContainsKey(_currentItem.ID) ? cart[_currentItem.ID] : 0;
             int itemCount = 1;
             int.TryParse(ItemCount.Text, out itemCount);
 
-            return itemCount + cartItemQuantity <= _currentItem.Quantity;
+            return itemCount <= _allowedQuantity;
         }
 
         /// <summary>

@@ -51,32 +51,33 @@
         <asp:UpdatePanel runat="server"
             UpdateMode="Always">
             <ContentTemplate>
+                <span>Show items in category:
+                <asp:DropDownList runat="server"
+                    ID="FilterList"
+                    OnLoad="FillFilterList"
+                    OnSelectedIndexChanged="OnFilterChange"
+                    AutoPostBack="True" />
+                </span>
+                <br />
+                <span style="font-size: 10px">
+                    <asp:Button ID="Button1" runat="server"
+                        Text="Save changes"
+                        UseSubmitBehavior="False"
+                        OnClick="SaveChanges"
+                        OnClientClick="hideLabels" />
+                    <asp:Button ID="Button2" runat="server"
+                        Text="New Item"
+                        OnClientClick="OpenPopup(); return false;" />
+                    <span runat="server" id="ChangesSavedLabel1" visible="False" class="successlabel">Changes saved!
+                    </span>
+                </span>
                 <asp:ListView runat="server"
                     ID="ItemList"
                     DataKeyNames="ID"
                     ItemType="WebStore.App_Data.Model.Item"
                     SelectMethod="GetItems">
                     <LayoutTemplate>
-                        <span>Show items in category:
-                            <asp:DropDownList runat="server"
-                                ID="FilterList"
-                                OnLoad="FillFilterList"
-                                OnSelectedIndexChanged="OnFilterChange"
-                                AutoPostBack="True" />
-                        </span>
-                        <br/>
-                        <span style="font-size: 10px">
-                            <asp:Button runat="server"
-                                Text="Save changes"
-                                UseSubmitBehavior="False"
-                                OnClick="SaveChanges"
-                                OnClientClick="hideLabels" />
-                            <asp:Button runat="server"
-                                Text="New Item"
-                                OnClientClick="OpenPopup(); return false;" />
-                            <span runat="server" id="ChangesSavedLabel1" visible="False" class="successlabel">Changes saved!
-                            </span>
-                        </span>
+
                         <table class="bottomBorder">
                             <tr>
                                 <td>
@@ -113,8 +114,7 @@
                             <td>
                                 <ws:ListWithValue runat="server"
                                     Value="<%#: Item.ID %>"
-                                    SelectedValue="<%# GetFileNameForItem(Item.ID) %>"
-                                    OnLoad="CopyList"
+                                    OnPreRender="CopyList"
                                     OnSelectedIndexChanged="ImageIndex_Changed"
                                     AutoPostBack="False"
                                     Width="200" />
@@ -173,6 +173,8 @@
                             </td>
                         </tr>
                     </ItemTemplate>
+                    <EmptyDataTemplate>
+                    </EmptyDataTemplate>
                 </asp:ListView>
             </ContentTemplate>
         </asp:UpdatePanel>

@@ -354,6 +354,7 @@ namespace WebStore.Managers
                 newItem.Price = price;
                 newItem.Quantity = quantity;
                 newItem.ItemCategory = GetCategory(category);
+                newItem.IsActive = true;
 
                 DbContext.Instance.Items.Add(newItem);
                 DbContext.Instance.SaveChanges();
@@ -441,7 +442,7 @@ namespace WebStore.Managers
         public static IEnumerable<Item> GetItemsInCategory(string categoryName)
         {
             var category = DbContext.Instance.ItemCategories.FirstOrDefault(cat => cat.Name == categoryName);
-            return category == null ? null : category.Items;
+            return category == null ? null : category.Items.Where(item => item.IsActive);
         }
 
         /// <summary>
