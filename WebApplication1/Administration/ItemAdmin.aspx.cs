@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using WebStore.App_Data.Model;
@@ -31,13 +32,20 @@ namespace WebStore.Administration
                 files[x] = Path.GetFileName(files[x]);
         }
 
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            Pager.SetPageProperties(0, 5, true);
+            Pager.DataBind();
+            ItemList.DataBind();
+        }
+
         /// <summary>
         /// Gets items that fit selected category or all items if the category is not selected
         /// </summary>
         /// <returns>Enumerable list of items</returns>
-        public IEnumerable<Item> GetItems()
+        public IQueryable<Item> GetItems()
         {
-            IEnumerable<Item> items = FilterList.SelectedIndex == 0
+            IQueryable<Item> items = FilterList.SelectedIndex == 0
                 ? ItemManager.GetItems()
                 : ItemManager.GetItemsInCategory(FilterList.Text);
 
@@ -103,8 +111,6 @@ namespace WebStore.Administration
             if (!int.TryParse(senderList.Value, out itemID))
                 return;
             ItemManager.SetImage(itemID, senderList.Text);
-
-            ItemList.DataBind();
         }
 
         /// <summary>
@@ -170,11 +176,6 @@ namespace WebStore.Administration
         protected void SaveChanges(object sender, EventArgs e)
         {
             ChangesSavedLabel1.Visible = true;
-
-            var changesSavedLabel2 = (HtmlGenericControl) ItemList.FindControl("ChangesSavedLabel2");
-            changesSavedLabel2.Visible = true;
-
-            ItemList.DataBind();
         }
 
         /// <summary>
@@ -223,7 +224,6 @@ namespace WebStore.Administration
                 return;
 
             ItemManager.DeleteItem(itemID);
-            ItemList.DataBind();
         }
 
         /// <summary>
@@ -241,14 +241,6 @@ namespace WebStore.Administration
             {
                 filterList.Items.Add(cat.Name);
             }
-        }
-
-        /// <summary>
-        /// Refreshes list of items
-        /// </summary>
-        protected void OnFilterChange(object sender, EventArgs e)
-        {
-            ItemList.DataBind();
         }
     }
 }

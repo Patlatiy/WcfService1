@@ -41,6 +41,11 @@
             $(".successlabel").hide();
         }
 
+        function changePicture(sender) {
+            var rand = sender.parentElement.children[2];
+            rand.src = "/Images/Items/" + sender.value;
+        }
+
     </script>
     <ws:Nav runat="server" />
     <asp:DropDownList runat="server"
@@ -49,7 +54,7 @@
         Visible="False" />
     <asp:Panel runat="server" ID="AdminPanel">
         <asp:UpdatePanel runat="server"
-            UpdateMode="Always">
+            UpdateMode="Conditional">
             <ContentTemplate>
                 <span>Show items in category:
                 <asp:DropDownList runat="server"
@@ -68,8 +73,17 @@
                     <asp:Button ID="Button2" runat="server"
                         Text="New Item"
                         OnClientClick="OpenPopup(); return false;" />
-                    <span runat="server" id="ChangesSavedLabel1" visible="False" class="successlabel">Changes saved!
+                    <span runat="server" id="ChangesSavedLabel1" visible="False" class="successlabel">Changes has been saved!
                     </span>
+                </span>
+                <span>
+                    <br/>
+                    Page:
+                    <asp:DataPager ID="Pager" runat="server" PagedControlID="ItemList" PageSize="5">
+                        <Fields>
+                            <asp:NumericPagerField />
+                        </Fields>
+                    </asp:DataPager>
                 </span>
                 <asp:ListView runat="server"
                     ID="ItemList"
@@ -95,19 +109,6 @@
                             </tr>
                             <asp:PlaceHolder runat="server" ID="ItemPlaceholder" />
                         </table>
-                        <span style="margin-left: 165px; font-size: 10px">
-                            <asp:Button runat="server"
-                                Text="Save changes"
-                                UseSubmitBehavior="False"
-                                OnClick="SaveChanges"
-                                OnClientClick="hideLabels" />
-                            <asp:Button runat="server"
-                                Text="New Item"
-                                UseSubmitBehavior="False"
-                                OnClientClick="OpenPopup(); return false;" />
-                            <span runat="server" id="ChangesSavedlabel2" visible="False" class="successlabel">Changes saved!
-                            </span>
-                        </span>
                     </LayoutTemplate>
                     <ItemTemplate>
                         <tr style="vertical-align: top">
@@ -116,10 +117,11 @@
                                     Value="<%#: Item.ID %>"
                                     OnPreRender="CopyList"
                                     OnSelectedIndexChanged="ImageIndex_Changed"
+                                    onchange="hideLabels(); changePicture(this);"
                                     AutoPostBack="False"
                                     Width="200" />
                                 <br />
-                                <img src="/Images/Items/<%#: Item.Image %>" alt="Item image" />
+                                <img src="/Images/Items/<%#: Item.Image %>" alt="Item image" id="image"/>
                             </td>
                             <td>Name:<br />
                                 <ws:ValueTextBox runat="server"
@@ -127,14 +129,16 @@
                                     Width="150"
                                     AutoPostBack="False"
                                     OnTextChanged="Name_Changed"
+                                    onchange="hideLabels();"
                                     Value="<%#: Item.ID %>" />
                                 <br />
-                                Description:<br />
+                                Description:<br/>
                                 <ws:ValueTextBox runat="server"
                                     Text="<%#: Item.Description %>"
                                     Font-Size="9"
                                     AutoPostBack="False"
                                     OnTextChanged="Description_Changed"
+                                    onchange="hideLabels();"
                                     Value="<%#: Item.ID %>"
                                     TextMode="MultiLine"
                                     Wrap="True"
@@ -145,7 +149,8 @@
                                 <ws:ListWithValue runat="server"
                                     Value="<%#: Item.ID %>"
                                     OnPreRender="FillDropDownWithCategories"
-                                    OnSelectedIndexChanged="Category_Changed" />
+                                    OnSelectedIndexChanged="Category_Changed"
+                                    onchange="hideLabels();" />
                             </td>
                             <td>x<ws:ValueTextBox runat="server"
                                 Text="<%#: Item.Quantity %>"
@@ -153,6 +158,7 @@
                                 Width="40"
                                 AutoPostBack="False"
                                 OnTextChanged="Quantity_Changed"
+                                onchange="hideLabels();"
                                 Value="<%#: Item.ID %>" />
                             </td>
                             <td>$<ws:ValueTextBox runat="server"
@@ -161,6 +167,7 @@
                                 Width="50"
                                 AutoPostBack="False"
                                 OnTextChanged="Price_Changed"
+                                onchange="hideLabels();"
                                 Value="<%#: Item.ID %>" />
                             </td>
                             <td>

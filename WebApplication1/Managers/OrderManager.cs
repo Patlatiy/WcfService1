@@ -208,7 +208,7 @@ namespace WebStore.Managers
         /// </summary>
         /// <param name="stateName">Name of a state</param>
         /// <returns>List of orders</returns>
-        public static IEnumerable<Order> GetOrdersInState(string stateName)
+        public static IQueryable<Order> GetOrdersInState(string stateName)
         {
             return DbContext.Instance.Orders.Where(order => order.OrderState.Name == stateName);
         }

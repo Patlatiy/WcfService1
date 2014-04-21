@@ -439,10 +439,10 @@ namespace WebStore.Managers
         /// </summary>
         /// <param name="categoryName">Category name</param>
         /// <returns>List of items</returns>
-        public static IEnumerable<Item> GetItemsInCategory(string categoryName)
+        public static IQueryable<Item> GetItemsInCategory(string categoryName)
         {
             var category = DbContext.Instance.ItemCategories.FirstOrDefault(cat => cat.Name == categoryName);
-            return category == null ? null : category.Items.Where(item => item.IsActive);
+            return category == null ? null : category.Items.AsQueryable().Where(item => item.IsActive);
         }
 
         /// <summary>

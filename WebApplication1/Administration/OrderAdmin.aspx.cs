@@ -24,6 +24,11 @@ namespace WebStore.Administration
             }
         }
 
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            OrderList.DataBind();
+        }
+
         /// <summary>
         /// Gets item for order with given order ID
         /// </summary>
@@ -42,10 +47,10 @@ namespace WebStore.Administration
         /// Gets all orders from database or all orders in state set by FilterList
         /// </summary>
         /// <returns>IEnumerable list of orders</returns>
-        public IEnumerable<Order> GetOrders()
+        public IQueryable<Order> GetOrders()
         {
             var filterList = (DropDownList) OrderList.FindControl("FilterList");
-            var orders = filterList.SelectedIndex == 0 ? OrderManager.GetOrders() : OrderManager.GetOrdersInState(filterList.Text);
+            IQueryable<Order> orders = filterList.SelectedIndex == 0 ? OrderManager.GetOrders() : OrderManager.GetOrdersInState(filterList.Text);
             
             return orders;
         }
@@ -94,8 +99,6 @@ namespace WebStore.Administration
                 return;
 
             dropList.Enabled = OrderManager.IsStateFinal(stateID);
-
-            OrderList.DataBind();
         }
 
         /// <summary>
@@ -132,7 +135,35 @@ namespace WebStore.Administration
         /// </summary>
         protected void OnFilterChange(object sender, EventArgs e)
         {
+            var pager = (DataPager) OrderList.FindControl("Pager");
+            var changesSaved = (Label)OrderList.FindControl("ChangesSavedLabel");
+
+            pager.SetPageProperties(0, 10, true);
+            changesSaved.Visible = false;
+
             OrderList.DataBind();
+            pager.DataBind();
+        }
+
+        /// <summary>
+        /// Saves changes
+        /// </summary>
+        protected void SaveChanges(object sender, EventArgs e)
+        {
+            var changesSaved = (Label) OrderList.FindControl("ChangesSavedLabel");
+
+            changesSaved.Visible = true;  
+        }
+
+        /// <summary>
+        /// Applies filter to OrderList
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void ApplyFilter(object sender, EventArgs e)
+        {
+            var lbSender = (LinkButton) sender;
+            OrderList.Sort(lbSender.CommandName, OrderList.SortDirection == SortDirection.Ascending ? SortDirection.Descending : SortDirection.Ascending);
         }
     }
 }

@@ -67,6 +67,15 @@ namespace WebStore.Administration {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl ChangesSavedLabel1;
         
         /// <summary>
+        /// Pager control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataPager Pager;
+        
+        /// <summary>
         /// ItemList control.
         /// </summary>
         /// <remarks>

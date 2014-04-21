@@ -11,10 +11,15 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="FeaturedContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
+    <script type="text/javascript">
+        function hideLabels() {
+            $(".successlabel").hide();
+        }
+    </script>
     <ws:Nav runat="server" />
     <asp:Panel runat="server" ID="AdminPanel">
         <asp:UpdatePanel runat="server"
-            UpdateMode="Always">
+            UpdateMode="Conditional">
             <ContentTemplate>
                 <asp:ListView runat="server"
                     ID="OrderList"
@@ -28,10 +33,26 @@
                             OnLoad="FillFilterList"
                             OnSelectedIndexChanged="OnFilterChange"
                             AutoPostBack="True" />
+                        <span style="margin-left: 165px; font-size: 10px">
+                            <br />
+                            <asp:Button ID="SaveButton" runat="server"
+                                Text="Save changes"
+                                UseSubmitBehavior="False"
+                                OnClick="SaveChanges"
+                                OnClientClick="hideLabels" />
+                        </span>
+                        <asp:Label ID="ChangesSavedLabel" runat="server" Text="Changes has been saved!" class="successlabel" Visible="False" />
+                        <br />
+                        Page:
+                        <asp:DataPager ID="Pager" runat="server" PagedControlID="OrderList" PageSize="10">
+                            <Fields>
+                                <asp:NumericPagerField />
+                            </Fields>
+                        </asp:DataPager>
                         <table class="bottomBorder">
                             <tr>
                                 <td>
-                                    <b>User login</b>
+                                    <asp:LinkButton runat="server" CommandName="UserLogin" Text="User login" />
                                 </td>
                                 <td>
                                     <b>Items</b>
@@ -40,21 +61,20 @@
                                     <b>Total</b>
                                 </td>
                                 <td>
-                                    <b>State</b>
+                                    <asp:LinkButton runat="server" CommandName="OrderState" Text="Order state" />
                                 </td>
                                 <td>
-                                    <b>Date issued</b>
+                                    <asp:LinkButton runat="server" OnClick="ApplyFilter" CommandName="DateIssued" Text="Date issued" />
                                 </td>
                                 <td>
-                                    <b>Date delivered</b>
+                                    <asp:LinkButton runat="server" OnClick="ApplyFilter" CommandName="DateEnded" Text="Date delivered" />
                                 </td>
                                 <td>
-                                    <b>Comment</b>
+                                    <asp:LinkButton runat="server" OnClick="ApplyFilter" CommandName="Comment" Text="Comment" />
                                 </td>
                             </tr>
                             <asp:PlaceHolder runat="server" ID="ItemPlaceholder" />
                         </table>
-
                     </LayoutTemplate>
                     <ItemTemplate>
                         <tr style="vertical-align: top">
@@ -75,7 +95,8 @@
                                     DataValueField="ID"
                                     SelectedValue="<%# GetStateIDForOrder(Item.ID) %>"
                                     OnSelectedIndexChanged="OrderState_Index_Changed"
-                                    AutoPostBack="True"
+                                    onchange="hideLabels();"
+                                    AutoPostBack="False"
                                     Value="<%# Item.ID %>"
                                     Enabled="<%# !OrderManager.IsStateFinal(Item.OrderState.ID) %>" />
                             </td>
@@ -87,7 +108,7 @@
                             </td>
                             <td>
                                 <ws:ValueTextBox runat="server" Text="<%#: Item.Comment %>" Width="150"
-                                    AutoPostBack="True" OnTextChanged="Comment_Changed" Value="<%#: Item.ID %>" />
+                                    AutoPostBack="False" OnTextChanged="Comment_Changed" Value="<%#: Item.ID %>" />
                             </td>
                         </tr>
                     </ItemTemplate>
