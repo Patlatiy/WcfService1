@@ -16,6 +16,7 @@ namespace WebStore.App_Data.Model
     {
         public Order()
         {
+            this.Total = 0m;
             this.OrderPositions = new HashSet<OrderPosition>();
         }
     
@@ -27,6 +28,9 @@ namespace WebStore.App_Data.Model
         public Nullable<byte> PaymentMethodID { get; set; }
         public string DeliveryAddress { get; set; }
         public string Comment { get; set; }
+        public string Login { get; set; }
+        public string StateName { get; set; }
+        public decimal Total { get; set; }
     
         public virtual OrderState OrderState { get; set; }
         public virtual PaymentMethod PaymentMethod { get; set; }

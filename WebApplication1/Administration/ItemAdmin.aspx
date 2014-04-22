@@ -60,7 +60,6 @@
                 <asp:DropDownList runat="server"
                     ID="FilterList"
                     OnLoad="FillFilterList"
-                    OnSelectedIndexChanged="OnFilterChange"
                     AutoPostBack="True" />
                 </span>
                 <br />
@@ -98,13 +97,22 @@
                                     <b>Item image</b>
                                 </td>
                                 <td>
-                                    <b>Item name, description and category</b>
+                                    <b>Item 
+                                        <asp:LinkButton runat="server" OnClick="ApplyFilter" CommandName="Name">name</asp:LinkButton>,
+                                        <asp:LinkButton runat="server" OnClick="ApplyFilter" CommandName="Description">description</asp:LinkButton>
+                                         and 
+                                        <asp:LinkButton runat="server" OnClick="ApplyFilter" CommandName="CategoryName">category</asp:LinkButton>
+                                    </b>
                                 </td>
                                 <td>
-                                    <b>In store</b>
+                                    <b>
+                                        <asp:LinkButton runat="server" OnClick="ApplyFilter" CommandName="Quantity">In store</asp:LinkButton>
+                                    </b>
                                 </td>
                                 <td>
-                                    <b>Price</b>
+                                    <b>
+                                        <asp:LinkButton runat="server" OnClick="ApplyFilter" CommandName="Price">Price</asp:LinkButton>
+                                    </b>
                                 </td>
                             </tr>
                             <asp:PlaceHolder runat="server" ID="ItemPlaceholder" />

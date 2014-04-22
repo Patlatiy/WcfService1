@@ -34,8 +34,6 @@ namespace WebStore.Administration
 
         protected void Page_PreRender(object sender, EventArgs e)
         {
-            Pager.SetPageProperties(0, 5, true);
-            Pager.DataBind();
             ItemList.DataBind();
         }
 
@@ -241,6 +239,26 @@ namespace WebStore.Administration
             {
                 filterList.Items.Add(cat.Name);
             }
+        }
+
+        /// <summary>
+        /// Applies filter to ItemList
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void ApplyFilter(object sender, EventArgs e)
+        {
+            var lbSender = (LinkButton)sender;
+            var direction = ItemList.SortDirection;
+
+            if (ItemList.SortExpression == lbSender.CommandName)
+            {
+                direction = direction == SortDirection.Ascending
+                ? SortDirection.Descending
+                : SortDirection.Ascending;
+            }
+
+            ItemList.Sort(lbSender.CommandName, direction);
         }
     }
 }

@@ -163,7 +163,16 @@ namespace WebStore.Administration
         protected void ApplyFilter(object sender, EventArgs e)
         {
             var lbSender = (LinkButton) sender;
-            OrderList.Sort(lbSender.CommandName, OrderList.SortDirection == SortDirection.Ascending ? SortDirection.Descending : SortDirection.Ascending);
+            var direction = OrderList.SortDirection;
+
+            if (OrderList.SortExpression == lbSender.CommandName)
+            {
+                direction = direction == SortDirection.Ascending
+                ? SortDirection.Descending
+                : SortDirection.Ascending;
+            }
+            
+            OrderList.Sort(lbSender.CommandName, direction);
         }
     }
 }

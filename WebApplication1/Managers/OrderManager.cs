@@ -44,14 +44,16 @@ namespace WebStore.Managers
 
             order.User = user;
             order.UserID = user.ID;
+            order.Login = order.User.Login;
             order.OrderState = DbContext.Instance.OrderStates.First(ost => ost.Name == "Issued");
+            order.StateName = order.OrderState.Name;
             order.OrderPositions = orderPositions;
             order.DateIssued = DateTime.Now;
             order.PaymentMethod = paymentMethod;
             order.PaymentMethodID = paymentMethod.ID;
             order.DeliveryAddress = deliveryAddress;
             order.Comment = comment;
-
+            GetTotal(order.ID);
             
             DbContext.Instance.Orders.Add(order);
             DbContext.Instance.SaveChanges();
@@ -106,14 +108,15 @@ namespace WebStore.Managers
         }
 
         /// <summary>
-        /// Gets total cost for all order positions of an order with given ID
+        /// Gets total cost for all order positions of an order with given ID and also sets order's "Total" field to this value
         /// </summary>
         /// <param name="orderID">ID of an order</param>
         /// <returns>Total cost of all positions (decimal)</returns>
         public static decimal GetTotal(int orderID)
         {
             var order = DbContext.Instance.Orders.First(ordr => ordr.ID == orderID);
-            return order.OrderPositions.Sum(position => position.Item.Price * position.ItemQuantity);
+            order.Total = order.OrderPositions.Sum(position => position.Item.Price * position.ItemQuantity);
+            return order.Total;
         }
 
         /// <summary>
@@ -142,6 +145,8 @@ namespace WebStore.Managers
 
             order.OrderState = state;
             order.StateID = stateID;
+            order.StateName = order.OrderState.Name;
+
             if (state.Name == "Delivered")
             {
                 order.DateEnded = DateTime.Now;
@@ -211,19 +216,6 @@ namespace WebStore.Managers
         public static IQueryable<Order> GetOrdersInState(string stateName)
         {
             return DbContext.Instance.Orders.Where(order => order.OrderState.Name == stateName);
-        }
-
-        /// <summary>
-        /// Strange and redundant method that decides if the state with given ID is 'delivered' state
-        /// </summary>
-        /// <param name="stateID">ID of the state</param>
-        /// <returns>True if state is delivered and false if it's not</returns>
-        public static bool IsStateDelivered(byte stateID)
-        {
-            var orderState = DbContext.Instance.OrderStates.FirstOrDefault(os => os.ID == stateID);
-            if (orderState == null)
-                return false;
-            return orderState.Name == "Delivered";
         }
     }
 }

@@ -17,6 +17,7 @@
           <Property Name="Image" Type="nvarchar" MaxLength="50" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="ItemCategory">
           <Key>
@@ -38,6 +39,9 @@
           <Property Name="PaymentMethodID" Type="tinyint" />
           <Property Name="DeliveryAddress" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" />
+          <Property Name="StateName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Total" Type="decimal" Precision="16" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderPosition">
           <Key>
@@ -102,18 +106,6 @@
             </Principal>
             <Dependent Role="Item">
               <PropertyRef Name="CategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Order_OrderState">
-          <End Role="OrderState" Type="Self.OrderState" Multiplicity="1" />
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OrderState">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="StateID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -190,10 +182,6 @@
             <End Role="ItemCategory" EntitySet="ItemCategory" />
             <End Role="Item" EntitySet="Item" />
           </AssociationSet>
-          <AssociationSet Name="FK_Order_OrderState" Association="Self.FK_Order_OrderState">
-            <End Role="OrderState" EntitySet="OrderState" />
-            <End Role="Order" EntitySet="Order" />
-          </AssociationSet>
           <AssociationSet Name="FK_Order_PaymentMethod" Association="Self.FK_Order_PaymentMethod">
             <End Role="PaymentMethod" EntitySet="PaymentMethod" />
             <End Role="Order" EntitySet="Order" />
@@ -233,6 +221,7 @@
           <NavigationProperty Name="OrderPositions" Relationship="Self.FK_OrderPosition_Item" FromRole="Item" ToRole="OrderPosition" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="ItemCategory">
           <Key>
@@ -259,6 +248,9 @@
           <NavigationProperty Name="OrderPositions" Relationship="Self.FK_OrderPosition_Order" FromRole="Order" ToRole="OrderPosition" />
           <Property Name="DeliveryAddress" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Total" Type="Decimal" DefaultValue="0" Precision="16" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderPosition">
           <Key>
@@ -452,6 +444,7 @@
           <EntitySetMapping Name="Items">
             <EntityTypeMapping TypeName="WebStore.EntityDataModel.Item">
               <MappingFragment StoreEntitySet="Item">
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -475,6 +468,9 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="WebStore.EntityDataModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="DeliveryAddress" ColumnName="DeliveryAddress" />
                 <ScalarProperty Name="ID" ColumnName="ID" />

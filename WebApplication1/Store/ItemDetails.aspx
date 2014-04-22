@@ -5,7 +5,7 @@
         <h1><%: Title %></h1>
     </hgroup>
     <br />
-    <a href="/Store/Shop.aspx?id=<%: GetRequestBackId() %>" style="font-weight: bold">
+    <a href="/Store/Shop.aspx?id=<%: GetRequestBackId() %>&startrow=<%: GetRequestBackRow() %>" style="font-weight: bold">
         <img src="/Images/back.png" style="vertical-align: middle" />Back to store</a>
     <br/>
     <article>

@@ -111,14 +111,29 @@ namespace WebStore.Store
         protected string GetItemDescription()
         {
             if (_currentItem == null) return "Sorry, we can't find such item in our store.";
-            if (_currentItem.Description == null) return "This is a " + _currentItem.Name;
-            return _currentItem.Description;
+
+            if (!string.IsNullOrEmpty(_currentItem.Description)) return _currentItem.Description;
+
+            //If item has no description, return default description:
+            var firstLetter = _currentItem.Name.Substring(0, 1).ToLower();
+            var prefix = "This is a ";
+
+            if (firstLetter == "a" ||
+                firstLetter == "e" ||
+                firstLetter == "i" ||
+                firstLetter == "o" ||
+                firstLetter == "u" ||
+                firstLetter == "y")
+            {
+                prefix = "This is an ";
+            }
+            return prefix + _currentItem.Name;
         }
         
         /// <summary>
         /// Gets current item quantity
         /// </summary>
-        /// <returns>String - current item quantity or "No" if its 0</returns>
+        /// <returns>String - "Yes" or "No"</returns>
         protected string GetItemInStore()
         {
             if (_currentItem == null)
@@ -150,6 +165,15 @@ namespace WebStore.Store
         protected string GetRequestBackId()
         {
             return Request.QueryString["backid"];
+        }
+
+        /// <summary>
+        /// Get "backrow" part of query string
+        /// </summary>
+        /// <returns>"backrow" part of query string</returns>
+        protected string GetRequestBackRow()
+        {
+            return Request.QueryString["backrow"];
         }
     }
 }

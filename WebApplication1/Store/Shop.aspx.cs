@@ -16,9 +16,14 @@ namespace WebStore.Store
             byte id;
             byte.TryParse(Request.QueryString["id"], out id);
 
+            int startRow;
+            int.TryParse(Request.QueryString["startrow"], out startRow);
+
             var categorylabel = (Label) categoryList.FindControl("CategoryLabel");
 
             categorylabel.Text = id == 0 ? "Showing all items" : ItemManager.GetCategoryDescription(id);
+
+            Pager.SetPageProperties(startRow, 12, true);
         }
 
         /// <summary>

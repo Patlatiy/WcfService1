@@ -52,16 +52,16 @@
                         <table class="bottomBorder">
                             <tr>
                                 <td>
-                                    <asp:LinkButton runat="server" CommandName="UserLogin" Text="User login" />
+                                    <asp:LinkButton runat="server" OnClick="ApplyFilter" CommandName="Login" Text="User login" />
                                 </td>
                                 <td>
                                     <b>Items</b>
                                 </td>
                                 <td>
-                                    <b>Total</b>
+                                    <asp:LinkButton runat="server" OnClick="ApplyFilter" CommandName="Total" Text="Total"></asp:LinkButton>
                                 </td>
                                 <td>
-                                    <asp:LinkButton runat="server" CommandName="OrderState" Text="Order state" />
+                                    <asp:LinkButton runat="server" OnClick="ApplyFilter" CommandName="StateName" Text="Order state" />
                                 </td>
                                 <td>
                                     <asp:LinkButton runat="server" OnClick="ApplyFilter" CommandName="DateIssued" Text="Date issued" />
@@ -85,7 +85,7 @@
                                 <%#: GetItemsForOrder(Item.ID) %>
                             </td>
                             <td>
-                                <%#: GetTotal(Item.ID) %>
+                                $<%#: Item.Total %>
                             </td>
                             <td>
                                 <ws:ListWithValue ID="StateDropDown" runat="server"

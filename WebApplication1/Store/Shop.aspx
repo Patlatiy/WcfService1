@@ -1,17 +1,20 @@
 ﻿<%@ Page Title="Store" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Shop.aspx.cs" Inherits="WebStore.Store.Shop" %>
+
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
     <hgroup class="title">
         <h1><%: Title %></h1>
     </hgroup>
-    <asp:ListView ID="categoryList"  
-        ItemType="WebStore.App_Data.Model.ItemCategory" 
+    <asp:ListView ID="categoryList"
+        ItemType="WebStore.App_Data.Model.ItemCategory"
         runat="server"
-        SelectMethod="GetCategories" >
+        SelectMethod="GetCategories">
         <LayoutTemplate>
             <b style="font-size: medium; font-style: normal">
-                <a href="Shop.aspx">All items</a> | <div id="itemPlaceholder" runat="server"></div>
-                <br/>
-                <div><asp:Label runat="server" ID="CategoryLabel" Font-Bold="False"/></div>
+                <a href="Shop.aspx">All items</a> |
+                <div id="itemPlaceholder" runat="server"></div>
+                <br />
+                <div>
+                    <asp:Label runat="server" ID="CategoryLabel" Font-Bold="False" /></div>
             </b>
         </LayoutTemplate>
         <ItemTemplate>
@@ -21,20 +24,27 @@
                 </a>
             </b>
         </ItemTemplate>
-        <ItemSeparatorTemplate>  |  </ItemSeparatorTemplate>
+        <ItemSeparatorTemplate>|  </ItemSeparatorTemplate>
     </asp:ListView>
-    <asp:ListView ID="productList" runat="server" 
+    <br />
+    Page:
+    <asp:DataPager runat="server" ID="Pager" PageSize="12" PagedControlID="productList">
+        <Fields>
+            <asp:NumericPagerField />
+        </Fields>
+    </asp:DataPager>
+    <asp:ListView ID="productList" runat="server"
         DataKeyNames="ID" GroupItemCount="4"
         ItemType="WebStore.App_Data.Model.Item" SelectMethod="GetItems">
         <EmptyDataTemplate>
-            <table >
+            <table>
                 <tr>
                     <td>There are no items.</td>
                 </tr>
             </table>
         </EmptyDataTemplate>
         <EmptyItemTemplate>
-            <td/>
+            <td />
         </EmptyItemTemplate>
         <GroupTemplate>
             <tr id="itemPlaceholderContainer" runat="server">
@@ -47,15 +57,15 @@
 
                     <tr>
                         <td>
-                            <a href="ItemDetails.aspx?id=<%#:Item.ID%>&backid=<%: GetRequestId() %>">
+                            <a href="ItemDetails.aspx?id=<%#:Item.ID%>&backid=<%: GetRequestId() %>&backrow=<%: Pager.StartRowIndex %>">
                                 <span style="font-weight: bold">
                                     <%#:Item.Name%>
                                 </span>
-                                <br/>
+                                <br />
                                 <img src="/Images/Items/Thumbs/<%#:Item.Image %>" alt="<%#:Item.Name %>"
-                                    width="100" height="80" style="border: solid"/>
+                                    width="100" height="80" style="border: solid" />
                             </a>
-                            <br/>
+                            <br />
                             <span>
                                 <%#:String.Format("{0:c}", Item.Price)%>
                             </span>
@@ -67,11 +77,11 @@
             </td>
         </ItemTemplate>
         <LayoutTemplate>
-            <table style="width:100%;">
+            <table style="width: 100%;">
                 <tbody>
                     <tr>
                         <td>
-                            <table id="groupPlaceholderContainer" runat="server" style="width:100%">
+                            <table id="groupPlaceholderContainer" runat="server" style="width: 100%">
                                 <tr id="groupPlaceholder"></tr>
                             </table>
                         </td>

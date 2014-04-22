@@ -236,6 +236,7 @@ namespace WebStore.Managers
 
             item.ItemCategory = category;
             item.CategoryID = category != null ? (int?)category.ID : null;
+            item.CategoryName = category != null ? category.Name : string.Empty;
 
             DbContext.Instance.SaveChanges();
             return true;
@@ -354,6 +355,7 @@ namespace WebStore.Managers
                 newItem.Price = price;
                 newItem.Quantity = quantity;
                 newItem.ItemCategory = GetCategory(category);
+                newItem.CategoryName = newItem.ItemCategory == null ? string.Empty : newItem.ItemCategory.Name;
                 newItem.IsActive = true;
 
                 DbContext.Instance.Items.Add(newItem);

@@ -27,6 +27,7 @@ namespace WebStore.App_Data.Model
         public string Image { get; set; }
         public string Description { get; set; }
         public bool IsActive { get; set; }
+        public string CategoryName { get; set; }
     
         public virtual ItemCategory ItemCategory { get; set; }
         public virtual ICollection<OrderPosition> OrderPositions { get; set; }
