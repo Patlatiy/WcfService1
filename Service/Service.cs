@@ -93,7 +93,7 @@ namespace WebStore.Service
 
                 var sqlCommand =
                     new SqlCommand(
-                        "SELECT [ID], [LastActiveDateTime] FROM [WebStore].[WS].[User] WHERE [IsBlocked] = 0 AND [RoleID] = 2",
+                        "SELECT [ID], [LastActiveDateTime] FROM [WebStore].[WS].[User] WHERE [IsBlocked] = 0 AND [RoleID] = 5",
                         connection);
                 var da = new SqlDataAdapter(sqlCommand);
                 var ds = new DataSet();
@@ -129,6 +129,16 @@ namespace WebStore.Service
             {
                 connection.Close();
             }
+        }
+
+        private static void BlockUser()
+        {
+            
+        }
+
+        private static void NotifyUser()
+        {
+            
         }
 
         private static void LogMessage(string message)
