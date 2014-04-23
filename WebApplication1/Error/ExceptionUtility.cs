@@ -8,7 +8,7 @@ namespace WebStore.Error
     {
         public static void LogException(Exception exc, string source)
         {
-            string logFile = "/App_Data/ErrorLog.txt";
+            var logFile = "/App_Data/ErrorLog.txt";
             logFile = HttpContext.Current.Server.MapPath(logFile);
 
             var sw = new StreamWriter(logFile, true);
